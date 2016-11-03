@@ -37,7 +37,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><a href="introdedit.html">纳新</a></td>
+                    <td><a href="introdedit.jsp">纳新</a></td>
                     <td>2016-09-03 12:00:00</td>
                     <td>西安邮电大学长安校区东区</td>
                     <td>
@@ -54,7 +54,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><a href="introdedit.html">纳新</a></td>
+                    <td><a href="introdedit.jsp">纳新</a></td>
                     <td>2016-09-03 12:00:00</td>
                     <td>西安邮电大学长安校区东区</td>
                     <td>

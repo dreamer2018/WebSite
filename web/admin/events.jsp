@@ -13,7 +13,7 @@
             <h1>活动列表</h1>
         </div>
         <div class="col-xs-1">
-            <a href="eventsedit.html"><button type="button" class="btn btn-success" style="margin-top: 26px;">创建新活动</button></a>
+            <a href="eventsedit.jsp"><button type="button" class="btn btn-success" style="margin-top: 26px;">创建新活动</button></a>
         </div>
         <div class="col-xs-1 pull-right" style="margin-top: 26px;">
             <div class="input-group">
@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><a href="eventsedit.html" >纳新</a></td>
+                    <td><a href="eventsedit.jsp" >纳新</a></td>
                     <td>2016-09-03 12:00:00</td>
                     <td>西安邮电大学长安校区东区</td>
                     <td>纳新，学妹</td>
@@ -54,7 +54,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><a href="eventsedit.html" >纳新</a></td>
+                    <td><a href="eventsedit.jsp" >纳新</a></td>
                     <td>2016-09-03 12:00:00</td>
                     <td>西安邮电大学长安校区东区</td>
                     <td>纳新，学妹</td>
