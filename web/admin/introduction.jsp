@@ -1,3 +1,11 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: zhoupan
+  Date: 11/3/16
+  Time: 8:37 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +45,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><a href="introdedit.jsp">纳新</a></td>
+                    <td><a href="introdedit.html">纳新</a></td>
                     <td>2016-09-03 12:00:00</td>
                     <td>西安邮电大学长安校区东区</td>
                     <td>
@@ -54,7 +62,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><a href="introdedit.jsp">纳新</a></td>
+                    <td><a href="introdedit.html">纳新</a></td>
                     <td>2016-09-03 12:00:00</td>
                     <td>西安邮电大学长安校区东区</td>
                     <td>
