@@ -8,6 +8,9 @@ import java.sql.Time;
  * Created by zhoupan on 10/31/16.
  */
 public class Events {
+    /*
+    * 数据库中定义的字段
+    * */
     private int id;
     private String title;
     private String content;
@@ -17,6 +20,7 @@ public class Events {
     private String address;
     private String tips;
     private int reader;
+
 
     public void setId(int id) {
         this.id = id;
