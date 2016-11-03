@@ -1,6 +1,9 @@
 package org.xiyoulinux.model;
 
 
+import java.sql.Date;
+import java.sql.Time;
+
 /**
  * Created by zhoupan on 10/31/16.
  */

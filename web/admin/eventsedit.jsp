@@ -68,6 +68,7 @@
             <div id="test-editormd">
                 <textarea style="display:none;width: 97%"></textarea>
             </div>
+            <input type="hidden" name="markdown" id="markdown">
             <input type="hidden" name="content" id="content">
             <br/>
             <div class="row">
@@ -117,11 +118,13 @@
         });
     });
 
-
     function getHtml() {
         alert(testEditor.getHTML());
         content = document.getElementById("content");
         content.value = testEditor.getHTML();
+        md = document.getElementById("markdown");
+        md.value = testEditor.getMarkdown();
+        alert(testEditor.getMarkdown());
     }
 
 </script>
