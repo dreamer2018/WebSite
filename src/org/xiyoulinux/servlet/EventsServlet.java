@@ -75,7 +75,7 @@ public class EventsServlet extends HttpServlet {
             events.setTips(label);
             EventsDAO eventsDAO = new EventsDAO();
             if(eventsDAO.insert(events)){
-                response.sendRedirect("/admin/events.html");
+                response.sendRedirect("/admin/events.jsp");
             }else {
                 response.sendRedirect("/404.html");
             }
