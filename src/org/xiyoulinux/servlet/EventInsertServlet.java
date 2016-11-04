@@ -12,7 +12,7 @@ import org.xiyoulinux.model.Events;
 /**
  * Created by zhoupan on 11/3/16.
  */
-@WebServlet(name = "EventsInsertServlet", urlPatterns = "/admin/events/")
+@WebServlet(name = "EventsInsertServlet", urlPatterns = "/admin/eventsedit/")
 class EventsInsertServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean error = false;
