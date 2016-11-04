@@ -14,8 +14,8 @@
 <body>
 <div class="container">
     <div class="col-md-6">
-        <a href="events.jsp"><button class="btn btn-success">活动编辑</button></a>
-        <a href="introduction.html"><button class="btn btn-success">简介编辑</button></a>
+        <a href="/admin/events"><button class="btn btn-success">活动编辑</button></a>
+        <a href="/admin/introduction"><button class="btn btn-success">简介编辑</button></a>
     </div>
 </div>
 </body>

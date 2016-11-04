@@ -7,7 +7,6 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="org.xiyoulinux.dao.EventsDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="org.xiyoulinux.model.Events" %>
 
@@ -32,7 +31,7 @@
         </div>
         <div class="col-xs-1 pull-right" style="margin-top: 26px;">
             <div class="input-group">
-                <a href="/admin/">
+                <a href="/admin">
                     <button class="btn btn-success" type="button">返回</button>
                 </a>
             </div>
@@ -52,16 +51,12 @@
                 </tr>
                 </thead>
                 <%
-                    EventsDAO eventsDAO = new EventsDAO();
-                    ArrayList arrayList = new ArrayList();
-                    arrayList = eventsDAO.getEventsByPage(1, "");
-                    Events events = new Events();
-                    for (int i = 0; i < arrayList.size(); i++) {
-
-                    }
+                    ArrayList<Events> eventsList = (ArrayList<Events>) request.getAttribute("eventsList");
+                    for(int i=0; i < eventsList.size(); i++){
+                        out.println(eventsList.get(i).getId());
                 %>
                 <tr>
-                    <td><a href="eventsedit.jsp">纳新</a></td>
+                    <td><a href="/admin/events?id=">纳新</a></td>
                     <td>2016-09-03 12:00:00</td>
                     <td>西安邮电大学长安校区东区</td>
                     <td>纳新，学妹</td>
@@ -78,7 +73,10 @@
                         </form>
                     </td>
                 </tr>
-                <tr>
+                <%
+                    }
+                %>
+                <%--<tr>
                     <td><a href="eventsedit.jsp">纳新</a></td>
                     <td>2016-09-03 12:00:00</td>
                     <td>西安邮电大学长安校区东区</td>
@@ -95,7 +93,7 @@
                             <input type="submit" value="删除" class="btn btn-danger">
                         </form>
                     </td>
-                </tr>
+                </tr>--%>
                 </tbody>
             </table>
         </div>

@@ -233,7 +233,7 @@ public class EventsDAO implements Ievents {
         ResultSet rs = null;
         try {
             // 获取记录总数
-            String sql1 = "select count(events) as AllRecord from Events where title like ?";
+            String sql1 = "select count(id) as AllRecord from events where title like ?";
             conn = ConnectionManager.getInstance().getConnection();
             ps = conn.prepareStatement(sql1);
             ps.setString(1, "%" + title + "%");
@@ -249,7 +249,7 @@ public class EventsDAO implements Ievents {
                 currentPage = allPageCount;
             }
             // 获取第currentPage页数据
-            String sql2 = "select * from Events where title like ? limit ?,?";
+            String sql2 = "select * from events where title like ? limit ?,?";
             ps = conn.prepareStatement(sql2);
             ps.setString(1, "%" + title + "%");
             ps.setInt(2, PAGE_SIZE * (currentPage - 1));

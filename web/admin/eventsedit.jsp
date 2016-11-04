@@ -27,7 +27,7 @@
     </div>
     <br/>
     <div class="row">
-        <form action="/admin/events/" method="post">
+        <form action="/admin/eventsedit" method="post">
             <div class="row">
                 <div class="col-xs-3">
                     <div class="input-group">
