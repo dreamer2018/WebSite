@@ -15,14 +15,14 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <!-- CSS -->
-        <link rel="stylesheet" href="/css/supersized.css">
-        <link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" href="css/supersized.css">
+        <link rel="stylesheet" href="css/login.css">
     </head>
     <body>
 
         <div class="page-container">
             <h1>Login</h1>
-            <form action="/login/" method="POST" id="form1">
+            <form action="/login" method="POST" id="form1">
                 <input type="text" name="username" class="Username" placeholder="Username">
                 <input type="password" name="password" class="Password" placeholder="Password">
                 <button type="submit">Sign in</button>
@@ -35,10 +35,10 @@
             }
         %>
         </div>
-        <script src="/js/jquery-1.8.2.min.js"></script>
-        <script src="/js/supersized.3.2.7.min.js"></script>
-        <script src="/js/supersized-init.js"></script>
-        <script src="/js/scripts.js"></script>
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script src="js/supersized.3.2.7.min.js"></script>
+        <script src="js/supersized-init.js"></script>
+        <script src="js/scripts.js"></script>
     </body>
 </html>
 
