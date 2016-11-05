@@ -31,6 +31,7 @@ CREATE TABLE user (
 );
 
 INSERT INTO user VALUES (1,'root','root');
+INSERT INTO user VALUES (2,'zhoupan','zhoupan');
 
 /*=================================================*/
 /*      events            活动                     */
@@ -39,11 +40,12 @@ CREATE TABLE events (
   id         INT PRIMARY KEY AUTO_INCREMENT,
   title      VARCHAR(50)  NOT NULL, # 活动标题
   content    TEXT         NOT NULL, # 活动内容
-  poster_url VARCHAR(255) NOT NULL, # 活动海报url
+  markdown   TEXT         NOT NULL, # 原makedown文本内容，以便后期修改
+  poster VARCHAR(255) NOT NULL, # 活动海报url
   date       DATE         NOT NULL, # 活动日期
   time       TIME         NOT NULL, # 活动时间
   address    VARCHAR(40)  NOT NULL, #   活动地点
-  tips       VARCHAR(30), #   标签
+  label       VARCHAR(30), #   标签
   reader      INT      DEFAULT 0 #  阅读量
 );
 
@@ -75,7 +77,7 @@ CREATE TABLE about (
   id          INT PRIMARY KEY AUTO_INCREMENT,
   title       VARCHAR(50)  NOT NULL, # 标题
   content     TEXT         NOT NULL, # 文章
-  picture_url VARCHAR(256) NOT NULL # 图片url
+  picture VARCHAR(256) NOT NULL # 图片url
 );
 
 /*=================================================*/
