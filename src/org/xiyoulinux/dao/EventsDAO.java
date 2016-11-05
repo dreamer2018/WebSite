@@ -104,6 +104,7 @@ public class EventsDAO implements Ievents {
             String sql = "delete from events where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, event_id);
+            ps.executeUpdate();
             rtu = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,21 +161,28 @@ public class EventsDAO implements Ievents {
             String sql = "select id,title,content,markdown,poster,date,time,address,label,reader from events where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, event_id);
-            Events events = new Events();
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                events.setId(rs.getInt(1));
-                events.setTitle(rs.getString(2));
-                events.setContent(rs.getString(3));
-                events.setMarkdown(rs.getString(4));
-                events.setPoster(rs.getString(5));
-                events.setDate(rs.getString(6));
-                events.setTime(rs.getString(7));
-                events.setAddress(rs.getString(8));
-                events.setLabel(rs.getString(9));
-                events.setReader(rs.getInt(10));
+            rs.last();
+            System.out.println(rs.getRow());
+            if(rs.getRow() == 0){
+                return null;
+            }else {
+                rs.beforeFirst();
+                Events events = new Events();
+                while (rs.next()) {
+                    events.setId(rs.getInt(1));
+                    events.setTitle(rs.getString(2));
+                    events.setContent(rs.getString(3));
+                    events.setMarkdown(rs.getString(4));
+                    events.setPoster(rs.getString(5));
+                    events.setDate(rs.getString(6));
+                    events.setTime(rs.getString(7));
+                    events.setAddress(rs.getString(8));
+                    events.setLabel(rs.getString(9));
+                    events.setReader(rs.getInt(10));
+                }
+                return events;
             }
-            return events;
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -198,21 +206,27 @@ public class EventsDAO implements Ievents {
             String sql = "select id,title,content,markdown,poster,date,time,address,label,reader from events where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, title);
-            Events events = new Events();
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                events.setId(rs.getInt(1));
-                events.setTitle(rs.getString(2));
-                events.setContent(rs.getString(3));
-                events.setTitle(rs.getString(4));
-                events.setPoster(rs.getString(5));
-                events.setDate(rs.getString(6));
-                events.setTime(rs.getString(7));
-                events.setAddress(rs.getString(8));
-                events.setLabel(rs.getString(9));
-                events.setReader(rs.getInt(10));
+            rs.last();
+            if(rs.getRow() == 0){
+                return null;
+            }else {
+                rs.beforeFirst();
+                Events events = new Events();
+                while (rs.next()) {
+                    events.setId(rs.getInt(1));
+                    events.setTitle(rs.getString(2));
+                    events.setContent(rs.getString(3));
+                    events.setTitle(rs.getString(4));
+                    events.setPoster(rs.getString(5));
+                    events.setDate(rs.getString(6));
+                    events.setTime(rs.getString(7));
+                    events.setAddress(rs.getString(8));
+                    events.setLabel(rs.getString(9));
+                    events.setReader(rs.getInt(10));
+                }
+                return events;
             }
-            return events;
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
