@@ -35,11 +35,7 @@
     </div>
 </div>
 <!--头部结束-->
-
-
 <div class="container clearfix">
-
-
     <!--网页菜单栏-->
     <div class="sidebar-wrap">
         <div class="sidebar-title">
@@ -107,6 +103,7 @@
                 </table>
                 <div class="list-page" style="margin-left: 85%"> 共<%=eventsList.size()%>条</div>
             </div>
+            <%if(request.getAttribute("message")!=null){out.print(request.getAttribute("message"));}%>
         </div>
     </div>
 </div>
