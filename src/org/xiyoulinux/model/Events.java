@@ -14,13 +14,17 @@ public class Events {
     private int id;
     private String title;
     private String content;
-    private String poster_url;
+    private String markdown;
+    private String poster;
     private String date;
     private String time;
     private String address;
     private String tips;
     private int reader;
 
+    public void setMarkdown(String markdown) {
+        this.markdown = markdown;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -34,8 +38,8 @@ public class Events {
         this.content = content;
     }
 
-    public void setPoster_url(String poster_url) {
-        this.poster_url = poster_url;
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     public void setDate(String date) {
@@ -50,12 +54,16 @@ public class Events {
         this.address = address;
     }
 
-    public void setTips(String tips) {
+    public void setLabel(String tips) {
         this.tips = tips;
     }
 
     public void setReader(int reader) {
         this.reader = reader;
+    }
+
+    public String getMarkdown() {
+        return markdown;
     }
 
     public int getId() {
@@ -71,8 +79,8 @@ public class Events {
         return content;
     }
 
-    public String getPoster_url() {
-        return poster_url;
+    public String getPoster() {
+        return poster;
     }
 
     public String getDate() {
@@ -87,7 +95,7 @@ public class Events {
         return address;
     }
 
-    public String getTips() {
+    public String getLabel() {
         return tips;
     }
 

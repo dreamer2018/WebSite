@@ -50,8 +50,8 @@
                 <li>
                     <a href="#"><i class="icon-font">&#xe003;</i>文章管理</a>
                     <ul class="sub-menu">
-                        <li><a href="events.jsp"><i class="icon-font">&#xe063;</i>活动管理</a></li>
-                        <li><a href="introduction.jsp"><i class="icon-font">&#xe034;</i>文章管理</a></li>
+                        <li><a href="/admin/events"><i class="icon-font">&#xe063;</i>活动管理</a></li>
+                        <li><a href="/admin/eventsedit"><i class="icon-font">&#xe034;</i>文章管理</a></li>
                     </ul>
                 </li>
                 <li>
@@ -67,13 +67,12 @@
     <div class="main-wrap">
         <div class="crumb-wrap">
             <div class="crumb-list"><i class="icon-font"></i><a href="index.jsp">首页</a><span
-                    class="crumb-step">&gt;</span><span class="crumb-name">演出厅管理</span></div>
+                    class="crumb-step">&gt;</span><span class="crumb-name">活动管理</span></div>
         </div>
         <div class="result-wrap">
-
             <div class="result-title">
                 <div class="result-list">
-                    <a href="eventsedit.jsp"><i class="icon-font"></i>添加</a>
+                    <a href="/admin/eventsedit.jsp"><i class="icon-font"></i>添加</a>
                 </div>
             </div>
             <div class="result-content" id="fid">
@@ -88,30 +87,28 @@
                     </tr>
                     <%
                         ArrayList<Events> eventsList = (ArrayList<Events>) request.getAttribute("eventsList");
-
-                        out.println(eventsList);
-//                        for (int i = 0; i < eventsList.size(); i++) {
+                        for (int i = 0; i < eventsList.size(); i++) {
                     %>
-                    <%--<tr>--%>
-                        <%--<td class="tc"><%=eventsList.get(i).getTitle()%>--%>
-                        <%--</td>--%>
-                        <%--<td class="tc"><%=eventsList.get(i).getDate()%>--%>
-                        <%--</td>--%>
-                        <%--<td class="tc"><%=eventsList.get(i).getTime()%>--%>
-                        <%--</td>--%>
-                        <%--<td class="tc"><%=eventsList.get(i).getAddress()%>--%>
-                        <%--</td>--%>
-                        <%--<td class="tc">#</td>--%>
-                        <%--<td class="tc">#</td>--%>
-                    <%--<tr>--%>
-                            <%--<%}%>--%>
+                        <tr>
+                            <td class="tc">
+                                <a href="/admin/eventsedit?id=<%=eventsList.get(i).getId()%>"><%=eventsList.get(i).getTitle()%></a>
+                            </td>
+                            <td class="tc"><%=eventsList.get(i).getDate()%></td>
+                            <td class="tc"><%=eventsList.get(i).getTime()%></td>
+                            <td class="tc"><%=eventsList.get(i).getAddress()%></td>
+                            <td class="tc">
+                                <a href="/admin/preview?id=<%=eventsList.get(i).getId()%>"><input type="button" class="btn btn-success btn2" value="预览"></a>
+                            </td>
+                            <td class="tc">
+                                <a href="/admin/delete?id=<%=eventsList.get(i).getId()%>"><input type="button" class="btn btn-warning btn2" value="删除"></a>
+                            </td>
+                        <tr>
+                        <%}%>
                 </table>
-                <%--<div class="list-page" style="margin-left: 85%"> 共<%=eventsList.size()%>条</div>--%>
+                <div class="list-page" style="margin-left: 85%"> 共<%=eventsList.size()%>条</div>
             </div>
         </div>
     </div>
-
-
 </div>
 </body>
 </html>

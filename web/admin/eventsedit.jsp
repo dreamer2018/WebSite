@@ -28,12 +28,27 @@
     <br/>
     <div class="row">
         <form action="/admin/eventsedit" method="post">
+            <%
+                if (request.getAttribute("id") == null) {
+            %>
+            <input type="hidden" name="status" value="0">
+            <%
+            } else {
+            %>
+            <input type="hidden" name="status" value="<%if(null != request.getAttribute("id")){out.print(request.getAttribute("id"));}%>">
+            <%
+                }
+            %>
             <div class="row">
                 <div class="col-xs-3">
                     <div class="input-group">
                         <span class="input-group-addon">标题：</span>
-                        <input type="text" class="form-control" name="title" placeholder="在此输入标题">
+                        <input type="text" class="form-control" name="title" placeholder="在此输入标题"
+                               value="<%if(null != request.getAttribute("title")){out.print(request.getAttribute("title"));}%>">
                     </div>
+                </div>
+                <div class="col-xs-3">
+                    <span style="margin: 0 auto;color: red;font-size: 20px;"><%if (null != request.getAttribute("message")) {out.print(request.getAttribute("message"));}%></span>
                 </div>
             </div>
             <br/>
@@ -41,25 +56,29 @@
                 <div class="col-xs-3">
                     <div class="input-group ">
                         <span class="input-group-addon">日期：</span>
-                        <input type="text" class="form-control" name="date" id="pickdate" placeholder="在此输入日期">
+                        <input type="text" class="form-control" name="date" id="pickdate" placeholder="在此输入日期"
+                               value="<%if(null != request.getAttribute("date")){out.print(request.getAttribute("date"));}%>">
                     </div>
                 </div>
                 <div class="col-xs-3">
                     <div class="input-group">
                         <span class="input-group-addon">时间：</span>
-                        <input type="text" class="form-control" name="time" id="picktime" placeholder="在此输入时间">
+                        <input type="text" class="form-control" name="time" id="picktime" placeholder="在此输入时间"
+                               value="<%if(null != request.getAttribute("time")){out.print(request.getAttribute("time"));}%>">
                     </div>
                 </div>
                 <div class="col-xs-3">
                     <div class="input-group">
                         <span class="input-group-addon">地点：</span>
-                        <input type="text" class="form-control" name="address" placeholder="在此输入地点">
+                        <input type="text" class="form-control" name="address" placeholder="在此输入地点"
+                               value="<%if(null != request.getAttribute("address")){out.print(request.getAttribute("address"));}%>">
                     </div>
                 </div>
                 <div class="col-xs-3">
                     <div class="input-group">
                         <span class="input-group-addon">标签：</span>
-                        <input type="text" class="form-control" name="label" placeholder="多个标签逗号隔开">
+                        <input type="text" class="form-control" name="label" placeholder="多个标签逗号隔开"
+                               value="<%if(null != request.getAttribute("label")){out.print(request.getAttribute("label"));}%>">
                     </div>
                 </div>
             </div>
@@ -68,13 +87,15 @@
                 <div class="col-xs-3">
                     <div class="input-group">
                         <span class="input-group-addon">海报url：</span>
-                        <input type="text" class="form-control" name="poster" placeholder="多个标签逗号隔开">
+                        <input type="text" class="form-control" name="poster" placeholder="多个标签逗号隔开"
+                               value="<%if(null != request.getAttribute("poster")){out.print(request.getAttribute("poster"));}%>">
                     </div>
                 </div>
             </div>
             <br/>
+            <textarea style="display: none" id="tmp"><%if(null != request.getAttribute("mkdown")){out.print(request.getAttribute("mkdown"));}%></textarea>
             <div id="test-editormd">
-                <textarea style="display:none;width: 97%"></textarea>
+                <textarea style="display:none;width: 97%" id="text"></textarea>
             </div>
             <input type="hidden" name="markdown" id="markdown">
             <input type="hidden" name="content" id="content">
@@ -127,14 +148,16 @@
     });
 
     function getHtml() {
-        alert(testEditor.getHTML());
         content = document.getElementById("content");
         content.value = testEditor.getHTML();
         md = document.getElementById("markdown");
         md.value = testEditor.getMarkdown();
-        alert(testEditor.getMarkdown());
     }
-
+    function addContent() {
+        content = document.getElementById("tmp");
+        document.getElementById("text").value = content.value
+    }
+    onload = addContent();
 </script>
 
 

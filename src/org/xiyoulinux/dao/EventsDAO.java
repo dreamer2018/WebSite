@@ -67,15 +67,16 @@ public class EventsDAO implements Ievents {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "insert into events(title,content,poster_url,date,time,address,tips) values(?,?,?,?,?,?,?)";
+            String sql = "insert into events(title,content,markdown,poster,date,time,address,label) values(?,?,?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, events.getTitle());
             ps.setString(2, events.getContent());
-            ps.setString(3, events.getPoster_url());
-            ps.setString(4, events.getDate());
-            ps.setString(5, events.getTime());
-            ps.setString(6, events.getAddress());
-            ps.setString(7, events.getTips());
+            ps.setString(3, events.getMarkdown());
+            ps.setString(4, events.getPoster());
+            ps.setString(5, events.getDate());
+            ps.setString(6, events.getTime());
+            ps.setString(7, events.getAddress());
+            ps.setString(8, events.getLabel());
             ps.executeUpdate();
             rtu = true;
         } catch (SQLException e) {
@@ -124,16 +125,18 @@ public class EventsDAO implements Ievents {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "update events set title = ?,content = ?,poster_url= ?,date= ?,time = ?,address = ?,tips = ? where id = ?";
+            String sql = "update events set title = ?,content = ?,markdown = ?,poster= ?,date= ?,time = ?,address = ?,label = ? where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, events.getTitle());
             ps.setString(2, events.getContent());
-            ps.setString(3, events.getPoster_url());
-            ps.setString(4, events.getDate());
-            ps.setString(5, events.getTime());
-            ps.setString(6, events.getAddress());
-            ps.setString(7, events.getTips());
-            ps.setInt(8, events.getId());
+            ps.setString(3,events.getMarkdown());
+            ps.setString(4, events.getPoster());
+            ps.setString(5, events.getDate());
+            ps.setString(6, events.getTime());
+            ps.setString(7, events.getAddress());
+            ps.setString(8, events.getLabel());
+            ps.setInt(9, events.getId());
+            ps.executeUpdate();
             rtu = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -154,8 +157,7 @@ public class EventsDAO implements Ievents {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-//            String sql = "select id,content,poster_url,date,time,address,tips,reader from events where title = ?";
-            String sql = "select * from events where title = ?";
+            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader from events where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, event_id);
             Events events = new Events();
@@ -164,12 +166,13 @@ public class EventsDAO implements Ievents {
                 events.setId(rs.getInt(1));
                 events.setTitle(rs.getString(2));
                 events.setContent(rs.getString(3));
-                events.setPoster_url(rs.getString(4));
-                events.setDate(rs.getString(5));
-                events.setTime(rs.getString(6));
-                events.setAddress(rs.getString(7));
-                events.setTips(rs.getString(8));
-                events.setReader(rs.getInt(9));
+                events.setMarkdown(rs.getString(4));
+                events.setPoster(rs.getString(5));
+                events.setDate(rs.getString(6));
+                events.setTime(rs.getString(7));
+                events.setAddress(rs.getString(8));
+                events.setLabel(rs.getString(9));
+                events.setReader(rs.getInt(10));
             }
             return events;
         } catch (SQLException e) {
@@ -192,7 +195,7 @@ public class EventsDAO implements Ievents {
         PreparedStatement ps = null;
 
         try {
-            String sql = "select * from events where id = ?";
+            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader from events where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, title);
             Events events = new Events();
@@ -201,12 +204,13 @@ public class EventsDAO implements Ievents {
                 events.setId(rs.getInt(1));
                 events.setTitle(rs.getString(2));
                 events.setContent(rs.getString(3));
-                events.setPoster_url(rs.getString(4));
-                events.setDate(rs.getString(5));
-                events.setTime(rs.getString(6));
-                events.setAddress(rs.getString(7));
-                events.setTips(rs.getString(8));
-                events.setReader(rs.getInt(9));
+                events.setTitle(rs.getString(4));
+                events.setPoster(rs.getString(5));
+                events.setDate(rs.getString(6));
+                events.setTime(rs.getString(7));
+                events.setAddress(rs.getString(8));
+                events.setLabel(rs.getString(9));
+                events.setReader(rs.getInt(10));
             }
             return events;
         } catch (SQLException e) {
@@ -223,7 +227,6 @@ public class EventsDAO implements Ievents {
     public ArrayList<Events> getEventsByPage(int page, String title) {
         currentPage = page;
         ArrayList<Events> list = new ArrayList<Events>();
-
         // 若未指定title,则默认全查
         if (null == title || title.equals("")) {
             title = "";
@@ -260,12 +263,13 @@ public class EventsDAO implements Ievents {
                 events.setId(rs.getInt(1));
                 events.setTitle(rs.getString(2));
                 events.setContent(rs.getString(3));
-                events.setPoster_url(rs.getString(4));
-                events.setDate(rs.getString(5));
-                events.setTime(rs.getString(6));
-                events.setAddress(rs.getString(7));
-                events.setTips(rs.getString(8));
-                events.setReader(rs.getInt(9));
+                events.setMarkdown(rs.getString(4));
+                events.setPoster(rs.getString(5));
+                events.setDate(rs.getString(6));
+                events.setTime(rs.getString(7));
+                events.setAddress(rs.getString(8));
+                events.setLabel(rs.getString(9));
+                events.setReader(rs.getInt(10));
                 // 将该用户信息插入列表
                 list.add(events);
             }
