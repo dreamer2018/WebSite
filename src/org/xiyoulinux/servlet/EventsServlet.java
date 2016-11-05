@@ -31,7 +31,6 @@ public class EventsServlet extends HttpServlet {
             request.getRequestDispatcher("/admin/events.jsp").forward(request, response);
         }else {
             EventsDAO eventsDAO = new EventsDAO();
-            Events events = new Events();
             ArrayList eventsList = eventsDAO.getEventsByPage((Integer) request.getAttribute("currentPage"), "");
             int pageCount = eventsDAO.getAllPageCount();
             int currentPage = eventsDAO.getCurrentPage();
