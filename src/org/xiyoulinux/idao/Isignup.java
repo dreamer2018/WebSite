@@ -6,7 +6,7 @@ import org.xiyoulinux.model.Signup;
  * Created by zhoupan on 10/31/16.
  */
 public interface Isignup {
-    public boolean inster(Signup signup);
+    public boolean insert(Signup signup);
 
     public boolean delete(int signup_id);
 

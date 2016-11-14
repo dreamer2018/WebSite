@@ -12,7 +12,7 @@ public interface Icommunity {
 
     public boolean update(Community community);
 
-    public Community getDonateByID(int community_id);
+    public Community getCommunityByID(int community_id);
 
-    public Iabout getDonateByName(String title);
+    public Community getCommunityByName(String title);
 }
