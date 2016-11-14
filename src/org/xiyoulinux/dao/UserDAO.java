@@ -77,7 +77,7 @@ public class UserDAO implements Iuser {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "update user set name= ? , passwc = ?";
+            String sql = "update user set name= ? , passwd = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, user.getName());
             ps.setString(2, user.getPasswd());
