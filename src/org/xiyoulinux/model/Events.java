@@ -20,6 +20,24 @@ public class Events {
     private String time;
     private String address;
     private String tips;
+    private int status;
+
+    public String getTips() {
+        return tips;
+    }
+
+    public void setTips(String tips) {
+        this.tips = tips;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     private int reader;
 
     public void setMarkdown(String markdown) {

@@ -36,7 +36,7 @@ public class UserDAO implements Iuser {
             rtu = true;
         } catch (SQLException e) {
             e.printStackTrace();
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             ConnectionManager.close(null, ps, conn);
@@ -77,10 +77,11 @@ public class UserDAO implements Iuser {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "update user set name= ? , passwd = ?";
+            String sql = "update user set name= ? , passwd = ? where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, user.getName());
             ps.setString(2, user.getPasswd());
+            ps.setInt(3, user.getId());
             rtu = true;
         } catch (Exception e) {
             e.printStackTrace();

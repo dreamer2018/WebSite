@@ -7,7 +7,26 @@ public class About {
     private int id;
     private String title;
     private String content;
+    private String markdown;
     private String picture_url;
+    private int status;
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getMarkdown() {
+        return markdown;
+    }
+
+    public void setMarkdown(String markdown) {
+        this.markdown = markdown;
+    }
 
     public void setId(int id) {
         this.id = id;

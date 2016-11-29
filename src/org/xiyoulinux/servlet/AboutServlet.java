@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class AboutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getAttribute("page") == null) {
-            System.out.println("test");
             /*
             首次进入，或未触发分页操作，则显示第一页
              */
@@ -34,7 +33,6 @@ public class AboutServlet extends HttpServlet {
             request.setAttribute("allCount", allCount);
             request.getRequestDispatcher("/admin/about.jsp").forward(request, response);
         } else {
-            System.out.println("test");
             AboutDAO aboutDAO = new AboutDAO();
             ArrayList aboutList = aboutDAO.getAboutByPage((Integer) request.getAttribute("currentPage"), "");
             int pageCount = aboutDAO.getAllPageCount();

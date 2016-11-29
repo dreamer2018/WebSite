@@ -35,22 +35,22 @@ public class EventsInsertServlet extends HttpServlet {
                 request.setAttribute("message", "日期不能为空！");
                 error = true;
             }else if (time == null || time.equals("")) {
-                request.setAttribute("message", "日期不能为空！");
+                request.setAttribute("message", "时间不能为空！");
                 error = true;
             }else if (address == null || address.equals("")) {
-                request.setAttribute("message", "日期不能为空！");
+                request.setAttribute("message", "地址不能为空！");
                 error = true;
             }else if (label == null || label.equals("")) {
-                request.setAttribute("message", "日期不能为空！");
+                request.setAttribute("message", "标签不能为空！");
                 error = true;
             }else if (poster == null || poster.equals("")) {
-                request.setAttribute("message", "日期不能为空！");
+                request.setAttribute("message", "海报URL不能为空！");
                 error = true;
             }else if (mkdown == null || mkdown.equals("")) {
-                request.setAttribute("message", "日期不能为空！");
+                request.setAttribute("message", "内容不能为空！");
                 error = true;
             }else if (content == null || content.equals("")) {
-                request.setAttribute("message", "日期不能为空！");
+                request.setAttribute("message", "内容不能为空！");
                 error = true;
             }
             if (error) {

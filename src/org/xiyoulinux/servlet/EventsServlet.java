@@ -19,7 +19,6 @@ public class EventsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getAttribute("page") == null) {
             EventsDAO eventsDAO = new EventsDAO();
-            Events events = new Events();
             ArrayList eventsList = eventsDAO.getEventsByPage(1, "");
             int pageCount = eventsDAO.getAllPageCount();
             int currentPage = eventsDAO.getCurrentPage();

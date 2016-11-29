@@ -12,6 +12,15 @@ public class Blog {
     private String time;
     private String summary;
     private String url;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;

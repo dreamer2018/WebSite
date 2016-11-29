@@ -158,7 +158,7 @@ public class EventsDAO implements Ievents {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader from events where id = ?";
+            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader,status from events where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, event_id);
             ResultSet rs = ps.executeQuery();
@@ -180,6 +180,7 @@ public class EventsDAO implements Ievents {
                     events.setAddress(rs.getString(8));
                     events.setLabel(rs.getString(9));
                     events.setReader(rs.getInt(10));
+                    events.setStatus(rs.getInt(11));
                 }
                 return events;
             }
@@ -203,7 +204,7 @@ public class EventsDAO implements Ievents {
         PreparedStatement ps = null;
 
         try {
-            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader from events where id = ?";
+            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader,status from events where title = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, title);
             ResultSet rs = ps.executeQuery();
@@ -224,6 +225,7 @@ public class EventsDAO implements Ievents {
                     events.setAddress(rs.getString(8));
                     events.setLabel(rs.getString(9));
                     events.setReader(rs.getInt(10));
+                    events.setStatus(rs.getInt(11));
                 }
                 return events;
             }
@@ -284,6 +286,7 @@ public class EventsDAO implements Ievents {
                 events.setAddress(rs.getString(8));
                 events.setLabel(rs.getString(9));
                 events.setReader(rs.getInt(10));
+                events.setStatus(rs.getInt(11));
                 // 将该用户信息插入列表
                 list.add(events);
             }

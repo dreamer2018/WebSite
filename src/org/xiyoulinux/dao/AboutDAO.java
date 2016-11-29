@@ -67,11 +67,12 @@ public class AboutDAO implements Iabout {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "insert into about(title,content,picture) VALUES (?,?,?)";
+            String sql = "insert into about(title,content,markdown,picture) VALUES (?,?,?,?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, about.getTitle());
             ps.setString(2, about.getContent());
-            ps.setString(3, about.getPicture_url());
+            ps.setString(3, about.getMarkdown());
+            ps.setString(4, about.getPicture_url());
             ps.executeUpdate();
             rtu = true;
         } catch (SQLException e) {
@@ -94,7 +95,7 @@ public class AboutDAO implements Iabout {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "delect from about where id=?";
+            String sql = "delete from about where id=?;";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, about_id);
             ps.executeUpdate();
@@ -119,11 +120,12 @@ public class AboutDAO implements Iabout {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "update about set title=?,content=? ,picture=?";
+            String sql = "update about set title=?,content=? ,markdown=?, picture=?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, about.getTitle());
             ps.setString(2, about.getContent());
-            ps.setString(3, about.getPicture_url());
+            ps.setString(3, about.getMarkdown());
+            ps.setString(4, about.getPicture_url());
             rtu = true;
 
         } catch (SQLException e) {
@@ -146,7 +148,7 @@ public class AboutDAO implements Iabout {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            String sql = "select id,title,content,picture from about where id =?";
+            String sql = "select id,title,content,markdown,picture,status from about where id =?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, about_id);
             rs = ps.executeQuery();
@@ -155,7 +157,9 @@ public class AboutDAO implements Iabout {
                 rtu.setId(rs.getInt("id"));
                 rtu.setTitle(rs.getString("title"));
                 rtu.setContent(rs.getString("content"));
+                rtu.setMarkdown(rs.getString("markdown"));
                 rtu.setPicture_url(rs.getString("picture"));
+                rtu.setStatus(rs.getInt("status"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,7 +178,7 @@ public class AboutDAO implements Iabout {
         PreparedStatement ps = null;
 
         try {
-            String sql = "select id,title,content,picture from events where id = ?";
+            String sql = "select id,title,content,markdown,picture,status from events where id = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, title);
             ResultSet rs = ps.executeQuery();
@@ -188,7 +192,9 @@ public class AboutDAO implements Iabout {
                     about.setId(rs.getInt(1));
                     about.setTitle(rs.getString(2));
                     about.setContent(rs.getString(3));
-                    about.setPicture_url(rs.getString(4));
+                    about.setMarkdown(rs.getString(4));
+                    about.setPicture_url(rs.getString(5));
+                    about.setStatus(rs.getInt(6));
                 }
                 return about;
             }
@@ -231,7 +237,7 @@ public class AboutDAO implements Iabout {
                 currentPage = allPageCount;
             }
             // 获取第currentPage页数据
-            String sql2 = "select * from about where title like ? limit ?,?";
+            String sql2 = "select * from about where title like ? limit ?, ?";
             ps = conn.prepareStatement(sql2);
             ps.setString(1, "%" + title + "%");
             ps.setInt(2, PAGE_SIZE * (currentPage - 1));

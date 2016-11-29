@@ -2,6 +2,8 @@ package org.xiyoulinux.idao;
 
 import org.xiyoulinux.model.Blog;
 
+import java.util.ArrayList;
+
 /**
  * Created by zhoupan on 10/31/16.
  */
@@ -15,4 +17,6 @@ public interface Iblog {
     public Blog getBlogByID(int blog_id);
 
     public Blog getBlogByTitle(String title);
+
+    public ArrayList getBlogByPage(int page, String title);
 }
