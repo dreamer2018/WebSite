@@ -81,11 +81,11 @@
                 <li>
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/admin/about"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
-                <li class="active">
-                    <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i>简介管理</a>
+                <li>
+                    <a href="/admin/about"><i class="fa fa-fw fa-desktop"></i>简介管理</a>
                 </li>
             </ul>
         </div>
