@@ -16,7 +16,9 @@ public interface Iblog {
 
     public Blog getBlogByID(int blog_id);
 
-    public Blog getBlogByTitle(String title);
+    public ArrayList<Blog> getBlogByTitle(String title);
 
     public ArrayList getBlogByPage(int page, String title);
+
+    public ArrayList getBlogByNumber(int number);
 }

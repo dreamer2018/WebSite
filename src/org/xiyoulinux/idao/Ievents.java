@@ -19,7 +19,9 @@ public interface Ievents {
 
     public Events getEventsByID(int event_id);
 
-    public Events getEventsByTitle(String title);
+    public ArrayList<Events> getEventsByTitle(String title);
 
-    public List<Events> getEventsByPage(int page,String title);
+    public ArrayList<Events> getEventsByPage(int page, String title);
+
+    public ArrayList getEventsByNumber(int number);
 }

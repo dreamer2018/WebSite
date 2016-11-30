@@ -1,6 +1,7 @@
 package org.xiyoulinux.dao;
 
 import org.xiyoulinux.idao.Ievents;
+import org.xiyoulinux.model.Blog;
 import org.xiyoulinux.model.Events;
 import org.xiyoulinux.util.ConnectionManager;
 
@@ -130,7 +131,7 @@ public class EventsDAO implements Ievents {
             ps = conn.prepareStatement(sql);
             ps.setString(1, events.getTitle());
             ps.setString(2, events.getContent());
-            ps.setString(3,events.getMarkdown());
+            ps.setString(3, events.getMarkdown());
             ps.setString(4, events.getPoster());
             ps.setString(5, events.getDate());
             ps.setString(6, events.getTime());
@@ -164,9 +165,9 @@ public class EventsDAO implements Ievents {
             ResultSet rs = ps.executeQuery();
             rs.last();
             System.out.println(rs.getRow());
-            if(rs.getRow() == 0){
+            if (rs.getRow() == 0) {
                 return null;
-            }else {
+            } else {
                 rs.beforeFirst();
                 Events events = new Events();
                 while (rs.next()) {
@@ -195,40 +196,35 @@ public class EventsDAO implements Ievents {
     }
 
     @Override
-    public Events getEventsByTitle(String title) {
+    public ArrayList<Events> getEventsByTitle(String title) {
         if (null == title || title.equals("")) {
             return null;
         }
         //获取Connection
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
-
+        ArrayList<Events> list = new ArrayList<>();
         try {
             String sql = "select id,title,content,markdown,poster,date,time,address,label,reader,status from events where title = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, title);
             ResultSet rs = ps.executeQuery();
-            rs.last();
-            if(rs.getRow() == 0){
-                return null;
-            }else {
-                rs.beforeFirst();
+            while (rs.next()) {
                 Events events = new Events();
-                while (rs.next()) {
-                    events.setId(rs.getInt(1));
-                    events.setTitle(rs.getString(2));
-                    events.setContent(rs.getString(3));
-                    events.setTitle(rs.getString(4));
-                    events.setPoster(rs.getString(5));
-                    events.setDate(rs.getString(6));
-                    events.setTime(rs.getString(7));
-                    events.setAddress(rs.getString(8));
-                    events.setLabel(rs.getString(9));
-                    events.setReader(rs.getInt(10));
-                    events.setStatus(rs.getInt(11));
-                }
-                return events;
+                events.setId(rs.getInt(1));
+                events.setTitle(rs.getString(2));
+                events.setContent(rs.getString(3));
+                events.setTitle(rs.getString(4));
+                events.setPoster(rs.getString(5));
+                events.setDate(rs.getString(6));
+                events.setTime(rs.getString(7));
+                events.setAddress(rs.getString(8));
+                events.setLabel(rs.getString(9));
+                events.setReader(rs.getInt(10));
+                events.setStatus(rs.getInt(11));
+                list.add(events);
             }
+            return list;
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -296,5 +292,42 @@ public class EventsDAO implements Ievents {
             ConnectionManager.close(rs, ps, conn);
             return list;
         }
+    }
+
+    @Override
+    public ArrayList<Events> getEventsByNumber(int number) {
+        ArrayList<Events> list = new ArrayList<>();
+        //获取Connection
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            String sql = "select * from events order by id desc limit ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, number);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Events events = new Events();
+                events.setId(rs.getInt(1));
+                events.setTitle(rs.getString(2));
+                events.setContent(rs.getString(3));
+                events.setMarkdown(rs.getString(4));
+                events.setPoster(rs.getString(5));
+                events.setDate(rs.getString(6));
+                events.setTime(rs.getString(7));
+                events.setAddress(rs.getString(8));
+                events.setLabel(rs.getString(9));
+                events.setReader(rs.getInt(10));
+                events.setStatus(rs.getInt(11));
+                list.add(events);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.close(null, ps, conn);
+        }
+        return null;
     }
 }

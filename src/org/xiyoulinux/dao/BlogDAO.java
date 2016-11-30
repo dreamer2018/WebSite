@@ -1,6 +1,7 @@
 package org.xiyoulinux.dao;
 
 import org.xiyoulinux.idao.Iblog;
+import org.xiyoulinux.model.About;
 import org.xiyoulinux.model.Blog;
 import org.xiyoulinux.util.ConnectionManager;
 
@@ -171,38 +172,33 @@ public class BlogDAO implements Iblog {
     }
 
     @Override
-    public Blog getBlogByTitle(String title) {
+    public ArrayList<Blog> getBlogByTitle(String title) {
         if (null == title || title.equals("")) {
             return null;
         }
         //获取Connection
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
+        ArrayList<Blog> list = new ArrayList<>();
 
         try {
             String sql = "select id,title,author,date,time,summary,url,status from blog where title = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, title);
             ResultSet rs = ps.executeQuery();
-            rs.last();
-            if (rs.getRow() == 0) {
-                return null;
-            } else {
-                rs.beforeFirst();
+            while (rs.next()) {
                 Blog blog = new Blog();
-                while (rs.next()) {
-                    blog.setId(rs.getInt(1));
-                    blog.setTitle(rs.getString(2));
-                    blog.setAuthor(rs.getString(3));
-                    blog.setDate(rs.getString(4));
-                    blog.setTime(rs.getString(5));
-                    blog.setSummary(rs.getString(6));
-                    blog.setUrl(rs.getString(7));
-                    blog.setStatus(rs.getInt(8));
-
-                }
-                return blog;
+                blog.setId(rs.getInt(1));
+                blog.setTitle(rs.getString(2));
+                blog.setAuthor(rs.getString(3));
+                blog.setDate(rs.getString(4));
+                blog.setTime(rs.getString(5));
+                blog.setSummary(rs.getString(6));
+                blog.setUrl(rs.getString(7));
+                blog.setStatus(rs.getInt(8));
+                list.add(blog);
             }
+            return list;
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -210,9 +206,8 @@ public class BlogDAO implements Iblog {
         } finally {
             ConnectionManager.close(null, ps, conn);
         }
-        return null;
+        return list;
     }
-
     @Override
     public ArrayList getBlogByPage(int page, String title) {
         currentPage = page;
@@ -267,5 +262,39 @@ public class BlogDAO implements Iblog {
             ConnectionManager.close(rs, ps, conn);
             return list;
         }
+    }
+
+    @Override
+    public ArrayList<Blog> getBlogByNumber(int number) {
+        ArrayList<Blog> list = new ArrayList<Blog>();
+        //获取Connection
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            String sql = "select id,title,author,date,time,summary,url,status from blog order by id desc limit ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, number);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setId(rs.getInt(1));
+                blog.setTitle(rs.getString(2));
+                blog.setAuthor(rs.getString(3));
+                blog.setDate(rs.getString(4));
+                blog.setTime(rs.getString(5));
+                blog.setSummary(rs.getString(6));
+                blog.setUrl(rs.getString(7));
+                blog.setStatus(rs.getInt(8));
+                list.add(blog);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.close(null, ps, conn);
+        }
+        return null;
     }
 }
