@@ -13,6 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by zhoupan on 11/29/16.
  */
+
 @WebServlet(name = "BlogServlet",urlPatterns = "/admin/blog")
 public class BlogServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

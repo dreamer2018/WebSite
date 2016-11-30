@@ -1,8 +1,10 @@
 package org.xiyoulinux.servlet;
 
 import org.xiyoulinux.dao.AboutDAO;
+import org.xiyoulinux.dao.BlogDAO;
 import org.xiyoulinux.dao.EventsDAO;
 import org.xiyoulinux.model.About;
+import org.xiyoulinux.model.Blog;
 import org.xiyoulinux.model.Events;
 
 import javax.servlet.ServletException;
@@ -59,15 +61,39 @@ public class PreviewServlet extends HttpServlet {
                 }
                 AboutDAO aboutDAO = new AboutDAO();
                 About about = aboutDAO.getAboutByID(id);
-                System.out.println(about);
                 if (null == about) {
                     response.sendRedirect("/404.html");
                 } else {
                     request.setAttribute("title", about.getTitle());
                     request.setAttribute("url", about.getPicture_url());
                     request.setAttribute("content", about.getContent());
-                    request.setAttribute("markdown",about.getMarkdown());
-                    request.getRequestDispatcher("/eventsview.jsp").forward(request, response);
+                    request.setAttribute("markdown", about.getMarkdown());
+                    request.getRequestDispatcher("/aboutview.jsp").forward(request, response);
+                }
+            }
+        } else if ("blog".equals(request.getParameter("type"))) {
+            if (request.getParameter("id") == null) {
+                response.sendRedirect("/admin/blog");
+            } else {
+                int id = 0;
+                String str_id = request.getParameter("id");
+                try {
+                    id = Integer.parseInt(str_id);
+                } catch (NumberFormatException e) {
+                    response.sendRedirect("/404.html");
+                }
+                BlogDAO blogDAO = new BlogDAO();
+                Blog blog = blogDAO.getBlogByID(id);
+                if (null == blog) {
+                    response.sendRedirect("/404.html");
+                } else {
+                    request.setAttribute("title", blog.getTitle());
+                    request.setAttribute("author", blog.getAuthor());
+                    request.setAttribute("date", blog.getDate());
+                    request.setAttribute("time", blog.getTime());
+                    request.setAttribute("summary", blog.getSummary());
+                    request.setAttribute("url", blog.getUrl());
+                    request.getRequestDispatcher("/blogview.jsp").forward(request, response);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package org.xiyoulinux.servlet;
 
 import org.xiyoulinux.dao.AboutDAO;
+import org.xiyoulinux.dao.BlogDAO;
 import org.xiyoulinux.dao.EventsDAO;
 
 import javax.servlet.ServletException;
@@ -54,7 +55,26 @@ public class DeleteServlet extends HttpServlet {
                     response.sendRedirect("/admin/about");
                 }
             }
-        }else{
+        }else if("blog".equals(request.getParameter("type"))){
+            if (request.getParameter("id") == null) {
+                response.sendRedirect("/admin/blog");
+            } else {
+                int id = 0;
+                String str_id = request.getParameter("id");
+                try {
+                    id = Integer.parseInt(str_id);
+                } catch (NumberFormatException e) {
+                    response.sendRedirect("/404.html");
+                }
+                BlogDAO blogDAO = new BlogDAO();
+                if (blogDAO.delete(id)) {
+                    request.setAttribute("message", "删除成功！");
+                    request.getRequestDispatcher("/admin/blog").forward(request, response);
+                } else {
+                    response.sendRedirect("/admin/blog");
+                }
+            }
+        } else{
             response.sendRedirect("/admin/");
         }
 
