@@ -216,36 +216,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var today = function () {
-            var pad = function (number) {
-                var r = String(number);
-                if (r.length === 1) {
-                    r = '0' + r;
-                }
-                return r;
-            }
-            var _today = new Date();
-            return Date.parse(
-                    _today.getFullYear().toString() + "-"
-                    + pad(_today.getMonth() + 1) + "-"
-                    + pad(_today.getDate())
-            );
-        }();
-        $('#recent-events .event').each(function () {
-            // console.log($(this).attr("data-event-date"));
-            var event_date = Date.parse($(this).attr("data-event-date")),
-                    label = "";
-            if (today > event_date) {
-                label = "<span class='label label-info'>Finished</span>";
-            } else {
-                label = "<span class='label label-warning'>Upcoming</span>";
-            }
-            $(this).find(".event-meta").append(label);
-        });
-    });
-</script>
+
 <!--网站底部-->
 <div id="footerwrap">
     <div class="container">
@@ -300,5 +271,36 @@
 <script type="text/javascript" src="/js/custom.js"></script>
 <script type="text/javascript" src="/js/main.js" ></script>
 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var today = function () {
+            var pad = function (number) {
+                var r = String(number);
+                if (r.length === 1) {
+                    r = '0' + r;
+                }
+                return r;
+            }
+            var _today = new Date();
+            return Date.parse(
+                _today.getFullYear().toString() + "-"
+                + pad(_today.getMonth() + 1) + "-"
+                + pad(_today.getDate())
+            );
+        }();
+        $('#recent-events .event').each(function () {
+            // console.log($(this).attr("data-event-date"));
+            var event_date = Date.parse($(this).attr("data-event-date")),
+                label = "";
+            if (today > event_date) {
+                label = "<span class='label label-info'>Finished</span>";
+            } else {
+                label = "<span class='label label-warning'>Upcoming</span>";
+            }
+            $(this).find(".event-meta").append(label);
+        });
+    });
+</script>
 </body>
 </html>
