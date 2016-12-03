@@ -1,4 +1,4 @@
-package org.xiyoulinux.servlet;
+package org.xiyoulinux.servlet.admin;
 
 import org.xiyoulinux.dao.EventsDAO;
 import org.xiyoulinux.model.Events;
@@ -13,8 +13,8 @@ import java.io.IOException;
 /**
  * Created by zhoupan on 11/30/16.
  */
-@WebServlet(name = "EventsViewServlet",urlPatterns = "/events")
-public class EventsViewServlet extends HttpServlet {
+@WebServlet(name = "AdminEventsViewServlet",urlPatterns = "/events")
+public class AdminEventsViewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null) {
             response.sendRedirect("/");

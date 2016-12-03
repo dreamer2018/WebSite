@@ -1,4 +1,4 @@
-package org.xiyoulinux.servlet;
+package org.xiyoulinux.servlet.admin;
 
 import org.xiyoulinux.dao.AboutDAO;
 import org.xiyoulinux.dao.EventsDAO;
@@ -15,8 +15,8 @@ import java.util.ArrayList;
 /**
  * Created by zhoupan on 11/27/16.
  */
-@WebServlet(name = "AboutServlet", urlPatterns = "/admin/about")
-public class AboutServlet extends HttpServlet {
+@WebServlet(name = "AdminAboutServlet", urlPatterns = "/admin/about")
+public class AdminAboutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getAttribute("page") == null) {
             /*

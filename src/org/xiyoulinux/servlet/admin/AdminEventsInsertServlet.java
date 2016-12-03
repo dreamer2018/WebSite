@@ -1,4 +1,4 @@
-package org.xiyoulinux.servlet;
+package org.xiyoulinux.servlet.admin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +14,8 @@ import org.xiyoulinux.model.Events;
  * Created by zhoupan on 11/3/16.
  */
 
-@WebServlet(name = "EventsInsertServlet", urlPatterns = "/admin/eventsedit")
-public class EventsInsertServlet extends HttpServlet {
+@WebServlet(name = "AdminEventsInsertServlet", urlPatterns = "/admin/eventsedit")
+public class AdminEventsInsertServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (null == request.getParameter("id")) {
             boolean error = false;

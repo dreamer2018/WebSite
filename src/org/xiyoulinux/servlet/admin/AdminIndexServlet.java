@@ -1,4 +1,4 @@
-package org.xiyoulinux.servlet;
+package org.xiyoulinux.servlet.admin;
 
 import org.xiyoulinux.dao.BlogDAO;
 import org.xiyoulinux.dao.EventsDAO;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
 /**
  * Created by zhoupan on 11/30/16.
  */
-@WebServlet(name = "IndexServlet",urlPatterns = "")
-public class IndexServlet extends HttpServlet {
+@WebServlet(name = "AdminIndexServlet",urlPatterns = "")
+public class AdminIndexServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Blog> blogs = null;
         ArrayList<Events> eventss = null;

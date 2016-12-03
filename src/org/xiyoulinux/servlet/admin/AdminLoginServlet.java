@@ -1,4 +1,4 @@
-package org.xiyoulinux.servlet;
+package org.xiyoulinux.servlet.admin;
 
 import org.xiyoulinux.dao.UserDAO;
 
@@ -14,8 +14,8 @@ import java.io.IOException;
  */
 
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "AdminLoginServlet", urlPatterns = "/login")
+public class AdminLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String username = request.getParameter("username");

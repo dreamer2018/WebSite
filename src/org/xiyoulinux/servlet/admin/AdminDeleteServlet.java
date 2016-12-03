@@ -1,4 +1,4 @@
-package org.xiyoulinux.servlet;
+package org.xiyoulinux.servlet.admin;
 
 import org.xiyoulinux.dao.AboutDAO;
 import org.xiyoulinux.dao.BlogDAO;
@@ -14,8 +14,8 @@ import java.io.IOException;
 /**
  * Created by zhoupan on 11/5/16.
  */
-@WebServlet(name = "DeleteServlet", urlPatterns = "/admin/delete")
-public class DeleteServlet extends HttpServlet {
+@WebServlet(name = "AdminDeleteServlet", urlPatterns = "/admin/delete")
+public class AdminDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if ("events".equals(request.getParameter("type"))) {
             if (request.getParameter("id") == null) {

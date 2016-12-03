@@ -1,4 +1,4 @@
-package org.xiyoulinux.servlet;
+package org.xiyoulinux.servlet.admin;
 
 import org.xiyoulinux.dao.AboutDAO;
 import org.xiyoulinux.model.About;
@@ -13,8 +13,8 @@ import java.io.IOException;
 /**
  * Created by zhoupan on 11/29/16.
  */
-@WebServlet(name = "AboutInsterServlet", urlPatterns = "/admin/aboutedit")
-public class AboutInsterServlet extends HttpServlet {
+@WebServlet(name = "AdminAboutInsterServlet", urlPatterns = "/admin/aboutedit")
+public class AdminAboutInsterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("hello");
         if (null == request.getParameter("id")) {

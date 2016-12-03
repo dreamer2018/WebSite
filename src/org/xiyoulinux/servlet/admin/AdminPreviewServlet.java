@@ -1,4 +1,4 @@
-package org.xiyoulinux.servlet;
+package org.xiyoulinux.servlet.admin;
 
 import org.xiyoulinux.dao.AboutDAO;
 import org.xiyoulinux.dao.BlogDAO;
@@ -17,8 +17,8 @@ import java.io.IOException;
 /**
  * Created by zhoupan on 11/5/16.
  */
-@WebServlet(name = "PreviewServlet", urlPatterns = "/admin/preview")
-public class PreviewServlet extends HttpServlet {
+@WebServlet(name = "AdminPreviewServlet", urlPatterns = "/admin/preview")
+public class AdminPreviewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if ("events".equals(request.getParameter("type"))) {
             if (request.getParameter("id") == null) {
