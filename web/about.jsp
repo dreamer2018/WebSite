@@ -14,12 +14,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/images/xiyoulinux.png">
+    <link rel="shortcut icon" href="images/xiyoulinux.png">
     <title>西邮Linux兴趣小组</title>
-    <link href="/css/bootstrap.css" rel="stylesheet">
-
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,16 +32,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-logo" href="#"><img src="/images/xiyoulinux.png"
+            <a class="navbar-logo" href="#"><img src="images/xiyoulinux.png"
                                                  style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="all_events.html">EVENTS</a></li>
+                <li><a href="/">HOME</a></li>
+                <li><a href="/events">EVENTS</a></li>
                 <li><a href="http://blog.xiyoulinux.org">BLOG</a></li>
-                <li><a href="http://cs.xiyoulinux.org">LOGIN</a></li>
-                <li class="active"><a href="about.html">ABOUT</a></li>
+                <li><a href="login.jsp">LOGIN</a></li>
+                <li class="active"><a href="/about">ABOUT</a></li>
             </ul>
         </div>
     </div>
@@ -157,7 +156,7 @@
 </footer>
 <!--网站底部-->
 
-<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.container .copy-right-content').each(function () {
@@ -166,13 +165,13 @@
         })
     });
 </script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/retina-1.1.0.js"></script>
-<script type="text/javascript" src="/js/jquery.hoverdir.js"></script>
-<script type="text/javascript" src="/js/jquery.hoverex.min.js"></script>
-<script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="/js/custom.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/retina-1.1.0.js"></script>
+<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+<script type="text/javascript" src="js/jquery.hoverex.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

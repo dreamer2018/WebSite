@@ -15,12 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/images/xiyoulinux.png">
+    <link rel="shortcut icon" href="images/xiyoulinux.png">
     <title>西邮Linux兴趣小组</title>
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
 
@@ -35,16 +35,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-logo" href="#"><img src="/images/xiyoulinux.png"
+            <a class="navbar-logo" href="#"><img src="images/xiyoulinux.png"
                                                  style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li><a href="/index.html">HOME</a></li>
-                <li class="active"><a href="/all_events.html">EVENTS</a></li>
+                <li><a href="/index.jsp">HOME</a></li>
+                <li class="active"><a href="/events">EVENTS</a></li>
                 <li><a href="http://blog.xiyoulinux.org">BLOG</a></li>
-                <li><a href="http://cs.xiyoulinux.org">LOGIN</a></li>
-                <li><a href="/about.html">ABOUT</a></li>
+                <li><a href="login.jsp">LOGIN</a></li>
+                <li><a href="/about">ABOUT</a></li>
             </ul>
         </div>
     </div>
@@ -63,7 +63,6 @@
                         </h3></a>
                     </div>
                     <div class="event-meta">
-
                         <span><strong><i class="fa fa-calendar"></i> 时间: </strong><%=request.getAttribute("date")%>&nbsp;&nbsp;<%=request.getAttribute("time")%></span>
                         <span><strong><i class="fa fa-map-marker"></i> 地点:</strong><%=request.getAttribute("address")%></span>
                         <span class="event-tags">
@@ -92,7 +91,8 @@
                     </div>
                     <div class="event-content">
                         <%=request.getAttribute("content")%>
-                        <p>阅读量：<%=request.getAttribute("reader")%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="all_events.html">[Read More]</a></p>
+                        <p>阅读量：<%=request.getAttribute("reader")%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="all_events.html">[Read
+                            More]</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3">

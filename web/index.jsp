@@ -43,11 +43,11 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">HOME</a></li>
-                <li><a href="all_events.html">EVENTS</a></li>
+                <li class="active"><a href="/index.jsp">HOME</a></li>
+                <li><a href="/events">EVENTS</a></li>
                 <li><a href="http://blog.xiyoulinux.org">BLOG</a></li>
                 <li><a href="login.jsp">LOGIN</a></li>
-                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="/about">ABOUT</a></li>
             </ul>
         </div>
     </div>

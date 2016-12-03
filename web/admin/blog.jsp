@@ -112,18 +112,23 @@
                 <div>
                     <div class="king-wrapper">
                         <form class="form-inline king-search-form king-no-bg mt15 mb15 pull-left"
-                              style="margin-left: 2%">
+                              style="margin-left: 2%" action="/admin/blog" method="post">
                             <div class="form-group">
                                 <label>标题：</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="请输入文章标题">
+                                    <input type="text" class="form-control" placeholder="请输入文章标题" name="title"
+                                           value="<%
+                                           if(request.getAttribute("name") != null){
+                                               out.print(request.getAttribute("name"));
+                                           }%>
+                                          ">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>日期：</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control daterangepicker_demo"
-                                           id="daterangepicker_demo2" placeholder="选择日期...">
+                                           id="daterangepicker_demo2" placeholder="选择日期..." name="date">
                                     <span class="input-group-addon"><i
                                             class="glyphicon glyphicon-time fa fa-calendar-o"></i></span>
                                 </div>
@@ -149,17 +154,105 @@
                         <thead>
                         </thead>
                         <%
-                            ArrayList<Blog> blogList = (ArrayList<Blog>) request.getAttribute("blogList");
-                            for (int i = 0; i < blogList.size(); i++) {
+                            ArrayList
+                                    <
+                                            Blog
+                                            >
+                                    blogList
+                                    =
+                                    (
+                                            ArrayList
+                                                    <
+                                                            Blog
+                                                            >
+                                            )
+                                            request
+                                                    .
+                                                            getAttribute
+                                                                    (
+                                                                            "blogList"
+                                                                    );
+                            for
+                                    (
+                                    int
+                                    i
+                                    =
+                                    0
+                                    ;
+                                    i
+                                            <
+                                            blogList
+                                                    .
+                                                            size
+                                                                    (
+                                                                    )
+                                    ;
+                                    i
+                                            ++
+                                    ) {
                         %>
                         <tbody>
                         <tr>
-                            <td><%=i+1%></td>
-                            <td><a href="http://blog.xiyoulinux.org/<%=blogList.get(i).getUrl()%>" target="_blank"><%=blogList.get(i).getTitle()%></a></td>
-                            <td><%=blogList.get(i).getAuthor()%></td>
-                            <td><%=blogList.get(i).getDate()%></td>
-                            <td><%=blogList.get(i).getTime()%></td>
-                            <td><%=blogList.get(i).getStatus()%></td>
+                            <td><%=i
+                                    +
+                                    1%>
+                            </td>
+                            <td><a href="http://blog.xiyoulinux.org/<%=blogList.get(i).getUrl()%>"
+                                   target="_blank"><%=blogList
+                                    .
+                                            get
+                                                    (
+                                                            i
+                                                    )
+                                    .
+                                            getTitle
+                                                    (
+                                                    )%>
+                            </a></td>
+                            <td><%=blogList
+                                    .
+                                            get
+                                                    (
+                                                            i
+                                                    )
+                                    .
+                                            getAuthor
+                                                    (
+                                                    )%>
+                            </td>
+                            <td><%=blogList
+                                    .
+                                            get
+                                                    (
+                                                            i
+                                                    )
+                                    .
+                                            getDate
+                                                    (
+                                                    )%>
+                            </td>
+                            <td><%=blogList
+                                    .
+                                            get
+                                                    (
+                                                            i
+                                                    )
+                                    .
+                                            getTime
+                                                    (
+                                                    )%>
+                            </td>
+                            <td><%=blogList
+                                    .
+                                            get
+                                                    (
+                                                            i
+                                                    )
+                                    .
+                                            getStatus
+                                                    (
+                                                    )%>
+                            </td>
                             <td>
                                 <a href="/admin/delete?id=<%=blogList.get(i).getId()%>&type=blog">删除</a>
                             </td>
@@ -169,7 +262,14 @@
                         <tfoot>
                         <tr>
                             <td colspan="12">
-                                <div class="pagination-info pull-left">共<%=blogList.size()%>条记录，当前第1/1页，每页20条记录</div>
+                                <div class="pagination-info pull-left">共<%=request
+                                        .
+                                                getAttribute
+                                                        (
+                                                                "allCount"
+                                                        )%>
+                                    条记录，当前第1/1页，每页20条记录
+                                </div>
                                 <div class="pull-right king-page-box">
                                     <ul class="pagination pagination-small pull-right">
                                         <li page-index="1" class="disabled"><a>«</a></li>
