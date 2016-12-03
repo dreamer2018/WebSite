@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Created by zhoupan on 11/29/16.
  */
 
-@WebServlet(name = "AdminBlogServlet",urlPatterns = "/admin/blog")
+@WebServlet(name = "AdminBlogServlet", urlPatterns = "/admin/blog")
 public class AdminBlogServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getAttribute("page") == null) {
@@ -22,7 +22,13 @@ public class AdminBlogServlet extends HttpServlet {
             首次进入，或未触发分页操作，则显示第一页
              */
             BlogDAO blogDAO = new BlogDAO();
-            ArrayList blogList = blogDAO.getBlogByPage(1, "");
+            ArrayList blogList;
+            if (null != request.getParameter("name")) {
+                blogList = blogDAO.getBlogByPage(1, "");
+            } else {
+                blogList = blogDAO.getBlogByPage(1, request.getParameter("name"));
+                request.setAttribute("name", request.getParameter("name"));
+            }
             int pageCount = blogDAO.getAllPageCount();
             int currentPage = blogDAO.getCurrentPage();
             int allCount = blogDAO.getAllCount();
@@ -33,7 +39,14 @@ public class AdminBlogServlet extends HttpServlet {
             request.getRequestDispatcher("/admin/blog.jsp").forward(request, response);
         } else {
             BlogDAO blogDAO = new BlogDAO();
-            ArrayList blogList = blogDAO.getBlogByPage((Integer) request.getAttribute("currentPage"), "");
+            ArrayList blogList;
+            String pagestring = request.getParameter("page");
+            int page = Integer.parseInt(pagestring);
+            if (null != request.getParameter("name")) {
+                blogList = blogDAO.getBlogByPage(page, "");
+            } else {
+                blogList = blogDAO.getBlogByPage(page, request.getParameter("name"));
+            }
             int pageCount = blogDAO.getAllPageCount();
             int currentPage = blogDAO.getCurrentPage();
             int allCount = blogDAO.getAllCount();
@@ -46,6 +59,6 @@ public class AdminBlogServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 }

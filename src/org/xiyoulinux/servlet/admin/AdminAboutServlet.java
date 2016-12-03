@@ -1,9 +1,6 @@
 package org.xiyoulinux.servlet.admin;
 
 import org.xiyoulinux.dao.AboutDAO;
-import org.xiyoulinux.dao.EventsDAO;
-import org.xiyoulinux.model.About;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

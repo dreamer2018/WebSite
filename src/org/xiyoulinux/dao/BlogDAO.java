@@ -22,7 +22,7 @@ public class BlogDAO implements Iblog {
      分页相关的方法
      */
     /*每页显示的数据量*/
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 20;
     /*数据库中的数据量*/
     private int allCount;
     /*总的分页数*/
@@ -211,7 +211,7 @@ public class BlogDAO implements Iblog {
     @Override
     public ArrayList getBlogByPage(int page, String title) {
         currentPage = page;
-        ArrayList<Blog> list = new ArrayList<Blog>();
+        ArrayList<Blog> list = new ArrayList<>();
         // 若未指定title,则默认全查
         if (null == title || title.equals("")) {
             title = "";

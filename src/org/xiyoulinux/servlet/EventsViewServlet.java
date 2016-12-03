@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by zhoupan on 12/3/16.
+ * Created by zhoupan on 11/30/16.
  */
-@WebServlet(name = "EventssServlet", urlPatterns = "/events")
-public class EventsServlet extends HttpServlet {
+@WebServlet(name = "EventsViewServlet",urlPatterns = "/events")
+public class EventsViewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null) {
-            response.sendRedirect("/events");
+            response.sendRedirect("/");
         } else {
             int id = 0;
             String str_id = request.getParameter("id");
@@ -28,6 +28,7 @@ public class EventsServlet extends HttpServlet {
             }
             EventsDAO eventsDAO = new EventsDAO();
             Events events = eventsDAO.getEventsByID(id);
+            System.out.println(events);
             if (null == events) {
                 response.sendRedirect("/404.html");
             } else {
@@ -39,7 +40,7 @@ public class EventsServlet extends HttpServlet {
                 request.setAttribute("content", events.getContent());
                 request.setAttribute("poster", events.getPoster());
                 request.setAttribute("reader", events.getReader());
-                request.getRequestDispatcher("/events.jsp").forward(request, response);
+                request.getRequestDispatcher("/eventsview.jsp").forward(request, response);
             }
         }
     }

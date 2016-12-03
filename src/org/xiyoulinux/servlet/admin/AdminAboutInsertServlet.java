@@ -13,8 +13,8 @@ import java.io.IOException;
 /**
  * Created by zhoupan on 11/29/16.
  */
-@WebServlet(name = "AdminAboutInsterServlet", urlPatterns = "/admin/aboutedit")
-public class AdminAboutInsterServlet extends HttpServlet {
+@WebServlet(name = "AdminAboutInsertServlet", urlPatterns = "/admin/aboutedit")
+public class AdminAboutInsertServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("hello");
         if (null == request.getParameter("id")) {
