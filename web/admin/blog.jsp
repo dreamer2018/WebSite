@@ -7,14 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="org.xiyoulinux.model.About" %>
+<%@ page import="org.xiyoulinux.model.Blog" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/images/xiyoulinux.png">
+    <link rel="shortcut icon" href="../images/xiyoulinux.png">
     <title>西邮Linux兴趣小组官网-后台管理</title>
     <!-- Bootstrap css -->
     <link href="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.jsp">
                 <i class="fa fa-leaf f20 mr5"></i>
                 后台管理系统
             </a>
@@ -82,7 +82,7 @@
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
                 <li class="active">
-                    <a href="/admin/about"><i class="fa fa-fw fa-edit"></i>文章管理</a>
+                    <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li>
                     <a href="/admin/about"><i class="fa fa-fw fa-desktop"></i>简介管理</a>
@@ -138,32 +138,30 @@
 
                     <table class="table table-out-bordered table-hover">
                         <tr>
-                            <th style="width:50px;" class="tc">序号</th>
-                            <th class="tc">标题</th>
-                            <th class="tc">预览</th>
-                            <th class="tc">删除</th>
+                            <th style="width:50px;">序号</th>
+                            <th>标题</th>
+                            <th>作者</th>
+                            <th>日期</th>
+                            <th>时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
                         </tr>
                         <thead>
                         </thead>
                         <%
-                            ArrayList<About> aboutList = (ArrayList<About>) request.getAttribute("aboutList");
-                            for (int i = 0; i < aboutList.size(); i++) {
+                            ArrayList<Blog> blogList = (ArrayList<Blog>) request.getAttribute("blogList");
+                            for (int i = 0; i < blogList.size(); i++) {
                         %>
                         <tbody>
                         <tr>
-                            <td class="tc">
-                                <a href="/admin/aboutedit?id=<%=aboutList.get(i).getId()%>"><%=aboutList.get(i).getTitle()%>
-                                </a>
-                            </td>
-                            <td class="tc">
-                                <a href="/admin/preview?id=<%=aboutList.get(i).getId()%>"><input type="button"
-                                                                                                 class="btn btn-success btn2"
-                                                                                                 value="预览"></a>
-                            </td>
-                            <td class="tc">
-                                <a href="/admin/delete?id=<%=aboutList.get(i).getId()%>"><input type="button"
-                                                                                                class="btn btn-warning btn2"
-                                                                                                value="删除"></a>
+                            <td><%=i+1%></td>
+                            <td><a href="http://blog.xiyoulinux.org/<%=blogList.get(i).getUrl()%>" target="_blank"><%=blogList.get(i).getTitle()%></a></td>
+                            <td><%=blogList.get(i).getAuthor()%></td>
+                            <td><%=blogList.get(i).getDate()%></td>
+                            <td><%=blogList.get(i).getTime()%></td>
+                            <td><%=blogList.get(i).getStatus()%></td>
+                            <td>
+                                <a href="/admin/delete?id=<%=blogList.get(i).getId()%>&type=blog">删除</a>
                             </td>
                         <tr>
                                 <%}%>
@@ -171,9 +169,8 @@
                         <tfoot>
                         <tr>
                             <td colspan="12">
-                                <div class="pagination-info pull-left">共<%=aboutList.size()%>条记录，当前第1/1页，每页20条记录</div>
+                                <div class="pagination-info pull-left">共<%=blogList.size()%>条记录，当前第1/1页，每页20条记录</div>
                                 <div class="pull-right king-page-box">
-
                                     <ul class="pagination pagination-small pull-right">
                                         <li page-index="1" class="disabled"><a>«</a></li>
                                         <li page-index="1" class="active"><a>1</a></li>
