@@ -14,7 +14,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="/images/xiyoulinux.png">
+    <link rel="shortcut icon" href="../images/xiyoulinux.png">
     <title>西邮Linux兴趣小组官网-后台管理</title>
     <!-- Bootstrap css -->
     <link href="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +23,6 @@
     <link href="css/sb-admin.css" rel="stylesheet">
     <link href="css/sb-bk-theme.css" rel="stylesheet">
     <!--蓝鲸平台APP 公用的样式文件 -->
-    <link href="http://o.qcloud.com/static_api/v3/assets/daterangepicker-2.0.5/daterangepicker.css" rel="stylesheet">
     <link href="http://o.qcloud.com/static_api/v3/bk/css/bk.css?v=1.0.1" rel="stylesheet">
     <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
 </head>
@@ -119,15 +118,6 @@
                                     <input type="text" class="form-control" placeholder="请输入文章标题">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>日期：</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control daterangepicker_demo"
-                                           id="daterangepicker_demo2" placeholder="选择日期...">
-                                    <span class="input-group-addon"><i
-                                            class="glyphicon glyphicon-time fa fa-calendar-o"></i></span>
-                                </div>
-                            </div>
                             <button type="submit" class="king-btn king-info">搜索</button>
                         </form>
                         <a href="/admin/aboutedit.jsp" class="king-btn king-info pull-right mt15 ml15"
@@ -201,21 +191,6 @@
 <script src="http://o.qcloud.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
 <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
 <script src="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
-
-
-<script src="http://o.qcloud.com/static_api/v3/assets/daterangepicker-2.0.5/moment.min.js"></script>
-<script src="http://o.qcloud.com/static_api/v3/assets/daterangepicker-2.0.5/daterangepicker.js"></script>
-
-
-<script type="text/javascript">
-    // 选择日期范围
-    $('#daterangepicker_demo2').daterangepicker({
-        locale: {
-            "format": 'YYYY/MM/DD'
-        }
-    });
-</script>
-
 <!--[if lt IE 9]>
 <script src="http://o.qcloud.com/static_api/v3/assets/js/html5shiv.min.js"></script>
 <script src="http://o.qcloud.com/static_api/v3/assets/js/respond.min.js"></script>
