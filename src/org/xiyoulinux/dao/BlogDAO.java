@@ -237,6 +237,8 @@ public class BlogDAO implements Iblog {
                 currentPage = allPageCount;
             }
             // 获取第currentPage页数据
+
+
             String sql2 = "select * from blog where title like ? limit ?,?";
             ps = conn.prepareStatement(sql2);
             ps.setString(1, "%" + title + "%");
@@ -257,6 +259,7 @@ public class BlogDAO implements Iblog {
                 list.add(blog);
             }
         } catch (SQLException e) {
+            System.out.println(allPageCount+" "+currentPage+" ");
             e.printStackTrace();
         } finally {
             ConnectionManager.close(rs, ps, conn);

@@ -117,11 +117,7 @@
                                 <label>标题：</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="请输入文章标题" name="title"
-                                           value="<%
-                                           if(request.getAttribute("name") != null){
-                                               out.print(request.getAttribute("name"));
-                                           }%>
-                                          ">
+                                           value="<%if(request.getAttribute("title") != null){out.print(request.getAttribute("title"));}%>">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -154,104 +150,23 @@
                         <thead>
                         </thead>
                         <%
-                            ArrayList
-                                    <
-                                            Blog
-                                            >
-                                    blogList
-                                    =
-                                    (
-                                            ArrayList
-                                                    <
-                                                            Blog
-                                                            >
-                                            )
-                                            request
-                                                    .
-                                                            getAttribute
-                                                                    (
-                                                                            "blogList"
-                                                                    );
-                            for
-                                    (
-                                    int
-                                    i
-                                    =
-                                    0
-                                    ;
-                                    i
-                                            <
-                                            blogList
-                                                    .
-                                                            size
-                                                                    (
-                                                                    )
-                                    ;
-                                    i
-                                            ++
-                                    ) {
+                            ArrayList<Blog> blogList = (ArrayList<Blog>) request.getAttribute("blogList");
+                            for (int i = 0; i < blogList.size(); i++) {
                         %>
                         <tbody>
                         <tr>
-                            <td><%=i
-                                    +
-                                    1%>
+                            <td><%=i + 1%>
                             </td>
                             <td><a href="http://blog.xiyoulinux.org/<%=blogList.get(i).getUrl()%>"
-                                   target="_blank"><%=blogList
-                                    .
-                                            get
-                                                    (
-                                                            i
-                                                    )
-                                    .
-                                            getTitle
-                                                    (
-                                                    )%>
+                                   target="_blank"><%=blogList.get(i).getTitle()%>
                             </a></td>
-                            <td><%=blogList
-                                    .
-                                            get
-                                                    (
-                                                            i
-                                                    )
-                                    .
-                                            getAuthor
-                                                    (
-                                                    )%>
+                            <td><%=blogList.get(i).getAuthor()%>
                             </td>
-                            <td><%=blogList
-                                    .
-                                            get
-                                                    (
-                                                            i
-                                                    )
-                                    .
-                                            getDate
-                                                    (
-                                                    )%>
+                            <td><%=blogList.get(i).getDate()%>
                             </td>
-                            <td><%=blogList
-                                    .
-                                            get
-                                                    (
-                                                            i
-                                                    )
-                                    .
-                                            getTime
-                                                    (
-                                                    )%>
+                            <td><%=blogList.get(i).getTime()%>
                             </td>
-                            <td><%=blogList
-                                    .
-                                            get
-                                                    (
-                                                            i
-                                                    )
-                                    .
-                                            getStatus
-                                                    (
-                                                    )%>
+                            <td><%=blogList.get(i).getStatus()%>
                             </td>
                             <td>
                                 <a href="/admin/delete?id=<%=blogList.get(i).getId()%>&type=blog">删除</a>
@@ -262,12 +177,7 @@
                         <tfoot>
                         <tr>
                             <td colspan="12">
-                                <div class="pagination-info pull-left">共<%=request
-                                        .
-                                                getAttribute
-                                                        (
-                                                                "allCount"
-                                                        )%>
+                                <div class="pagination-info pull-left">共<%=request.getAttribute("allCount")%>
                                     条记录，当前第1/1页，每页20条记录
                                 </div>
                                 <div class="pull-right king-page-box">

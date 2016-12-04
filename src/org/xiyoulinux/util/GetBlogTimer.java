@@ -30,7 +30,7 @@ public class GetBlogTimer {
 
         System.out.println("before task");
         //立刻执行，然后每隔30s执行一次
-        timer.schedule(new GetBlogTimerTask(), 0, 30000);
+        timer.schedule(new GetBlogTimerTask(), 0, 1000*60*60*6);
     }
 
     public void timerStop() {
