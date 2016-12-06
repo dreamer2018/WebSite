@@ -1,6 +1,7 @@
 package org.xiyoulinux.servlet;
 
 import org.xiyoulinux.dao.EventsDAO;
+import org.xiyoulinux.model.Blog;
 import org.xiyoulinux.model.Events;
 
 import javax.servlet.ServletException;
@@ -9,15 +10,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by zhoupan on 11/30/16.
  */
-@WebServlet(name = "EventsViewServlet",urlPatterns = "/events")
+@WebServlet(name = "EventsViewServlet", urlPatterns = "/events")
 public class EventsViewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null) {
-            response.sendRedirect("/");
+            int id = 0;
+            String str_id = request.getParameter("id");
+            try {
+                id = Integer.parseInt(str_id);
+            } catch (NumberFormatException e) {
+                response.sendRedirect("/404.html");
+            }
+            EventsDAO eventsDAO = new EventsDAO();
+            ArrayList<Events> list = eventsDAO.getEventsByNumber(id);
+
         } else {
             int id = 0;
             String str_id = request.getParameter("id");

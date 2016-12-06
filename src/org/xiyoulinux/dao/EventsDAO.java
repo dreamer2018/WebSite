@@ -238,7 +238,7 @@ public class EventsDAO implements Ievents {
     @Override
     public ArrayList<Events> getEventsByPage(int page, String title) {
         currentPage = page;
-        ArrayList<Events> list = new ArrayList<Events>();
+        ArrayList<Events> list = new ArrayList<>();
         // 若未指定title,则默认全查
         if (null == title || title.equals("")) {
             title = "";
@@ -292,6 +292,11 @@ public class EventsDAO implements Ievents {
             ConnectionManager.close(rs, ps, conn);
             return list;
         }
+    }
+
+    @Override
+    public ArrayList<Events> getEventsByPage(int page, String title, int pagesize) {
+        return null;
     }
 
     @Override

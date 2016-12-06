@@ -23,5 +23,7 @@ public interface Ievents {
 
     public ArrayList<Events> getEventsByPage(int page, String title);
 
+    public ArrayList<Events> getEventsByPage(int page, String title, int pagesize);
+
     public ArrayList getEventsByNumber(int number);
 }

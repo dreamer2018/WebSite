@@ -209,7 +209,7 @@ public class BlogDAO implements Iblog {
         return list;
     }
     @Override
-    public ArrayList getBlogByPage(int page, String title) {
+    public ArrayList<Blog> getBlogByPage(int page, String title) {
         currentPage = page;
         ArrayList<Blog> list = new ArrayList<>();
         // 若未指定title,则默认全查
