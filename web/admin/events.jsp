@@ -227,12 +227,12 @@
             //获取title值
             var title = document.getElementById("title").value;
             //请求URL
-            var url = "/admin/events?page=" + page + "&title=" + title + "&type=ajax";
+            var url = "/admin/events";
             req.open("post", url, true);
             req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             //指定处理函数
             req.onreadystatechange = state_change;
-            req.send(null);
+            req.send("page=" + page + "&title=" + title + "&type=ajax");
         } else {
             alert("Your browser does not support XMLHTTP.");
         }
