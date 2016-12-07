@@ -27,7 +27,7 @@
     </div>
     <br/>
     <div class="row">
-        <form action="/admin/eventsedit" method="post">
+        <form action="/admin/eventsedit" method="post" enctype="multipart/form-data" name="myform" onsubmit="return isPic()">
             <%
                 if (request.getAttribute("id") == null) {
             %>
@@ -85,10 +85,9 @@
             <br/>
             <div class="row">
                 <div class="col-xs-3">
-                    <div class="input-group">
-                        <span class="input-group-addon">海报url：</span>
-                        <input type="text" class="form-control" name="poster" placeholder="多个标签逗号隔开"
-                               value="<%if(null != request.getAttribute("poster")){out.print(request.getAttribute("poster"));}%>">
+                    <div class="form-group">
+                        <span>活动海报:</span>
+                        <input type="file" id="inputfile" name="poster" onchange="isPic()">
                     </div>
                 </div>
             </div>
@@ -159,7 +158,21 @@
     }
     onload = addContent();
 </script>
-
+<script type="text/javascript">
+    function isPic()
+    {
+        var pic = myform.poster.value;
+        var ext=pic.substring(pic.lastIndexOf(".")+1);
+        //可以再添加允许类型
+        if(ext.toLowerCase()=="jpg" || ext.toLowerCase()=="png" || ext.toLowerCase()=="gif")
+            return true;
+        else
+        {
+            alert("只能上传jpg、png、gif图像!");
+            return false;
+        }
+    }
+</script>
 
 <!--bootstrap依赖-->
 <script src="/js/jquery-2.1.1.min.js"></script>
