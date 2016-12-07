@@ -54,7 +54,7 @@
 <!--导航栏结束-->
 
 <div class="container mtb" id="container">
-    <div class="row">
+    <div class="row" id="article">
         <!-- BLOG POSTS LIST -->
         <%
             ArrayList<Events> eventsList = (ArrayList<Events>) request.getAttribute("eventsList");
@@ -99,8 +99,8 @@
                     </div>
                     <div class="event-content">
                         <%=eventsList.get(i).getContent()%>
-                        <p>阅读量：<%=eventsList.get(i).getReader()%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="all_events.html">[Read
-                            More]</a></p>
+                        <p>阅读量：<%=eventsList.get(i).getReader()%>&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                href="/events">[ReadMore]</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -156,59 +156,120 @@
     </div>
 </div>
 <!--网站底部-->
-
-<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/retina-1.1.0.js"></script>
-<script type="text/javascript" src="/js/jquery.hoverdir.js"></script>
-<script type="text/javascript" src="/js/jquery.hoverex.min.js"></script>
-<script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="/js/custom.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
-
 <script>
-//    function scroll() {
-//        var container = document.getElementById("container");
-        //可见高度
-//        var viewHigh = container.high;
-//        alert(viewHigh);
-        //内容高度
-//        var containerHigh = container.scrollHeight;
-//        alert(containerHigh);
-//        //滚动高度
-//        var scrollTop = container.scrollTop;
-//        alert(scrollTop);
-//        if (containerHigh - scrollTop <= 100) {
-//            alert('test');
-//        }
-//        var wScrollY = window.scrollY; // 当前滚动条位置
-//        alert(wScrollY);
-//        var wInnerH = window.innerHeight; // 设备窗口的高度（不会变）
-//        alert(wInnerH);
-//        var bScrollH = document.body.scrollHeight; // 滚动条总高度
-//        alert(bScrollH);
-//        if (wScrollY + wInnerH >= bScrollH-100) {
-//            alert("test");
-//        }
-//    }
-//    onload = scroll;
-        scrollBottomTest =function(){
-            $("#contain").scroll(function(){
-                var $this =$(this),
-                    viewH =$(this).height(),//可见高度
-                    contentH =$(this).get(0).scrollHeight,//内容高度
-                    scrollTop =$(this).scrollTop();//滚动高度
-                //if(contentH - viewH - scrollTop <= 100) { //到达底部100px时,加载新内容
-                if(scrollTop/(contentH -viewH)>=0.95){ //到达底部100px时,加载新内容
-                    // 这里加载数据..
-                }
-            });
+    //设定当前页面
+    var curpage = 1;
+    //创建事件
+    function ScrollEvent() {
+        var wScrollY = window.scrollY; // 当前滚动条位置
+        var wInnerH = window.innerHeight; // 设备窗口的高度（不会变）
+        var bScrollH = document.body.scrollHeight; // 滚动条总高度
+        if (wScrollY + wInnerH >= bScrollH - 400) {
+            check(curpage + 1);
         }
+    }
+    //绑定事件
+    window.addEventListener("scroll", ScrollEvent, false);
+
+    /*通过异步传输XMLHTTP发送参数到ajaxServlet,返回符合条件的XML文档*/
+    function check(page) {
+        //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
+        //获取ajax对象
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) {
+            req = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (req != null) {
+            //请求URL
+            var url = "/events";
+            req.open("post", url, true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            //指定处理函数
+            req.onreadystatechange = state_change;
+            req.send("page=" + page + "&type=ajax");
+        } else {
+            alert("Your browser does not support XMLHTTP.");
+        }
+    }
+    function state_change() {
+        if (req.readyState == 4) {// 4 = "loaded"
+            if (req.status == 200) {
+                //从JSON中取出数据
+                var json = JSON.parse(req.responseText);
+                var pageCount = json.pageCount;
+                var currPage = json.currPage;
+                var allCount = json.allCount;
+                var eventsList = json.eventsList;
+                //获取tbody节点
+                var article = document.getElementById("article");
+                //更新当前页
+                curpage = currPage;
+                if (currPage == pageCount) {
+                    window.removeEventListener("scroll", ScrollEvent, false);
+                }
+                for (var i = 0; i < eventsList.length; i++) {
+                    var label = splitLabel(eventsList[i].label);
+                    article.innerHTML += "" +
+                        "<div class=\"col-lg-10 col-lg-offset-1\" id=\"events-list\">" +
+                        "<div class=\"row event\" data-event-date=\"" + eventsList[i].date + "\">" +
+                        "<div class=\"col-lg-9\">" +
+                        "<div class=\"event-title\">" +
+                        "<a href=\"#\"><h3 class=\"ctitle\">" + eventsList[i].title + "</h3></a>" +
+                        "</div>" +
+                        "<div class=\"event-meta\">" +
+                        "<span><strong><i class=\"fa fa - calendar\"></i> 时间: </strong>" + eventsList[i].date + "&nbsp;&nbsp;" + eventsList[i].time + "</span>" +
+                        "<span><strong><i class=\"fa fa-map-marker\"></i> 地点:</strong>" + eventsList[i].address + " </span>" +
+                        "<span class=\"event-tags\">" + label + "</span>" +
+                        "</div>" +
+                        "<div class=\"event-content\">" + eventsList[i].content + "" +
+                        "<p>阅读量：" + eventsList[i].reader + " " +
+                        "</div>" +
+                        "</div>" +
+                        "<div class=\"col-lg-3\">" +
+                        "<img class=\"img-responsive event-poster\" src=\"" + eventsList[i].poster + "\">" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class=\"hline\"></div>" +
+                        "<div class=\"spacing\"></div>" +
+                        "</div>"
+                }
+                //重新符之搜索title
+            }
+        }
+
+    }
+    function splitLabel(label) {
+        var str = "";
+        var rtu = "";
+        for (var i = 0; i < label.length; i++) {
+            if (label[i] == ',' || label[i] == '，') {
+                if (!((str == "") || str == "," || str == "，")) {
+                    rtu += "<span class=\"label label-success\">" + str + "</span>";
+                }
+                str = "";
+            } else {
+                str += label[i];
+            }
+        }
+        if (!(str == "" || str == "," || str == "，")) {
+            rtu += "<span class=\"label label-success\">" + str + "</span>";
+        }
+        return rtu;
+    }
+
 </script>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/retina-1.1.0.js"></script>
+<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+<script type="text/javascript" src="js/jquery.hoverex.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
 
 </body>
 </html>
-
-
-</body></html>
