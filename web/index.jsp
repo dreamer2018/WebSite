@@ -142,8 +142,18 @@
                             <%=blog.getAuthor()%>,&nbsp;&nbsp; <%=blog.getDate()%>&nbsp;&nbsp;<%=blog.getTime()%>
                         </div>
                         <div class="post-abstract">
-                            <%=HtmlUtil.getTextFromTHML(blog.getSummary().substring(0, 250))%>&nbsp;<a
+                            <%
+                                if (HtmlUtil.getTextFromTHML(blog.getSummary()).length() <= 250) {
+                            %>
+                            <%=HtmlUtil.getTextFromTHML(blog.getSummary())%>&nbsp;<a
                                 href="<%=blog.getUrl()%>">>>></a>
+                            <%for(int i=0;i<(250-HtmlUtil.getTextFromTHML(blog.getSummary()).length())/38+1;i++){%>
+                                <br/>
+                            <%}%>
+                            <%} else {%>
+                            <%=HtmlUtil.getTextFromTHML(blog.getSummary()).substring(0, 250)%>&nbsp;<a
+                                href="<%=blog.getUrl()%>">>>></a>
+                            <%}%>
                         </div>
                     </div>
                     <br/>
@@ -198,8 +208,16 @@
                             %>
                         </div>
                         <div class="event-abstract">
-                            <%=HtmlUtil.getTextFromTHML(events.getContent().substring(0, 150))%>&nbsp;<a
+                            <%if(HtmlUtil.getTextFromTHML(events.getContent()).length() <= 250){%>
+                            <%=HtmlUtil.getTextFromTHML(events.getContent())%>&nbsp;<a
                                 href="/events?id=<%=events.getId()%>" target="_blank">>>></a>
+                            <%for(int i=0;i<(250-HtmlUtil.getTextFromTHML(events.getContent()).length())/38+1;i++){%>
+                            <br/>
+                            <%}%>
+                            <%}else{%>
+                            <%=HtmlUtil.getTextFromTHML(events.getContent()).substring(0,250)%>&nbsp;<a
+                                href="/events?id=<%=events.getId()%>" target="_blank">>>></a>
+                            <%}%>
                         </div>
                     </div>
                     <br/>

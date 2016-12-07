@@ -1,4 +1,6 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.awt.*" %>
+<%@ page import="org.xiyoulinux.model.Events" %><%--
   Created by IntelliJ IDEA.
   User: zhoupan
   Date: 11/5/16
@@ -51,26 +53,32 @@
 </div>
 <!--导航栏结束-->
 
-<div class="container mtb">
+<div class="container mtb" id="container">
     <div class="row">
         <!-- BLOG POSTS LIST -->
+        <%
+            ArrayList<Events> eventsList = (ArrayList<Events>) request.getAttribute("eventsList");
+
+            for (int i = 0; i < eventsList.size(); i++) {
+        %>
         <div class="col-lg-10 col-lg-offset-1" id="events-list">
             <!-- Blog Post -->
-            <div class="row event" data-event-date="2016-05-29">
+            <div class="row event" data-event-date="<%=eventsList.get(i).getDate()%>">
                 <div class="col-lg-9">
                     <div class="event-title">
-                        <a href="#"><h3 class="ctitle"><%=request.getAttribute("title")%>
+                        <a href="#"><h3 class="ctitle"><%=eventsList.get(i).getTitle()%>
                         </h3></a>
                     </div>
                     <div class="event-meta">
-                        <span><strong><i class="fa fa-calendar"></i> 时间: </strong><%=request.getAttribute("date")%>&nbsp;&nbsp;<%=request.getAttribute("time")%></span>
-                        <span><strong><i class="fa fa-map-marker"></i> 地点:</strong><%=request.getAttribute("address")%></span>
+                        <span><strong><i class="fa fa-calendar"></i> 时间: </strong><%=eventsList.get(i).getDate()%>&nbsp;&nbsp;<%=eventsList.get(i).getTime()%></span>
+                        <span><strong><i
+                                class="fa fa-map-marker"></i> 地点:</strong><%=eventsList.get(i).getAddress()%></span>
                         <span class="event-tags">
                             <%
-                                String label = (String) request.getAttribute("label");
+                                String label = eventsList.get(i).getLabel();
                                 String str = "";
-                                for (int i = 0; i < label.length(); i++) {
-                                    if (label.charAt(i) == ',' || label.charAt(i) == '，') {
+                                for (int j = 0; j < label.length(); j++) {
+                                    if (label.charAt(j) == ',' || label.charAt(j) == '，') {
                                         if (!(str.equals("") || str.equals(",") || str.equals("，"))) {
                             %>
                                         <span class="label label-success"><%=str%></span>
@@ -78,7 +86,7 @@
                                         }
                                         str = "";
                                     } else {
-                                        str += label.charAt(i);
+                                        str += label.charAt(j);
                                     }
                                 }
                                 if (!(str.equals("") || str.equals(",") || str.equals("，"))) {
@@ -90,18 +98,19 @@
                         </span>
                     </div>
                     <div class="event-content">
-                        <%=request.getAttribute("content")%>
-                        <p>阅读量：<%=request.getAttribute("reader")%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="all_events.html">[Read
+                        <%=eventsList.get(i).getContent()%>
+                        <p>阅读量：<%=eventsList.get(i).getReader()%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="all_events.html">[Read
                             More]</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <img class="img-responsive event-poster" src="<%=request.getAttribute("poster")%>">
+                    <img class="img-responsive event-poster" src="<%=eventsList.get(i).getPoster()%>">
                 </div>
             </div>
             <div class="hline"></div>
             <div class="spacing"></div>
         </div>
+        <%}%>
     </div>
 </div>
 <!--网站底部-->
@@ -147,6 +156,7 @@
     </div>
 </div>
 <!--网站底部-->
+
 <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/retina-1.1.0.js"></script>
@@ -156,6 +166,46 @@
 <script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
 <script type="text/javascript" src="/js/custom.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+//    function scroll() {
+//        var container = document.getElementById("container");
+        //可见高度
+//        var viewHigh = container.high;
+//        alert(viewHigh);
+        //内容高度
+//        var containerHigh = container.scrollHeight;
+//        alert(containerHigh);
+//        //滚动高度
+//        var scrollTop = container.scrollTop;
+//        alert(scrollTop);
+//        if (containerHigh - scrollTop <= 100) {
+//            alert('test');
+//        }
+//        var wScrollY = window.scrollY; // 当前滚动条位置
+//        alert(wScrollY);
+//        var wInnerH = window.innerHeight; // 设备窗口的高度（不会变）
+//        alert(wInnerH);
+//        var bScrollH = document.body.scrollHeight; // 滚动条总高度
+//        alert(bScrollH);
+//        if (wScrollY + wInnerH >= bScrollH-100) {
+//            alert("test");
+//        }
+//    }
+//    onload = scroll;
+        scrollBottomTest =function(){
+            $("#contain").scroll(function(){
+                var $this =$(this),
+                    viewH =$(this).height(),//可见高度
+                    contentH =$(this).get(0).scrollHeight,//内容高度
+                    scrollTop =$(this).scrollTop();//滚动高度
+                //if(contentH - viewH - scrollTop <= 100) { //到达底部100px时,加载新内容
+                if(scrollTop/(contentH -viewH)>=0.95){ //到达底部100px时,加载新内容
+                    // 这里加载数据..
+                }
+            });
+        }
+</script>
 
 </body>
 </html>

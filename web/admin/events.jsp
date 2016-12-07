@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.xiyoulinux.model.Events" %>
 <%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
@@ -6,7 +7,6 @@
   Time: 10:06 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +47,8 @@
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b
+                        class="caret"></b></a>
             </li>
             <li class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> admin
@@ -108,16 +109,20 @@
                 </div>
                 <div>
                     <div class="king-wrapper">
-                        <form class="form-inline king-search-form king-no-bg mt15 mb15 pull-left" style="margin-left: 2%">
+                        <form class="form-inline king-search-form king-no-bg mt15 mb15 pull-left"
+                              style="margin-left: 2%">
                             <div class="form-group">
                                 <label>标题：</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="请输入文章标题">
+                                    <input type="text" class="form-control" placeholder="请输入文章标题" name="title"
+                                           id="title"
+                                           value="<%if(request.getAttribute("title") != null){out.print(request.getAttribute("title"));}%>">
                                 </div>
                             </div>
-                            <button type="submit" class="king-btn king-info">搜索</button>
+                            <button type="button" class="king-btn king-info" onclick="check(1)">搜索</button>
                         </form>
-                        <a href="/admin/eventsedit.jsp" class="king-btn king-info pull-right mt15 ml15" style="margin-right: 2%;">
+                        <a href="/admin/eventsedit.jsp" class="king-btn king-info pull-right mt15 ml15"
+                           style="margin-right: 2%;">
                             <i class="fa fa-user-plus mr5"></i>新增文章
                         </a>
                     </div>
@@ -126,38 +131,40 @@
                         <thead>
                         <tr>
                             <th style="width:50px;" class="tc">序号</th>
-                            <th >标题</th>
-                            <th >日期</th>
-                            <th >时间</th>
-                            <th >地点</th>
-                            <th >阅读量</th>
-                            <th >状态</th>
+                            <th>标题</th>
+                            <th>日期</th>
+                            <th>时间</th>
+                            <th>地点</th>
+                            <th>阅读量</th>
+                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody">
                         <%
                             ArrayList<Events> eventsList = (ArrayList<Events>) request.getAttribute("eventsList");
                             for (int i = 0; i < eventsList.size(); i++) {
                         %>
                         <tr>
-                            <td><%=i+1%></td>
-                            <td >
+                            <td><%=i + 1%>
+                            </td>
+                            <td>
                                 <a href="/admin/eventsedit?id=<%=eventsList.get(i).getId()%>"><%=eventsList.get(i).getTitle()%>
                                 </a>
                             </td>
-                            <td ><%=eventsList.get(i).getDate()%>
+                            <td><%=eventsList.get(i).getDate()%>
                             </td>
-                            <td ><%=eventsList.get(i).getTime()%>
+                            <td><%=eventsList.get(i).getTime()%>
                             </td>
-                            <td ><%=eventsList.get(i).getAddress()%>
+                            <td><%=eventsList.get(i).getAddress()%>
                             </td>
-                            <td ><%=eventsList.get(i).getReader()%>
+                            <td><%=eventsList.get(i).getReader()%>
                             </td>
-                            <td ><%=eventsList.get(i).getStatus()%>
+                            <td><%=eventsList.get(i).getStatus()%>
                             </td>
-                            <td >
-                                <a href="/admin/delete?id=<%=eventsList.get(i).getId()%>&type=events" class="mr15">删除</a>
+                            <td>
+                                <a href="/admin/delete?id=<%=eventsList.get(i).getId()%>&type=events"
+                                   class="mr15">删除</a>
                                 <a href="/admin/preview?id=<%=eventsList.get(i).getId()%>&type=events" target="_blank">预览</a>
                             </td>
                         <tr>
@@ -166,15 +173,28 @@
                         <tfoot>
                         <tr>
                             <td colspan="12">
-                                <div class="pagination-info pull-left">共<%=eventsList.size()%>条记录，当前第1/1页，每页20条记录</div>
+                                <div class="pagination-info pull-left" id="record">
+                                    共<%=request.getAttribute("allCount")%>
+                                    条记录，当前第<%=request.getAttribute("currentPage")%>
+                                    /<%=request.getAttribute("pageCount")%>页，每页20条记录
+                                </div>
                                 <div class="pull-right king-page-box">
-                                    <ul class="pagination pagination-small pull-right">
-                                        <li page-index="1" class="disabled"><a>«</a></li>
-                                        <li page-index="1" class="active"><a>1</a></li>
-                                        <li page-index="1"><a href="javascript:;">2</a></li>
-                                        <li page-index="1"><a href="javascript:;">3</a></li>
-                                        <li page-index="1"><a href="javascript:;">4</a></li>
-                                        <li page-index="1"><a href="javascript:;">»</a></li>
+                                    <ul class="pagination pagination-small pull-right" id="paging">
+                                        <%
+                                            for (int i = 0; i < (int) request.getAttribute("pageCount"); i++) {
+                                                if (i == (int) request.getAttribute("currentPage") - 1) {
+                                        %>
+                                        <li page-index="<%=i+1%>" class="active" onclick="check(<%=i+1%>)"><a><%=i + 1%>
+                                        </a></li>
+                                        <%
+                                        } else {
+                                        %>
+                                        <li page-index="<%=i+1%>" onclick="check(<%=i+1%>)"><a><%=i + 1%>
+                                        </a></li>
+                                        <%
+                                                }
+                                            }
+                                        %>
                                     </ul>
                                 </div>
                             </td>
@@ -193,7 +213,67 @@
 
 </div>
 <!-- /#wrapper -->
-
+<script>
+    function check(page) {
+        //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
+        //获取ajax对象
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) {
+            req = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (req != null) {
+            //获取title值
+            var title = document.getElementById("title").value;
+            //请求URL
+            var url = "/admin/events?page=" + page + "&title=" + title + "&type=ajax";
+            req.open("post", url, true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            //指定处理函数
+            req.onreadystatechange = state_change;
+            req.send(null);
+        } else {
+            alert("Your browser does not support XMLHTTP.");
+        }
+    }
+    function state_change() {
+        if (req.readyState == 4) {// 4 = "loaded"
+            if (req.status == 200) {
+                //从JSON中取出数据
+                var json = JSON.parse(req.responseText);
+                var pageCount = json.pageCount;
+                var currPage = json.currPage;
+                var allCount = json.allCount;
+                var title = json.title;
+                var eventsList = json.eventsList;
+                //获取tbody节点
+                var tbody = document.getElementById("tbody");
+                //清空节点原内容
+                tbody.innerHTML = "";
+                //循环的塞入新的内容
+                for (var i = 0; i < eventsList.length; i++) {
+                    var id = i + 1 + 20 * (currPage - 1);
+                    tbody.innerHTML += "<tr><td>" + id + "</td><td><a href=\"/admin/eventsedit?id=" + eventsList[i].id + "\">" + eventsList[i].title + "</a></td><td>" + eventsList[i].date + "</td><td>" + eventsList[i].time + "</td><td>" + eventsList[i].address + "</td><td>" + eventsList[i].reader + "</td><td>" + eventsList[i].status + "</td><td><a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a><a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a></td></tr>";
+                }
+                //重新符之搜索title
+                document.getElementById("title").value = title;
+                var record = document.getElementById("record");
+                var paging = document.getElementById("paging");
+                paging.innerHTML = "";
+                record.innerHTML = "共" + allCount + "条记录，当前第" + currPage + "/" + pageCount + "页，每页20条记录";
+                for (var i = 0; i < pageCount; i++) {
+                    var id = i + 1;
+                    if (id == currPage) {
+                        paging.innerHTML += "<li page-index=" + id + " class=\"active\" onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                    } else {
+                        paging.innerHTML += "<li page-index=" + id + " onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                    }
+                }
+            }
+        }
+    }
+</script>
 <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
 <script src="http://o.qcloud.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
 <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->

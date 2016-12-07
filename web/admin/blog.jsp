@@ -111,15 +111,16 @@
                 <div>
                     <div class="king-wrapper">
                         <form class="form-inline king-search-form king-no-bg mt15 mb15 pull-left"
-                              style="margin-left: 2%" action="/admin/blog" method="post">
+                              style="margin-left: 2%">
                             <div class="form-group">
                                 <label>标题：</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="请输入文章标题" name="title"
+                                           id="title"
                                            value="<%if(request.getAttribute("title") != null){out.print(request.getAttribute("title"));}%>">
                                 </div>
                             </div>
-                            <button type="submit" class="king-btn king-info">搜索</button>
+                            <button type="button" class="king-btn king-info" onclick="check(1)">搜索</button>
                         </form>
                     </div>
 
@@ -135,15 +136,16 @@
                         </tr>
                         <thead>
                         </thead>
+                        <tbody id="tbody">
                         <%
                             ArrayList<Blog> blogList = (ArrayList<Blog>) request.getAttribute("blogList");
                             for (int i = 0; i < blogList.size(); i++) {
+                                int current = (int) request.getAttribute("currentPage") - 1;
                         %>
-                        <tbody>
                         <tr>
-                            <td><%=i + 1%>
+                            <td><%=current * 20 + i + 1%>
                             </td>
-                            <td><a href="http://blog.xiyoulinux.org/<%=blogList.get(i).getUrl()%>"
+                            <td><a href="<%=blogList.get(i).getUrl()%>"
                                    target="_blank"><%=blogList.get(i).getTitle()%>
                             </a></td>
                             <td><%=blogList.get(i).getAuthor()%>
@@ -163,17 +165,28 @@
                         <tfoot>
                         <tr>
                             <td colspan="12">
-                                <div class="pagination-info pull-left">共<%=request.getAttribute("allCount")%>
-                                    条记录，当前第1/1页，每页20条记录
+                                <div class="pagination-info pull-left" id="record">
+                                    共<%=request.getAttribute("allCount")%>
+                                    条记录，当前第<%=request.getAttribute("currentPage")%>
+                                    /<%=request.getAttribute("pageCount")%>页，每页20条记录
                                 </div>
                                 <div class="pull-right king-page-box">
-                                    <ul class="pagination pagination-small pull-right">
-                                        <li page-index="1" class="disabled"><a>«</a></li>
-                                        <li page-index="1" class="active"><a>1</a></li>
-                                        <li page-index="1"><a href="javascript:;">2</a></li>
-                                        <li page-index="1"><a href="javascript:;">3</a></li>
-                                        <li page-index="1"><a href="javascript:;">4</a></li>
-                                        <li page-index="1"><a href="javascript:;">»</a></li>
+                                    <ul class="pagination pagination-small pull-right" id="paging">
+                                        <%
+                                            for (int i = 0; i < (int) request.getAttribute("pageCount"); i++) {
+                                                if (i == (int) request.getAttribute("currentPage") - 1) {
+                                        %>
+                                        <li page-index="<%=i+1%>" class="active" onclick="check(<%=i+1%>)"><a><%=i + 1%>
+                                        </a></li>
+                                        <%
+                                        } else {
+                                        %>
+                                        <li page-index="<%=i+1%>" onclick="check(<%=i+1%>)"><a><%=i + 1%>
+                                        </a></li>
+                                        <%
+                                                }
+                                            }
+                                        %>
                                     </ul>
                                 </div>
                             </td>
@@ -187,13 +200,75 @@
 
     </div>
     <!-- /.container-fluid -->
-
+    <div id="test">
+    </div>
 </div>
 <!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
-
+<script>
+    /*通过异步传输XMLHTTP发送参数到ajaxServlet,返回符合条件的XML文档*/
+    function check(page) {
+        //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
+        //获取ajax对象
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) {
+            req = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (req != null) {
+            //获取title值
+            var title = document.getElementById("title").value;
+            //请求URL
+            var url = "/admin/blog?page=" + page + "&title=" + title;
+            req.open("post", url, true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            //指定处理函数
+            req.onreadystatechange = state_change;
+            req.send(null);
+        } else {
+            alert("Your browser does not support XMLHTTP.");
+        }
+    }
+    function state_change() {
+        if (req.readyState == 4) {// 4 = "loaded"
+            if (req.status == 200) {
+                //从JSON中取出数据
+                var json = JSON.parse(req.responseText);
+                var pageCount = json.pageCount;
+                var currPage = json.currPage;
+                var allCount = json.allCount;
+                var title = json.title;
+                var blogList = json.blogList;
+                //获取tbody节点
+                var tbody = document.getElementById("tbody");
+                //清空节点原内容
+                tbody.innerHTML = "";
+                //循环的塞入新的内容
+                for (var i = 0; i < blogList.length; i++) {
+                    var id = i + 1 + 20 * (currPage - 1);
+                    tbody.innerHTML += "<tbody><tr><td>" + id + "</td><td><a href=" + blogList[i].url + " target=\"_blank\">" + blogList[i].title + "</a></td><td>" + blogList[i].author + "</td> <td>" + blogList[i].date + "</td> <td>" + blogList[i].time + " </td> <td>" + blogList[i].status + " </td> <td> <a href=\"/admin/delete?id=" + blogList[i].id + "&type=blog\">删除</a> </td> </tr><tr></tr></tbody>"
+                }
+                //重新符之搜索title
+                document.getElementById("title").value = title;
+                var record = document.getElementById("record");
+                var paging = document.getElementById("paging");
+                paging.innerHTML = "";
+                record.innerHTML = "共" + allCount + "条记录，当前第" + currPage + "/" + pageCount + "页，每页20条记录";
+                for (var i = 0; i < pageCount; i++) {
+                    var id = i + 1;
+                    if (id == currPage) {
+                        paging.innerHTML += "<li page-index=" + id + " class=\"active\" onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                    } else {
+                        paging.innerHTML += "<li page-index=" + id + " onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                    }
+                }
+            }
+        }
+    }
+</script>
 <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
 <script src="http://o.qcloud.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
 <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
