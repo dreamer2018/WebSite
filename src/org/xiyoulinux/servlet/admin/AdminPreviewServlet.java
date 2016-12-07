@@ -45,7 +45,7 @@ public class AdminPreviewServlet extends HttpServlet {
                     request.setAttribute("content", events.getContent());
                     request.setAttribute("poster", events.getPoster());
                     request.setAttribute("reader", events.getReader());
-                    request.getRequestDispatcher("/events.jsp").forward(request, response);
+                    request.getRequestDispatcher("/eventsview.jsp").forward(request, response);
                 }
             }
         } else if ("about".equals(request.getParameter("type"))) {

@@ -21,7 +21,7 @@ public class EventsDAO implements Ievents {
      * 分页要使用的一些东西
      */
     /*每页显示的数据量*/
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 20;
     /*数据库中的数据量*/
     private int allCount;
     /*总的分页数*/
