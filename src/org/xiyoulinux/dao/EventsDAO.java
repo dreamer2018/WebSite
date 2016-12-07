@@ -264,7 +264,7 @@ public class EventsDAO implements Ievents {
                 currentPage = allPageCount;
             }
             // 获取第currentPage页数据
-            String sql2 = "select * from events where title like ? limit ?,?";
+            String sql2 = "select * from events where title like ? ORDER BY id DESC limit ?,?";
             ps = conn.prepareStatement(sql2);
             ps.setString(1, "%" + title + "%");
             ps.setInt(2, PAGE_SIZE * (currentPage - 1));
