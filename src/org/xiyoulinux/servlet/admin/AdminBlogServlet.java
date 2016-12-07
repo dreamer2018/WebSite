@@ -66,7 +66,6 @@ public class AdminBlogServlet extends HttpServlet {
             json.put("pageCount", pageCount);
             json.put("currPage", currentPage);
             json.put("allCount", allCount);
-            json.put("pageCount", pageCount);
             json.put("title", title);
             for (Blog blog : blogList) {
                 JSONObject b = new JSONObject();

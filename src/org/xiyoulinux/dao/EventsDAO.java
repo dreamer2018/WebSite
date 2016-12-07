@@ -294,9 +294,60 @@ public class EventsDAO implements Ievents {
         }
     }
 
-    @Override
     public ArrayList<Events> getEventsByPage(int page, String title, int pagesize) {
-        return null;
+        currentPage = page;
+        ArrayList<Events> list = new ArrayList<>();
+        // 若未指定title,则默认全查
+        if (null == title || title.equals("")) {
+            title = "";
+        }
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            // 获取记录总数
+            String sql1 = "select count(id) as AllRecord from events";
+            conn = ConnectionManager.getInstance().getConnection();
+            ps = conn.prepareStatement(sql1);
+            rs = ps.executeQuery();
+            if (rs.next())
+                allCount = rs.getInt("AllRecord");
+            rs.close();
+            ps.close();
+            // 记算总页数
+            allPageCount = (allCount + pagesize - 1) / pagesize;
+            // 如果当前页数大于总页数,则赋值为总页数
+            if (allPageCount > 0 && currentPage > allPageCount) {
+                currentPage = allPageCount;
+            }
+            // 获取第currentPage页数据
+            String sql2 = "select * from events ORDER BY id DESC limit ?,?";
+            ps = conn.prepareStatement(sql2);
+            ps.setInt(1, pagesize * (currentPage - 1));
+            ps.setInt(2, pagesize);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Events events = new Events();
+                events.setId(rs.getInt(1));
+                events.setTitle(rs.getString(2));
+                events.setContent(rs.getString(3));
+                events.setMarkdown(rs.getString(4));
+                events.setPoster(rs.getString(5));
+                events.setDate(rs.getString(6));
+                events.setTime(rs.getString(7));
+                events.setAddress(rs.getString(8));
+                events.setLabel(rs.getString(9));
+                events.setReader(rs.getInt(10));
+                events.setStatus(rs.getInt(11));
+                // 将该用户信息插入列表
+                list.add(events);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.close(rs, ps, conn);
+            return list;
+        }
     }
 
     @Override
@@ -334,5 +385,38 @@ public class EventsDAO implements Ievents {
             ConnectionManager.close(null, ps, conn);
         }
         return null;
+    }
+
+    public ArrayList<Events> getNewEvents() {
+        ArrayList<Events> list = new ArrayList<>();
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader,status from events ORDER BY id DESC LIMIT 0,2";
+            ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Events events = new Events();
+                events.setId(rs.getInt(1));
+                events.setTitle(rs.getString(2));
+                events.setContent(rs.getString(3));
+                events.setMarkdown(rs.getString(4));
+                events.setPoster(rs.getString(5));
+                events.setDate(rs.getString(6));
+                events.setTime(rs.getString(7));
+                events.setAddress(rs.getString(8));
+                events.setLabel(rs.getString(9));
+                events.setReader(rs.getInt(10));
+                events.setStatus(rs.getInt(11));
+                list.add(events);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.close(null, ps, conn);
+        }
+        return list;
     }
 }

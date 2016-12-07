@@ -1,7 +1,9 @@
 package org.xiyoulinux.servlet;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.xiyoulinux.dao.EventsDAO;
-import org.xiyoulinux.model.Blog;
+
 import org.xiyoulinux.model.Events;
 
 import javax.servlet.ServletException;
@@ -19,16 +21,53 @@ import java.util.ArrayList;
 public class EventsViewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null) {
-            int id = 0;
-            String str_id = request.getParameter("id");
-            try {
-                id = Integer.parseInt(str_id);
-            } catch (NumberFormatException e) {
-                response.sendRedirect("/404.html");
+            if (null != request.getParameter("page") && "ajax".equals(request.getParameter("type"))) {
+                String str_page = request.getParameter("page");
+                int page = 2;
+                try {
+                    page = Integer.parseInt(str_page);
+                } catch (NumberFormatException e) {
+                    response.sendRedirect("/404.html");
+                }
+                EventsDAO eventsDAO = new EventsDAO();
+                ArrayList<Events> eventsList = eventsDAO.getEventsByPage(page, "", 2);
+                if (eventsList.size() <= 0) {
+                    response.getWriter().write("{}");
+                } else {
+                    int pageCount = eventsDAO.getAllPageCount();
+                    int currentPage = eventsDAO.getCurrentPage();
+                    int allCount = eventsDAO.getAllCount();
+                    JSONObject json = new JSONObject();
+                    JSONArray jsonArray = new JSONArray();
+                    json.put("pageCount", pageCount);
+                    json.put("currPage", currentPage);
+                    json.put("allCount", allCount);
+                    for (Events events : eventsList) {
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("title", events.getTitle());
+                        jsonObject.put("date", events.getDate());
+                        jsonObject.put("time", events.getTime());
+                        jsonObject.put("address", events.getAddress());
+                        jsonObject.put("label", events.getLabel());
+                        jsonObject.put("content", events.getContent());
+                        jsonObject.put("poster", events.getPoster());
+                        jsonObject.put("reader", events.getReader());
+                        jsonArray.put(jsonObject);
+                    }
+                    json.put("eventsList", jsonArray);
+                    response.setCharacterEncoding("utf-8");
+                    response.getWriter().write(json.toString());
+                }
+            } else {
+                EventsDAO eventsDAO = new EventsDAO();
+                ArrayList<Events> list = eventsDAO.getNewEvents();
+                if (null == list) {
+                    response.sendRedirect("/404.html");
+                } else {
+                    request.setAttribute("eventsList", list);
+                    request.getRequestDispatcher("/events.jsp").forward(request, response);
+                }
             }
-            EventsDAO eventsDAO = new EventsDAO();
-            ArrayList<Events> list = eventsDAO.getEventsByNumber(id);
-
         } else {
             int id = 0;
             String str_id = request.getParameter("id");
@@ -39,7 +78,6 @@ public class EventsViewServlet extends HttpServlet {
             }
             EventsDAO eventsDAO = new EventsDAO();
             Events events = eventsDAO.getEventsByID(id);
-            System.out.println(events);
             if (null == events) {
                 response.sendRedirect("/404.html");
             } else {
