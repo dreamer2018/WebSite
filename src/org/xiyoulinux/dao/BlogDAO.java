@@ -239,7 +239,7 @@ public class BlogDAO implements Iblog {
             // 获取第currentPage页数据
 
 
-            String sql2 = "select * from blog where title like ? limit ?,?";
+            String sql2 = "select * from blog where title like ? ORDER BY id DESC limit ?,?";
             ps = conn.prepareStatement(sql2);
             ps.setString(1, "%" + title + "%");
             ps.setInt(2, PAGE_SIZE * (currentPage - 1));
@@ -259,7 +259,6 @@ public class BlogDAO implements Iblog {
                 list.add(blog);
             }
         } catch (SQLException e) {
-            System.out.println(allPageCount+" "+currentPage+" ");
             e.printStackTrace();
         } finally {
             ConnectionManager.close(rs, ps, conn);

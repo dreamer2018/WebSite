@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by zhoupan on 10/30/16.
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/")
+@WebFilter(filterName = "AdminFilter", urlPatterns = "/admin/*")
 public class AdminFilter implements Filter {
     public void destroy() {
     }
