@@ -39,7 +39,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/admin/">
                 <i class="fa fa-leaf f20 mr5"></i>
                 后台管理系统
             </a>
@@ -54,18 +54,18 @@
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> admin
                     <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li>
-                        <a href="javascript:;"><i class="fa fa-fw fa-user"></i> 用户</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><i class="fa fa-fw fa-envelope"></i> 消息盒</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><i class="fa fa-fw fa-gear"></i> 设置</a>
-                    </li>
+                    <%--<li>--%>
+                    <%--<a href="javascript:;"><i class="fa fa-fw fa-user"></i> 用户</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                    <%--<a href="javascript:;"><i class="fa fa-fw fa-envelope"></i> 消息盒</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                    <%--<a href="javascript:;"><i class="fa fa-fw fa-gear"></i> 设置</a>--%>
+                    <%--</li>--%>
                     <li class="divider"></li>
                     <li>
-                        <a href="javascript:;"><i class="fa fa-fw fa-power-off"></i> 退出</a>
+                        <a href="/Logout"><i class="fa fa-fw fa-power-off"></i> 退出</a>
                     </li>
                 </ul>
             </li>
