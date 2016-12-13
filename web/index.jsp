@@ -225,7 +225,7 @@
                         }
                     %>
                     <div>
-                        <a href="all_events.html"><i class="fa fa-arrow-circle-right"></i> 所有活动</a>
+                        <a href="/events"><i class="fa fa-arrow-circle-right"></i> 所有活动</a>
                     </div>
                 </div>
             </div>

@@ -92,7 +92,7 @@
                     </div>
                     <div class="event-content">
                         <%=request.getAttribute("content")%>
-                        <p>阅读量：<%=request.getAttribute("reader")%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="all_events.html">[Read More]</a></p>
+                        <p>阅读量：<%=request.getAttribute("reader")%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/events">[Read More]</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3">
