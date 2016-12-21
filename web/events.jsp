@@ -58,7 +58,6 @@
         <!-- BLOG POSTS LIST -->
         <%
             ArrayList<Events> eventsList = (ArrayList<Events>) request.getAttribute("eventsList");
-
             for (int i = 0; i < eventsList.size(); i++) {
         %>
         <div class="col-lg-10 col-lg-offset-1" id="events-list">
