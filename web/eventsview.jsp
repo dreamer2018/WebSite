@@ -40,8 +40,8 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li><a href="/index.html">HOME</a></li>
-                <li class="active"><a href="/all_events.html">EVENTS</a></li>
+                <li><a href="/index.jsp">HOME</a></li>
+                <li class="active"><a href="/events">EVENTS</a></li>
                 <li><a href="http://blog.xiyoulinux.org">BLOG</a></li>
                 <li><a href="http://cs.xiyoulinux.org">LOGIN</a></li>
                 <li><a href="/about.html">ABOUT</a></li>
