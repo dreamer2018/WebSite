@@ -1,6 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.awt.*" %>
-<%@ page import="org.xiyoulinux.model.Events" %><%--
+<%@ page import="org.xiyoulinux.model.Events" %>
+<%--
   Created by IntelliJ IDEA.
   User: zhoupan
   Date: 11/5/16
