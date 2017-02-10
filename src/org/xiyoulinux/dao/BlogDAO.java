@@ -69,7 +69,6 @@ public class BlogDAO implements Iblog {
         PreparedStatement ps = null;
         try {
             String sql = "insert into blog(title,author,date,time,summary,url) values(?,?,?,?,?,?)";
-
             ps = conn.prepareStatement(sql);
             ps.setString(1, blog.getTitle());
             ps.setString(2, blog.getAuthor());
@@ -267,6 +266,64 @@ public class BlogDAO implements Iblog {
     }
 
     @Override
+    public ArrayList<Blog> getBlogByPage(int page, String title, int pagesize) {
+        currentPage = page;
+        ArrayList<Blog> list = new ArrayList<>();
+        // 若未指定title,则默认全查
+        if (null == title || title.equals("")) {
+            title = "";
+        }
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            // 获取记录总数
+            String sql1 = "select count(id) as AllRecord from blog where title like ? AND status=1";
+            conn = ConnectionManager.getInstance().getConnection();
+            ps = conn.prepareStatement(sql1);
+            ps.setString(1, "%" + title + "%");
+            rs = ps.executeQuery();
+            if (rs.next())
+                allCount = rs.getInt("AllRecord");
+            rs.close();
+            ps.close();
+            // 记算总页数
+            allPageCount = (allCount + pagesize - 1) / pagesize;
+            // 如果当前页数大于总页数,则赋值为总页数
+            if (allPageCount > 0 && currentPage > allPageCount) {
+                currentPage = allPageCount;
+            }
+            // 获取第currentPage页数据
+
+
+            String sql2 = "select * from blog where title like ? AND status=1 ORDER BY id DESC limit ?,?";
+            ps = conn.prepareStatement(sql2);
+            ps.setString(1, "%" + title + "%");
+            ps.setInt(2, pagesize * (currentPage - 1));
+            ps.setInt(3, pagesize);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setId(rs.getInt(1));
+                blog.setTitle(rs.getString(2));
+                blog.setAuthor(rs.getString(3));
+                blog.setDate(rs.getString(4));
+                blog.setTime(rs.getString(5));
+                blog.setSummary(rs.getString(6));
+                blog.setUrl(rs.getString(7));
+                blog.setStatus(rs.getInt(8));
+                // 将该用户信息插入列表
+                list.add(blog);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.close(rs, ps, conn);
+            return list;
+        }
+    }
+
+    @Override
     public ArrayList<Blog> getBlogByNumber(int number) {
         ArrayList<Blog> list = new ArrayList<Blog>();
         //获取Connection
@@ -298,5 +355,45 @@ public class BlogDAO implements Iblog {
             ConnectionManager.close(null, ps, conn);
         }
         return null;
+    }
+
+    @Override
+    public boolean alterBlogStatus(int id) {
+        //id 不可能小于或等于0
+        if(id <= 0){
+            return false;
+        }
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            String sql = "select count(id),status from blog where id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            int count = 0;
+            int status = 0;
+            while (rs.next()){
+                count = rs.getInt(1);
+                status = rs.getInt(2);
+            }
+            if (count == 0) {
+                return false;
+            }
+            sql = "UPDATE blog SET status = ? WHERE id = ?";
+            ps = conn.prepareStatement(sql);
+            if(status == 0) {
+                ps.setInt(1, 1);
+            }else{
+                ps.setInt(1, 0);
+            }
+            ps.setInt(2,id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.close(null, ps, conn);
+        }
+        return false;
     }
 }

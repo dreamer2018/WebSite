@@ -22,6 +22,7 @@ public class EventsViewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null) {
             if (null != request.getParameter("page") && "ajax".equals(request.getParameter("type"))) {
+                System.out.println("test");
                 String str_page = request.getParameter("page");
                 int page = 2;
                 try {

@@ -8,6 +8,7 @@ import org.xiyoulinux.dao.BlogDAO;
 import org.xiyoulinux.model.Blog;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.Date;
  * Created by zhoupan on 11/30/16.
  */
 public class Blogjson {
-    public static ArrayList<Blog> getBlogFromJson() throws IOException, ParseException {
+    public static ArrayList<Blog> getBlogFromJson() throws IOException{
         Document doc = Jsoup.connect("http://blog.xiyoulinux.org/blogjson").get();
         Elements js = doc.getElementsByTag("body");
         String jsonString = js.html();
@@ -28,15 +29,34 @@ public class Blogjson {
             JSONObject jsonObject = jsonObjects.getJSONObject(key);
             String datetime = jsonObject.getString("PubDate");
             SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
-            Date date = sdf.parse(datetime);
+            Date date = null;
             SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat t = new SimpleDateFormat("HH:mm:ss");
-
+            try {
+                date = sdf.parse(datetime);
+            }catch (ParseException e){
+                date = new Date();
+            }
             Blog blog = new Blog();
             // 获取相关属性
-            blog.setTitle(jsonObject.getString("Title"));
-            blog.setAuthor(jsonObject.getString("Author"));
-            blog.setUrl(jsonObject.getString("BlogArticleLink"));
+            String title = jsonObject.getString("Title");
+            String author = jsonObject.getString("Author");
+            String link = jsonObject.getString("BlogArticleLink");
+            //数据库设计，最大长度为50
+            if(title.length() > 50) {
+                title = title.substring(0,49);
+            }
+            //数据库设计，最大长度为20
+            if(author.length() > 20) {
+                author = author.substring(0,19);
+            }
+            //数据库设计，最大长度为256
+            if(link.length() > 256){
+                link=link.substring(0,255);
+            }
+            blog.setTitle(title);
+            blog.setAuthor(author);
+            blog.setUrl(link);
             blog.setDate(d.format(date));
             blog.setTime(t.format(date));
             blog.setSummary(jsonObject.getString("ArticleDetail"));

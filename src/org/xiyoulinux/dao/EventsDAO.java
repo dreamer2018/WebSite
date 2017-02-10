@@ -253,6 +253,7 @@ public class EventsDAO implements Ievents {
             ps = conn.prepareStatement(sql1);
             ps.setString(1, "%" + title + "%");
             rs = ps.executeQuery();
+            allCount=0;
             if (rs.next())
                 allCount = rs.getInt("AllRecord");
             rs.close();
@@ -306,12 +307,16 @@ public class EventsDAO implements Ievents {
         ResultSet rs = null;
         try {
             // 获取记录总数
-            String sql1 = "select count(id) as AllRecord from events";
+            String sql1 = "select count(id) as AllRecord from events where title like ? AND status=1";
             conn = ConnectionManager.getInstance().getConnection();
             ps = conn.prepareStatement(sql1);
+            ps.setString(1, "%" + title + "%");
             rs = ps.executeQuery();
-            if (rs.next())
+            allCount=0;
+            System.out.println("allcout:"+allCount);
+            if (rs.next()) {
                 allCount = rs.getInt("AllRecord");
+            }
             rs.close();
             ps.close();
             // 记算总页数
@@ -321,10 +326,11 @@ public class EventsDAO implements Ievents {
                 currentPage = allPageCount;
             }
             // 获取第currentPage页数据
-            String sql2 = "select * from events ORDER BY id DESC limit ?,?";
+            String sql2 = "select * from events where title like ? AND status=1 ORDER BY id DESC limit ?,?";
             ps = conn.prepareStatement(sql2);
-            ps.setInt(1, pagesize * (currentPage - 1));
-            ps.setInt(2, pagesize);
+            ps.setString(1, "%" + title + "%");
+            ps.setInt(2, pagesize * (currentPage - 1));
+            ps.setInt(3, pagesize);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Events events = new Events();
@@ -344,11 +350,14 @@ public class EventsDAO implements Ievents {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
         } finally {
             ConnectionManager.close(rs, ps, conn);
             return list;
         }
     }
+
 
     @Override
     public ArrayList<Events> getEventsByNumber(int number) {
@@ -357,7 +366,7 @@ public class EventsDAO implements Ievents {
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "select * from events order by id desc limit ?";
+            String sql = "select * from events WHERE status=1 order by id desc limit ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, number);
             ResultSet rs = ps.executeQuery();
@@ -387,12 +396,53 @@ public class EventsDAO implements Ievents {
         return null;
     }
 
+    @Override
+    public boolean alterEventsStatus(int id) {
+        // id 不可能小于或等于0
+        if (id <= 0) {
+            return false;
+        }
+        //获取数据库链接
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            String sql = "select count(id),status from events where id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            int count = 0;
+            int status = 0;
+            while (rs.next()) {
+                count = rs.getInt(1);
+                status = rs.getInt(2);
+            }
+            if (count == 0) {
+                return false;
+            }
+            sql = "UPDATE events SET status = ? WHERE id = ?";
+            ps = conn.prepareStatement(sql);
+            if (status == 0) {
+                ps.setInt(1, 1);
+            } else {
+                ps.setInt(1, 0);
+            }
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.close(null, ps, conn);
+        }
+        return false;
+    }
+
     public ArrayList<Events> getNewEvents() {
         ArrayList<Events> list = new ArrayList<>();
         Connection conn = ConnectionManager.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader,status from events ORDER BY id DESC LIMIT 0,2";
+            String sql = "select id,title,content,markdown,poster,date,time,address,label,reader,status from events WHERE status = 1 ORDER BY id DESC LIMIT 0,2";
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

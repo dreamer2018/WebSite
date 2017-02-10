@@ -20,5 +20,9 @@ public interface Iblog {
 
     public ArrayList getBlogByPage(int page, String title);
 
+    public ArrayList getBlogByPage(int page, String title,int pagesize);
+
     public ArrayList getBlogByNumber(int number);
+
+    public boolean alterBlogStatus(int id);
 }
