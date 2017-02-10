@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="org.xiyoulinux.model.About" %>
+<%@ page import="org.xiyoulinux.model.Title" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +57,7 @@
             <li class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> admin
                     <b class="caret"></b></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu"><a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
                     <%--<li>--%>
                     <%--<a href="javascript:;"><i class="fa fa-fw fa-user"></i> 用户</a>--%>
                     <%--</li>--%>
@@ -87,7 +87,7 @@
                     <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li class="active">
-                    <a href="/admin/about"><i class="fa fa-fw fa-desktop"></i>简介管理</a>
+                    <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
                 </li>
             </ul>
         </div>
@@ -102,78 +102,48 @@
             <div class="row page-header-box">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        活动管理
+                        标题管理
                     </h1>
                 </div>
             </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    活动列表
+                    标题列表
                 </div>
                 <div>
-                    <div class="king-wrapper">
-                        <form class="form-inline king-search-form king-no-bg mt15 mb15 pull-left"
-                              style="margin-left: 2%">
-                            <div class="form-group">
-                                <label>标题：</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="请输入文章标题">
-                                </div>
-                            </div>
-                            <button type="submit" class="king-btn king-info">搜索</button>
-                        </form>
-                        <a href="/admin/aboutedit.jsp" class="king-btn king-info pull-right mt15 ml15"
-                           style="margin-right: 2%;">
-                            <i class="fa fa-user-plus mr5"></i>新增简介
-                        </a>
-                    </div>
-
                     <table class="table table-out-bordered table-hover">
                         <tr>
                             <th style="width:50px;">序号</th>
                             <th>标题</th>
-                            <th>状态</th>
+                            <th>副标题</th>
+                            <th>链接</th>
                             <th>操作</th>
                         </tr>
                         <thead>
                         </thead>
                         <%
-                            ArrayList<About> aboutList = (ArrayList<About>) request.getAttribute("aboutList");
-                            for (int i = 0; i < aboutList.size(); i++) {
+                            ArrayList<Title> titleList = (ArrayList<Title>) request.getAttribute("titleList");
+                            for (int i = 0; i < titleList.size(); i++) {
                         %>
                         <tbody>
                         <tr>
                             <td><%=i + 1%>
                             </td>
+                            <td><%=titleList.get(i).getTitle()%></td>
+                            <td><%=titleList.get(i).getSubtitle()%>
+                            </td>
+                            <td><%=titleList.get(i).getUrl()%></td>
                             <td>
-                                <a href="/admin/aboutedit?id=<%=aboutList.get(i).getId()%>"><%=aboutList.get(i).getTitle()%>
-                                </a>
+                                <a href="/admin/titleedit?id=<%=titleList.get(i).getId()%>">修改</a>
                             </td>
-                            <td><%=aboutList.get(i).getStatus()%>
-                            </td>
-                            <td>
-                                <a href="/admin/preview?id=<%=aboutList.get(i).getId()%>&type=about">预览</a>
-                                <a href="/admin/delete?id=<%=aboutList.get(i).getId()%>&type=about">删除</a>
-                            </td>
-                        <tr>
+                        </tr>
                                 <%}%>
                         </tbody>
                         <tfoot>
                         <tr>
                             <td colspan="12">
-                                <div class="pagination-info pull-left">共<%=aboutList.size()%>条记录，当前第1/1页，每页20条记录</div>
-                                <div class="pull-right king-page-box">
-
-                                    <ul class="pagination pagination-small pull-right">
-                                        <li page-index="1" class="disabled"><a>«</a></li>
-                                        <li page-index="1" class="active"><a>1</a></li>
-                                        <li page-index="1"><a href="javascript:;">2</a></li>
-                                        <li page-index="1"><a href="javascript:;">3</a></li>
-                                        <li page-index="1"><a href="javascript:;">4</a></li>
-                                        <li page-index="1"><a href="javascript:;">»</a></li>
-                                    </ul>
-                                </div>
+                                <div class="pagination-info pull-left">共<%=titleList.size()%>条记录，当前第1/1页，每页20条记录</div>
                             </td>
                         </tr>
                         </tfoot>

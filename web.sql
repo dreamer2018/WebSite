@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS link;
 DROP TABLE IF EXISTS community;
 DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS follow;
+DROP TABLE IF EXISTS title;
 
 /*=================================================*/
 /*      user            用户                     */
@@ -30,8 +31,8 @@ CREATE TABLE user (
   passwd VARCHAR(20)        NOT NULL
 );
 
-INSERT INTO user VALUES (1, 'root', 'root');
-INSERT INTO user VALUES (2, 'zhoupan', 'zhoupan');
+INSERT INTO user VALUES (1, 'root', 'root@zp');
+INSERT INTO user VALUES (2, 'xiyoulinux', 'linux__2006');
 
 /*=================================================*/
 /*      events            活动                     */
@@ -61,8 +62,26 @@ CREATE TABLE blog (
   time    TIME         NOT NULL, # 时间
   summary TEXT         NOT NULL, # 摘要
   url     VARCHAR(256) NOT NULL, # url
-  status  INT          NOT NULL       DEFAULT 0 # 状态，0 为未发布， 1 为已发布
+  status  INT          NOT NULL       DEFAULT 1 # 状态，0 为未发布， 1 为已发布
 );
+
+/*=================================================*/
+/*      title            标题内容                    */
+/*=================================================*/
+CREATE TABLE title (
+  id      INT PRIMARY KEY             AUTO_INCREMENT,
+  title   VARCHAR(20)  NOT NULL,   # 标题的标题
+  subtitle  VARCHAR(30)  NOT NULL, # 副标题
+  url     VARCHAR(256) NOT NULL    # url
+);
+INSERT INTO title VALUES (1,"群博","这里是技术的天堂","http://blog.xiyoulinux.org/");
+INSERT INTO title VALUES (2,"WIKI","积累的力量","http://wiki.xiyoulinux.org");
+INSERT INTO title VALUES (3,"IRC","来这里聊天","IRC.html");
+INSERT INTO title VALUES (4,"邮件列表 ","不要错过我们的活动","http://wiki.xiyoulinux.org");
+INSERT INTO title VALUES (5,"小组资源","互动演讲","http://wiki.xiyoulinux.org");
+INSERT INTO title VALUES (6,"Issues ","Bug 提交/意见反馈","http://wiki.xiyoulinux.org");
+
+
 /*=================================================*/
 /*      signup            报名                     */
 /*=================================================*/

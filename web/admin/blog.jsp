@@ -45,7 +45,7 @@
             </button>
             <a class="navbar-brand" href="/admin">
                 <i class="fa fa-leaf f20 mr5"></i>
-                后台管理系统
+                后台管理
             </a>
         </div>
         <!-- Top Menu Items -->
@@ -58,15 +58,6 @@
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> admin
                     <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-user"></i> 用户</a>--%>
-                    <%--</li>--%>
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-envelope"></i> 消息盒</a>--%>
-                    <%--</li>--%>
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-gear"></i> 设置</a>--%>
-                    <%--</li>--%>
                     <li class="divider"></li>
                     <li>
                         <a href="/Logout"><i class="fa fa-fw fa-power-off"></i> 退出</a>
@@ -87,7 +78,7 @@
                     <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li>
-                    <a href="/admin/about"><i class="fa fa-fw fa-desktop"></i>简介管理</a>
+                    <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
                 </li>
             </ul>
         </div>
@@ -102,14 +93,14 @@
             <div class="row page-header-box">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        活动管理
+                        文章管理
                     </h1>
                 </div>
             </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    活动列表
+                    文章列表
                 </div>
                 <div>
                     <div class="king-wrapper">
@@ -157,7 +148,20 @@
                             </td>
                             <td><%=blogList.get(i).getTime()%>
                             </td>
-                            <td><%=blogList.get(i).getStatus()%>
+                            <td>
+                                <%
+                                    if (blogList.get(i).getStatus() == 0) {
+                                %>
+                                <button type="button" onclick="change_status(<%=blogList.get(i).getId()%>)" value="0">已停用
+                                </button>
+                                <%
+                                } else {
+                                %>
+                                <button type="button" onclick="change_status(<%=blogList.get(i).getId()%>)" value="1">已启用
+                                </button>
+                                <%
+                                    }
+                                %>
                             </td>
                             <td>
                                 <a href="/admin/delete?id=<%=blogList.get(i).getId()%>&type=blog">删除</a>
@@ -252,7 +256,36 @@
                 //循环的塞入新的内容
                 for (var i = 0; i < blogList.length; i++) {
                     var id = i + 1 + 20 * (currPage - 1);
-                    tbody.innerHTML += "<tbody><tr><td>" + id + "</td><td><a href=" + blogList[i].url + " target=\"_blank\">" + blogList[i].title + "</a></td><td>" + blogList[i].author + "</td> <td>" + blogList[i].date + "</td> <td>" + blogList[i].time + " </td> <td>" + blogList[i].status + " </td> <td> <a href=\"/admin/delete?id=" + blogList[i].id + "&type=blog\">删除</a> </td> </tr><tr></tr></tbody>"
+                    if(blogList[i].status == 0){
+                        tbody.innerHTML += "<tbody>" +
+                            "<tr>" +
+                            "<td>" + id + "</td>" +
+                            "<td><a href=" + blogList[i].url + " target=\"_blank\">" + blogList[i].title + "</a></td>" +
+                            "<td>" + blogList[i].author + "</td>" +
+                            "<td>" + blogList[i].date + "</td>" +
+                            "<td>" + blogList[i].time + " </td>" +
+                            "<td>"+"<button type=\"button\" onclick=\"change_status("+blogList[i].id+")\" value=\"0\">已停用</button>"+"</td>" +
+                            "<td>" +
+                            "<a href=\"/admin/delete?id=" + blogList[i].id + "&type=blog\">删除</a>" +
+                            "</td>" +
+                            "</tr>" +
+                            "</tbody>"
+                    }else {
+                        tbody.innerHTML += "<tbody>" +
+                            "<tr>" +
+                            "<td>" + id + "</td>" +
+                            "<td><a href=" + blogList[i].url + " target=\"_blank\">" + blogList[i].title + "</a></td>" +
+                            "<td>" + blogList[i].author + "</td>" +
+                            "<td>" + blogList[i].date + "</td>" +
+                            "<td>" + blogList[i].time + " </td>" +
+                            "<td>"+"<button type=\"button\" onclick=\"change_status("+blogList[i].id+")\" value=\"1\">已启用</button>"+"</td>" +
+                            "<td>" +
+                            "<a href=\"/admin/delete?id=" + blogList[i].id + "&type=blog\">删除</a>" +
+                            "</td>" +
+                            "</tr>" +
+                            "</tbody>"
+                    }
+
                 }
                 //重新符之搜索title
                 document.getElementById("title").value = title;
@@ -269,6 +302,47 @@
                     }
                 }
             }
+        }
+    }
+    function change_status(id) {
+        //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
+        //获取ajax对象
+        //sta 当前操作对象状态
+        var but=event.target;
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) {
+            req = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (req != null) {
+            var url = "/admin/status";
+            req.open("post", url, true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            //指定处理函数
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {// 4 = "loaded"
+                    if (req.status == 200) {
+                        //从JSON中取出数据
+                        var json = JSON.parse(req.responseText);
+                        var status = json.status;
+                        if (status == true) {
+                            if(but.value == 0){
+                                but.value=1;
+                                but.innerHTML="已启用";
+                            }else {
+                                but.value=0;
+                                but.innerHTML="已停用";
+                            }
+                        } else {
+                            alert("修改失败！");
+                        }
+                    }
+                }
+            };
+            req.send("id=" + id + "&type=blog");
+        } else {
+            alert("Your browser does not support XMLHTTP.");
         }
     }
 </script>

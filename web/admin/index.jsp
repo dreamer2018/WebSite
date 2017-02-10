@@ -12,7 +12,6 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="shortcut icon" href="/images/xiyoulinux.png">
     <title>西邮Linux兴趣小组官网-后台管理</title>
     <%--<link href="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">--%>
@@ -81,10 +80,10 @@
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
                 <li>
-                    <a href="/admin/about"><i class="fa fa-fw fa-edit"></i>文章管理</a>
+                    <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li>
-                    <a href="/admin/about"><i class="fa fa-fw fa-desktop"></i>简介管理</a>
+                    <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
                 </li>
             </ul>
         </div>

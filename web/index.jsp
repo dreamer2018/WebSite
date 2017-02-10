@@ -5,6 +5,8 @@
 <%@ page import="org.xiyoulinux.model.Events" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="org.xiyoulinux.util.HtmlUtil" %>
+<%@ page import="org.xiyoulinux.dao.TitleDAO" %>
+<%@ page import="org.xiyoulinux.model.Title" %>
 <%--
   Created by IntelliJ IDEA.
   User: zhoupan
@@ -56,62 +58,70 @@
 
 <div id="service">
     <div class="container">
-
+        <%
+            TitleDAO titleDAO = new TitleDAO();
+            Title title1 = titleDAO.getTitleById(1);
+            Title title2 = titleDAO.getTitleById(2);
+            Title title3 = titleDAO.getTitleById(3);
+            Title title4 = titleDAO.getTitleById(4);
+            Title title5 = titleDAO.getTitleById(5);
+            Title title6 = titleDAO.getTitleById(6);
+        %>
         <div class="row centered" id="service-list">
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
-                    <a href="http://blog.xiyoulinux.org">
+                    <a href="<%=title1.getUrl()%>">
                         <div class="inicon blogicon"></div>
                     </a>
                 </div>
-                <h4>群博<a href="http://blog.xiyoulinux.org"><i class="fa  fa-arrow-circle-right"></i></a></h4>
-                <p>这里是技术的天堂</p>
+                <h4><%=title1.getTitle()%><a href="<%=title1.getUrl()%>"><i class="fa  fa-arrow-circle-right"></i></a></h4>
+                <p><%=title1.getSubtitle()%></p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
-                    <a href="http://wiki.xiyoulinux.org">
+                    <a href="<%=title2.getUrl()%>">
                         <div class="inicon wikiicon"></div>
                     </a>
                 </div>
-                <h4>WIKI<a href="http://wiki.xiyoulinux.org"><i class="fa fa-arrow-circle-right"></i></a></h4>
-                <p>积累的力量</p>
+                <h4><%=title2.getTitle()%><a href="<%=title2.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a></h4>
+                <p><%=title2.getSubtitle()%></p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
-                    <a href="IRC.html">
+                    <a href="<%=title3.getUrl()%>">
                         <div class="inicon ircicon"></div>
                     </a>
                 </div>
-                <h4>IRC<a href="IRC.html"><i class="fa fa-arrow-circle-right"></i></a></h4>
-                <p>来这里聊天</p>
+                <h4><%=title3.getTitle()%><a href="<%=title3.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a></h4>
+                <p><%=title3.getSubtitle()%></p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
-                    <a href="https://groups.google.com/forum/#!forum/xiyoulinux">
+                    <a href="<%=title4.getUrl()%>">
                         <div class="inicon mailicon"></div>
                     </a>
                 </div>
-                <h4>邮件列表 <a href="https://groups.google.com/forum/#!forum/xiyoulinux"><i
+                <h4><%=title4.getTitle()%><a href="<%=title4.getUrl()%>"><i
                         class="fa fa-arrow-circle-right"></i></a></h4>
-                <p>不要错过我们的活动</p>
+                <p><%=title4.getSubtitle()%></p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
-                    <a href="#">
+                    <a href="<%=title5.getUrl()%>">
                         <div class="inicon resourceicon"></div>
                     </a>
                 </div>
-                <h4>小组资源 <a href="#"><i class="fa fa-arrow-circle-right"></i></a></h4>
-                <p>互动演讲</p>
+                <h4><%=title5.getTitle()%><a href="<%=title5.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a></h4>
+                <p><%=title5.getSubtitle()%></p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
-                    <a href="#">
+                    <a href="<%=title6.getUrl()%>">
                         <div class="inicon othericon"></div>
                     </a>
                 </div>
-                <h4>Issues <a href="#"><i class="fa fa-arrow-circle-right"></i></a></h4>
-                <p>Bug 提交/意见反馈</p>
+                <h4><%=title6.getTitle()%><a href="<%=title6.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a></h4>
+                <p><%=title6.getSubtitle()%></p>
             </div>
         </div>
     </div>
@@ -128,7 +138,7 @@
                 <div class="panel-body">
                     <%
                         BlogDAO blogDAO = new BlogDAO();
-                        ArrayList<Blog> blogs = blogDAO.getBlogByNumber(5);
+                        ArrayList<Blog> blogs = blogDAO.getBlogByPage(1,"",5);
                         for (Blog blog : blogs) {
                     %>
                     <div class="post">
@@ -172,7 +182,7 @@
                 <div class="panel-body">
                     <%
                         EventsDAO eventsDAO = new EventsDAO();
-                        ArrayList<Events> eventss = eventsDAO.getEventsByNumber(5);
+                        ArrayList<Events> eventss = eventsDAO.getEventsByPage(1,"",5);
                         for (Events events : eventss) {
                     %>
                     <div class="event" data-event-date="<%=events.getDate()%>%>">

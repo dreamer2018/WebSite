@@ -45,7 +45,7 @@
             </button>
             <a class="navbar-brand" href="/admin">
                 <i class="fa fa-leaf f20 mr5"></i>
-                后台管理系统
+                后台管理
             </a>
         </div>
         <!-- Top Menu Items -->

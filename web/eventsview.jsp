@@ -104,49 +104,70 @@
         </div>
     </div>
 </div>
+
 <!--网站底部-->
-<div id="footerwrap">
+<footer>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <p class="heading">链接</p>
-                <ul>
-                    <li><a href="http://222.24.19.3:81/xiyoucs/index.asp">西安邮电大学计算机学院</a></li>
-                    <li><a href="http://www.kerneltravel.net/">Linux内核之旅</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <p class="heading">社区</p>
-                <ul>
-                    <li>邮件列表: <a href="https://groups.google.com/forum/#!forum/xiyoulinux">xiyoulinux</a></li>
-                    <li>新浪微博: <a href="http://weibo.com/xylinux">@西邮Linux兴趣小组</a></li>
-                    <li>人人主页: <a href="http://page.renren.com/601367653?checked=true">@西邮Linux兴趣小组</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <p class="heading">地址</p>
-                <ul>
-                    <li>
-                        陕西省 西安市 长安区<br>
-                        西安邮电大学长安校区<br>
-                        东区 教学实验楼 FZ118<br>
-                        邮编：710121
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <p class="heading">关注我们</p>
-                <ul>
-                    <li>
-                        <img class="qr" src="https://www.xiyoulinux.org/assets/images/weixin.jpg"
-                             style="width: 80px;height: 80px;">
-                    </li>
-                </ul>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="link-address">
+                        <p class="head">链接</p>
+                        <ul>
+                            <li><a href="http://www.xupt.edu.cn/">西安邮电大学</a></li>
+                            <li><a href="http://cs.xupt.edu.cn">西安邮电大学计算机学院</a></li>
+                            <li><a href="http://www.kerneltravel.net/">Linux内核之旅</a></li>
+                            <li><a href="https://www.kernel.org/">The Linux Kernel Archives</a></li>
+                            <li><a href="https://www.linuxfoundation.org/">The Linux Foundation</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="link-address">
+                        <p class="head">社区</p>
+                        <ul>
+                            <li>邮件列表: <a href="https://groups.google.com/forum/#!forum/xiyoulinux">xiyoulinux</a></li>
+                            <li>新浪微博: <a href="http://weibo.com/xylinux">@西邮Linux兴趣小组</a></li>
+                            <li>人人主页: <a href="http://page.renren.com/601367653?checked=true">@西邮Linux兴趣小组</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="link-address">
+                        <p class="head">地址</p>
+                        <ul>
+                            <li>
+                                陕西省 西安市 长安区<br>
+                                西安邮电大学长安校区<br>
+                                东区 教学实验楼 FZ118<br>
+                                邮编：710121
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="link-address">
+                        <p class="head">关注我们</p>
+                        <ul>
+                            <li>
+                                <img class="qr" src="/images/weixin.jpg">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="copy-right-content">
+          <span>
+             Copyright © 2006 - <span class="year"></span> 西邮Linux兴趣小组 All Rights Reserved
+          </span>
+        </div>
     </div>
-</div>
+</footer>
 <!--网站底部-->
+
+
+
 <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/retina-1.1.0.js"></script>

@@ -44,7 +44,7 @@
             </button>
             <a class="navbar-brand" href="/admin/">
                 <i class="fa fa-leaf f20 mr5"></i>
-                后台管理系统
+                后台管理
             </a>
         </div>
         <!-- Top Menu Items -->
@@ -86,7 +86,7 @@
                     <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li>
-                    <a href="/admin/about"><i class="fa fa-fw fa-desktop"></i>简介管理</a>
+                    <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
                 </li>
             </ul>
         </div>
@@ -163,9 +163,23 @@
                             </td>
                             <td><%=eventsList.get(i).getReader()%>
                             </td>
-                            <td><%=eventsList.get(i).getStatus()%>
+                            <td>
+                                <%
+                                    if (eventsList.get(i).getStatus() == 0) {
+                                %>
+                                <button type="button" onclick="change_status(<%=eventsList.get(i).getId()%>)" value="0">已停用
+                                </button>
+                                <%
+                                } else {
+                                %>
+                                <button type="button" onclick="change_status(<%=eventsList.get(i).getId()%>)" value="1">已启用
+                                </button>
+                                <%
+                                    }
+                                %>
                             </td>
                             <td>
+
                                 <a href="/admin/delete?id=<%=eventsList.get(i).getId()%>&type=events"
                                    class="mr15">删除</a>
                                 <a href="/admin/preview?id=<%=eventsList.get(i).getId()%>&type=events" target="_blank">预览</a>
@@ -205,15 +219,11 @@
                         </tfoot>
                     </table>
                 </div>
-
             </div>
-
         </div>
         <!-- /.container-fluid -->
-
     </div>
     <!-- /#page-wrapper -->
-
 </div>
 <!-- /#wrapper -->
 <script>
@@ -257,7 +267,37 @@
                 //循环的塞入新的内容
                 for (var i = 0; i < eventsList.length; i++) {
                     var id = i + 1 + 20 * (currPage - 1);
-                    tbody.innerHTML += "<tr><td>" + id + "</td><td><a href=\"/admin/eventsedit?id=" + eventsList[i].id + "\">" + eventsList[i].title + "</a></td><td>" + eventsList[i].date + "</td><td>" + eventsList[i].time + "</td><td>" + eventsList[i].address + "</td><td>" + eventsList[i].reader + "</td><td>" + eventsList[i].status + "</td><td><a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a><a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a></td></tr>";
+                    if (eventsList[i].status == 0) {
+                        tbody.innerHTML += "<tr>" +
+                            "<td>" + id + "</td>" +
+                            "<td><a href=\"/admin/eventsedit?id=" + eventsList[i].id + "\">" + eventsList[i].title + "</a></td>" +
+                            "<td>" + eventsList[i].date + "</td>" +
+                            "<td>" + eventsList[i].time + "</td>" +
+                            "<td>" + eventsList[i].address + "</td>" +
+                            "<td>" + eventsList[i].reader + "</td>" +
+                            "<td>"+"<button type=\"button\" onclick=\"change_status("+eventsList[i].id+")\" value=\"0\">已停用</button>"+"</td>" +
+                            "<td>" +
+                            "<a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a>" +
+                            "<a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a>" +
+                            "</td>" +
+                            "</tr>";
+                    } else {
+                        tbody.innerHTML += "<tr>" +
+                            "<td>" + id + "</td>" +
+                            "<td>" +
+                            "<a href=\"/admin/eventsedit?id=" + eventsList[i].id + "\">" + eventsList[i].title + "</a>" +
+                            "</td>" +
+                            "<td>" + eventsList[i].date + "</td>" +
+                            "<td>" + eventsList[i].time + "</td>" +
+                            "<td>" + eventsList[i].address + "</td>" +
+                            "<td>" + eventsList[i].reader + "</td>" +
+                            "<td>"+"<button type=\"button\" onclick=\"change_status("+eventsList[i].id+")\" value=\"1\">已启用</button>"+"</td>" +
+                            "<td>" +
+                            "<a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a>" +
+                            "<a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a>" +
+                            "</td>" +
+                            "</tr>";
+                    }
                 }
                 //重新符之搜索title
                 document.getElementById("title").value = title;
@@ -276,7 +316,49 @@
             }
         }
     }
+    function change_status(id) {
+        //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
+        //获取ajax对象
+        //sta 当前操作对象状态
+        var but=event.target;
+        if (window.XMLHttpRequest) {
+            req = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) {
+            req = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (req != null) {
+            var url = "/admin/status";
+            req.open("post", url, true);
+            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            //指定处理函数
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {// 4 = "loaded"
+                    if (req.status == 200) {
+                        //从JSON中取出数据
+                        var json = JSON.parse(req.responseText);
+                        var status = json.status;
+                        if (status == true) {
+                            if(but.value == 0){
+                                but.value=1;
+                                but.innerHTML="已启用";
+                            }else {
+                                but.value=0;
+                                but.innerHTML="已停用";
+                            }
+                        } else {
+                            alert("修改失败！");
+                        }
+                    }
+                }
+            };
+            req.send("id=" + id + "&type=events");
+        } else {
+            alert("Your browser does not support XMLHTTP.");
+        }
+    }
 </script>
+
 <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
 <%--<script src="http://o.qcloud.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>--%>
 <script src="js/jquery-1.10.2.min.js"></script>
