@@ -175,6 +175,7 @@
 <script>
     //设定当前页面
     var curpage = 1;
+    var id_array = new Array();
     //创建事件
     function ScrollEvent() {
         var wScrollY = window.scrollY; // 当前滚动条位置
@@ -226,6 +227,10 @@
                     window.removeEventListener("scroll", ScrollEvent, false);
                 }
                 for (var i = 0; i < eventsList.length; i++) {
+                    if(id_array.indexOf(eventsList[i].id) > -1) {
+                        continue;
+                    }
+                    id_array.push(eventsList[i].id);
                     var label = splitLabel(eventsList[i].label);
                     article.innerHTML += "" +
                         "<div class=\"col-lg-10 col-lg-offset-1\" id=\"events-list\">" +

@@ -45,6 +45,7 @@ public class EventsViewServlet extends HttpServlet {
                     json.put("allCount", allCount);
                     for (Events events : eventsList) {
                         JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("id",events.getId());
                         jsonObject.put("title", events.getTitle());
                         jsonObject.put("date", events.getDate());
                         jsonObject.put("time", events.getTime());
