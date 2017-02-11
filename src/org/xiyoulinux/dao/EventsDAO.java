@@ -437,6 +437,27 @@ public class EventsDAO implements Ievents {
         return false;
     }
 
+    @Override
+    public boolean addEventsRead(int id) {
+        if(id <= 0){
+            return false;
+        }
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE events SET reader = reader + 1 WHERE id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionManager.close(null, ps, conn);
+        }
+        return false;
+    }
+
     public ArrayList<Events> getNewEvents() {
         ArrayList<Events> list = new ArrayList<>();
         Connection conn = ConnectionManager.getInstance().getConnection();

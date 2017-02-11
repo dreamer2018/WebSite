@@ -22,7 +22,6 @@ public class EventsViewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") == null) {
             if (null != request.getParameter("page") && "ajax".equals(request.getParameter("type"))) {
-                System.out.println("test");
                 String str_page = request.getParameter("page");
                 int page = 2;
                 try {
@@ -44,6 +43,7 @@ public class EventsViewServlet extends HttpServlet {
                     json.put("currPage", currentPage);
                     json.put("allCount", allCount);
                     for (Events events : eventsList) {
+                        eventsDAO.addEventsRead(events.getId());
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("id",events.getId());
                         jsonObject.put("title", events.getTitle());
@@ -83,6 +83,7 @@ public class EventsViewServlet extends HttpServlet {
             if (null == events) {
                 response.sendRedirect("/404.html");
             } else {
+                eventsDAO.addEventsRead(events.getId());
                 request.setAttribute("title", events.getTitle());
                 request.setAttribute("date", events.getDate());
                 request.setAttribute("time", events.getTime());
