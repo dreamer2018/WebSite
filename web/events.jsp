@@ -174,14 +174,20 @@
 <script>
     //设定当前页面
     var curpage = 1;
+    //记录当前已经加载的事件
     var id_array = new Array();
+    //记录当前已经加载的页面
+    var page_array = new Array();
     //创建事件
     function ScrollEvent() {
         var wScrollY = window.scrollY; // 当前滚动条位置
         var wInnerH = window.innerHeight; // 设备窗口的高度（不会变）
         var bScrollH = document.body.scrollHeight; // 滚动条总高度
         if (wScrollY + wInnerH >= bScrollH - 400) {
-            check(curpage + 1);
+            if(page_array.indexOf(curpage + 1) == -1){
+                page_array.push(curpage+1);
+                check(curpage + 1);
+            }
         }
     }
     //绑定事件
