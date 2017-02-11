@@ -63,6 +63,10 @@ public class EventsViewServlet extends HttpServlet {
             } else {
                 EventsDAO eventsDAO = new EventsDAO();
                 ArrayList<Events> list = eventsDAO.getNewEvents();
+                for(Events events:list){
+                    eventsDAO.addEventsRead(events.getId());
+                }
+
                 if (null == list) {
                     response.sendRedirect("/404.html");
                 } else {
