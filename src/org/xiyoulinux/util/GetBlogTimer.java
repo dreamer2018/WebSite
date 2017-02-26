@@ -4,9 +4,6 @@ package org.xiyoulinux.util;
  * Created by zhoupan on 11/30/16.
  */
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Timer;
 
 public class GetBlogTimer {
