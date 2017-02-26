@@ -6,12 +6,15 @@ package org.xiyoulinux.util;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimerTask;
 
 public class GetBlogTimerTask extends TimerTask {
     @Override
     public void run() {
-        System.out.print("run task");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.print("run task time:"+ df.format(new Date()));
         try {
             Blogjson.saveBlog();
         } catch (IOException e) {

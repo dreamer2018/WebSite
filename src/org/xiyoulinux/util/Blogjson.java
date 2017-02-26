@@ -69,6 +69,7 @@ public class Blogjson {
     public static void saveBlog() throws IOException, ParseException {
         BlogDAO blogDAO = new BlogDAO();
         ArrayList<Blog> blogs = getBlogFromJson();
+        System.out.println("\nBlog:"+blogs.size());
         for (Blog blog : blogs) {
             // 看文章里面有没有此文章，有的话，就不再存储
             ArrayList<Blog> b = blogDAO.getBlogByTitle(blog.getTitle());
