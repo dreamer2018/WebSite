@@ -5,7 +5,6 @@ package org.xiyoulinux.util;
  */
 
 import java.util.Timer;
-
 public class GetBlogTimer {
     public Timer timer;
 
