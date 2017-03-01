@@ -226,32 +226,9 @@
             page: page,
             type: 'ajax'
         }, function (data, status) {
-            alert(status == 'success');
-        });
-
-//        if (window.XMLHttpRequest) {
-//            req = new XMLHttpRequest();
-//        }
-//        else if (window.ActiveXObject) {
-//            req = new ActiveXObject("Microsoft.XMLHTTP");
-//        }
-//        if (req != null) {
-//            //请求URL
-//            var url = "/events";
-//            req.open("post", url, true);
-//            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//            //指定处理函数
-//            req.onreadystatechange = state_change;
-//            req.send("page=" + page + "&type=ajax");
-//        } else {
-//            alert("Your browser does not support XMLHTTP.");
-//        }
-    }
-    function state_change() {
-        if (req.readyState == 4) {// 4 = "loaded"
-            if (req.status == 200) {
+            if ('success' == status) {
                 //从JSON中取出数据
-                var json = JSON.parse(req.responseText);
+                var json = JSON.parse(data);
                 var pageCount = json.pageCount;
                 var currPage = json.currPage;
                 var allCount = json.allCount;
@@ -293,9 +270,8 @@
                         "<div class=\"spacing\"></div>" +
                         "</div>"
                 }
-                //重新符之搜索title
             }
-        }
+        });
     }
     function splitLabel(label) {
         var str = "";

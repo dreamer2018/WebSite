@@ -229,14 +229,14 @@
                             %>
                         </div>
                         <div class="event-abstract">
-                            <%if (HtmlUtil.getTextFromTHML(events.getContent()).length() <= 240) {%>
+                            <%if (HtmlUtil.getTextFromTHML(events.getContent()).length() <= 200) {%>
                             <%=HtmlUtil.getTextFromTHML(events.getContent())%>&nbsp;<a
                                 href="/events?id=<%=events.getId()%>" target="_blank">>>></a>
-                            <%for (int i = 0; i < ((240 - HtmlUtil.getTextFromTHML(events.getContent()).length()) / 48)+1 ; i++) {%>
+                            <%for (int i = 0; i < ((200 - HtmlUtil.getTextFromTHML(events.getContent()).length()) / 48)+1 ; i++) {%>
                             <br/>
                             <%}%>
                             <%} else {%>
-                            <%=HtmlUtil.getTextFromTHML(events.getContent()).substring(0, 240)%>&nbsp;<a
+                            <%=HtmlUtil.getTextFromTHML(events.getContent()).substring(0, 200)%>&nbsp;<a
                                 href="/events?id=<%=events.getId()%>" target="_blank">>>></a>
                             <%}%>
                         </div>
