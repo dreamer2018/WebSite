@@ -69,13 +69,13 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <%--<li>--%>
-                    <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
+                <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
                 <%--</li>--%>
                 <li>
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
                 <li class="active">
-                    <a href="/admin/blogs"><i class="fa fa-fw fa-edit"></i>文章管理</a>
+                    <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li>
                     <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
@@ -152,12 +152,14 @@
                                 <%
                                     if (blogList.get(i).getStatus() == 0) {
                                 %>
-                                <button type="button" onclick="change_status(<%=blogList.get(i).getId()%>)" value="0">已停用
+                                <button type="button" onclick="change_status(<%=blogList.get(i).getId()%>)" value="0">
+                                    已停用
                                 </button>
                                 <%
                                 } else {
                                 %>
-                                <button type="button" onclick="change_status(<%=blogList.get(i).getId()%>)" value="1">已启用
+                                <button type="button" onclick="change_status(<%=blogList.get(i).getId()%>)" value="1">
+                                    已启用
                                 </button>
                                 <%
                                     }
@@ -211,6 +213,11 @@
     </div>
 </div>
 <!-- /#page-wrapper -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+
 
 </div>
 <!-- /#wrapper -->
@@ -219,31 +226,15 @@
     function check(page) {
         //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
         //获取ajax对象
-        if (window.XMLHttpRequest) {
-            req = new XMLHttpRequest();
-        }
-        else if (window.ActiveXObject) {
-            req = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        if (req != null) {
-            //获取title值
-            var title = document.getElementById("title").value;
-            //请求URL
-            var url = "/admin/blogs";
-            req.open("post", url, true);
-            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            //指定处理函数
-            req.onreadystatechange = state_change;
-            req.send("page=" + page + "&title=" + title);
-        } else {
-            alert("Your browser does not support XMLHTTP.");
-        }
-    }
-    function state_change() {
-        if (req.readyState == 4) {// 4 = "loaded"
-            if (req.status == 200) {
-                //从JSON中取出数据
-                var json = JSON.parse(req.responseText);
+        var title = document.getElementById("title").value;
+
+        $.post('/admin/blog', {
+            page: page,
+            title: title
+        }, function (data, status) {
+            //从JSON中取出数据
+            if ('success' == status) {
+                var json = JSON.parse(data);
                 var pageCount = json.pageCount;
                 var currPage = json.currPage;
                 var allCount = json.allCount;
@@ -256,7 +247,7 @@
                 //循环的塞入新的内容
                 for (var i = 0; i < blogList.length; i++) {
                     var id = i + 1 + 20 * (currPage - 1);
-                    if(blogList[i].status == 0){
+                    if (blogList[i].status == 0) {
                         tbody.innerHTML += "<tbody>" +
                             "<tr>" +
                             "<td>" + id + "</td>" +
@@ -264,13 +255,13 @@
                             "<td>" + blogList[i].author + "</td>" +
                             "<td>" + blogList[i].date + "</td>" +
                             "<td>" + blogList[i].time + " </td>" +
-                            "<td>"+"<button type=\"button\" onclick=\"change_status("+blogList[i].id+")\" value=\"0\">已停用</button>"+"</td>" +
+                            "<td>" + "<button type=\"button\" onclick=\"change_status(" + blogList[i].id + ")\" value=\"0\">已停用</button>" + "</td>" +
                             "<td>" +
                             "<a href=\"/admin/delete?id=" + blogList[i].id + "&type=blog\">删除</a>" +
                             "</td>" +
                             "</tr>" +
                             "</tbody>"
-                    }else {
+                    } else {
                         tbody.innerHTML += "<tbody>" +
                             "<tr>" +
                             "<td>" + id + "</td>" +
@@ -278,7 +269,7 @@
                             "<td>" + blogList[i].author + "</td>" +
                             "<td>" + blogList[i].date + "</td>" +
                             "<td>" + blogList[i].time + " </td>" +
-                            "<td>"+"<button type=\"button\" onclick=\"change_status("+blogList[i].id+")\" value=\"1\">已启用</button>"+"</td>" +
+                            "<td>" + "<button type=\"button\" onclick=\"change_status(" + blogList[i].id + ")\" value=\"1\">已启用</button>" + "</td>" +
                             "<td>" +
                             "<a href=\"/admin/delete?id=" + blogList[i].id + "&type=blog\">删除</a>" +
                             "</td>" +
@@ -302,13 +293,14 @@
                     }
                 }
             }
-        }
+        });
     }
+
     function change_status(id) {
         //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
         //获取ajax对象
         //sta 当前操作对象状态
-        var but=event.target;
+        var but = event.target;
         if (window.XMLHttpRequest) {
             req = new XMLHttpRequest();
         }
@@ -327,12 +319,12 @@
                         var json = JSON.parse(req.responseText);
                         var status = json.status;
                         if (status == true) {
-                            if(but.value == 0){
-                                but.value=1;
-                                but.innerHTML="已启用";
-                            }else {
-                                but.value=0;
-                                but.innerHTML="已停用";
+                            if (but.value == 0) {
+                                but.value = 1;
+                                but.innerHTML = "已启用";
+                            } else {
+                                but.value = 0;
+                                but.innerHTML = "已停用";
                             }
                         } else {
                             alert("修改失败！");
@@ -346,18 +338,6 @@
         }
     }
 </script>
-<!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>--%>
-<script src="js/jquery-1.10.2.min.js"></script>
-<!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>--%>
-<script src="js/bootstrap.min.js"></script>
-<!--[if lt IE 9]>
-<!--<script src="http://o.qcloud.com/static_api/v3/assets/js/html5shiv.min.js"></script>-->
-<script src="js/html5shiv.min.js"></script>
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/js/respond.min.js"></script>--%>
-<script src="js/respond.min.js"></script>
-<![endif]-->
 
 </body>
 

@@ -78,13 +78,13 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <%--<li>--%>
-                    <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
+                <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
                 <%--</li>--%>
                 <li>
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
                 <li>
-                    <a href="/admin/blogs"><i class="fa fa-fw fa-edit"></i>文章管理</a>
+                    <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li class="active">
                     <a href="/admin/about"><i class="fa fa-fw fa-desktop"></i>简介管理</a>
@@ -192,16 +192,12 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>--%>
 <script src="js/jquery-1.10.2.min.js"></script>
-<!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>--%>
+
 <script src="js/bootstrap.min.js"></script>
-<!--[if lt IE 9]>
-<!--<script src="http://o.qcloud.com/static_api/v3/assets/js/html5shiv.min.js"></script>-->
+
 <script src="js/html5shiv.min.js"></script>
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/js/respond.min.js"></script>--%>
+
 <script src="js/respond.min.js"></script>
 <![endif]-->
 

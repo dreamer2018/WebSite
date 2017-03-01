@@ -77,13 +77,13 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <%--<li>--%>
-                    <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
+                <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
                 <%--</li>--%>
                 <li class="active">
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
                 <li>
-                    <a href="/admin/blogs"><i class="fa fa-fw fa-edit"></i>文章管理</a>
+                    <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li>
                     <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
@@ -167,12 +167,14 @@
                                 <%
                                     if (eventsList.get(i).getStatus() == 0) {
                                 %>
-                                <button type="button" onclick="change_status(<%=eventsList.get(i).getId()%>)" value="0">已停用
+                                <button type="button" onclick="change_status(<%=eventsList.get(i).getId()%>)" value="0">
+                                    已停用
                                 </button>
                                 <%
                                 } else {
                                 %>
-                                <button type="button" onclick="change_status(<%=eventsList.get(i).getId()%>)" value="1">已启用
+                                <button type="button" onclick="change_status(<%=eventsList.get(i).getId()%>)" value="1">
+                                    已启用
                                 </button>
                                 <%
                                     }
@@ -226,63 +228,60 @@
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
+
+<%--<script src="js/jquery-1.10.2.min.js"></script>--%>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/html5shiv.min.js"></script>
+<script type="text/javascript" src="js/respond.min.js"></script>
+<script type="text/javascript" src="../js/retina-1.1.0.js"></script>
+<script type="text/javascript" src="../js/jquery.hoverdir.js"></script>
+<script type="text/javascript" src="../js/jquery.hoverex.min.js"></script>
+<script type="text/javascript" src="../js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="../js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="../js/custom.js"></script>
+<script type="text/javascript" src="../js/main.js"></script>
+
+
 <script>
     function check(page) {
         //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
         //获取ajax对象
-        if (window.XMLHttpRequest) {
-            req = new XMLHttpRequest();
-        }
-        else if (window.ActiveXObject) {
-            req = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        if (req != null) {
-            //获取title值
-            var title = document.getElementById("title").value;
-            //请求URL
-            var url = "/admin/events";
-            req.open("post", url, true);
-            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            //指定处理函数
-            req.onreadystatechange = state_change;
-            req.send("page=" + page + "&title=" + title + "&type=ajax");
-        } else {
-            alert("Your browser does not support XMLHTTP.");
-        }
-    }
-    function state_change() {
-        if (req.readyState == 4) {// 4 = "loaded"
-            if (req.status == 200) {
-                //从JSON中取出数据
-                var json = JSON.parse(req.responseText);
+        var title = document.getElementById("title").value;
+        $.post('/admin/events', {
+            page: page,
+            title: title,
+            type: 'ajax'
+        }, function (d, status) {
+            if ('success' == status) {
+                var json = JSON.parse(d);
                 var pageCount = json.pageCount;
                 var currPage = json.currPage;
                 var allCount = json.allCount;
                 var title = json.title;
                 var eventsList = json.eventsList;
                 //获取tbody节点
-                var tbody = document.getElementById("tbody");
                 //清空节点原内容
-                tbody.innerHTML = "";
+                var innerHTML = "";
                 //循环的塞入新的内容
                 for (var i = 0; i < eventsList.length; i++) {
                     var id = i + 1 + 20 * (currPage - 1);
                     if (eventsList[i].status == 0) {
-                        tbody.innerHTML += "<tr>" +
+                        innerHTML += "<tr>" +
                             "<td>" + id + "</td>" +
                             "<td><a href=\"/admin/eventsedit?id=" + eventsList[i].id + "\">" + eventsList[i].title + "</a></td>" +
                             "<td>" + eventsList[i].date + "</td>" +
                             "<td>" + eventsList[i].time + "</td>" +
                             "<td>" + eventsList[i].address + "</td>" +
                             "<td>" + eventsList[i].reader + "</td>" +
-                            "<td>"+"<button type=\"button\" onclick=\"change_status("+eventsList[i].id+")\" value=\"0\">已停用</button>"+"</td>" +
+                            "<td>" + "<button type=\"button\" onclick=\"change_status(" + eventsList[i].id + ")\" value=\"0\">已停用</button>" + "</td>" +
                             "<td>" +
                             "<a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a>" +
                             "<a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a>" +
                             "</td>" +
                             "</tr>";
                     } else {
-                        tbody.innerHTML += "<tr>" +
+                        innerHTML += "<tr>" +
                             "<td>" + id + "</td>" +
                             "<td>" +
                             "<a href=\"/admin/eventsedit?id=" + eventsList[i].id + "\">" + eventsList[i].title + "</a>" +
@@ -291,7 +290,7 @@
                             "<td>" + eventsList[i].time + "</td>" +
                             "<td>" + eventsList[i].address + "</td>" +
                             "<td>" + eventsList[i].reader + "</td>" +
-                            "<td>"+"<button type=\"button\" onclick=\"change_status("+eventsList[i].id+")\" value=\"1\">已启用</button>"+"</td>" +
+                            "<td>" + "<button type=\"button\" onclick=\"change_status(" + eventsList[i].id + ")\" value=\"1\">已启用</button>" + "</td>" +
                             "<td>" +
                             "<a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a>" +
                             "<a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a>" +
@@ -299,6 +298,7 @@
                             "</tr>";
                     }
                 }
+                $("#tbody").html(innerHTML);
                 //重新符之搜索title
                 document.getElementById("title").value = title;
                 var record = document.getElementById("record");
@@ -314,63 +314,36 @@
                     }
                 }
             }
-        }
+        });
     }
     function change_status(id) {
         //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
         //获取ajax对象
         //sta 当前操作对象状态
-        var but=event.target;
-        if (window.XMLHttpRequest) {
-            req = new XMLHttpRequest();
-        }
-        else if (window.ActiveXObject) {
-            req = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        if (req != null) {
-            var url = "/admin/status";
-            req.open("post", url, true);
-            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            //指定处理函数
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {// 4 = "loaded"
-                    if (req.status == 200) {
-                        //从JSON中取出数据
-                        var json = JSON.parse(req.responseText);
-                        var status = json.status;
-                        if (status == true) {
-                            if(but.value == 0){
-                                but.value=1;
-                                but.innerHTML="已启用";
-                            }else {
-                                but.value=0;
-                                but.innerHTML="已停用";
-                            }
-                        } else {
-                            alert("修改失败！");
-                        }
+        var but = event.target;
+        $.post('/admin/status', {
+            id: id,
+            type: 'events'
+        }, function (data, sta) {
+            if ('success' == sta) {
+                var json = JSON.parse(data);
+                var status = json.status;
+                if (status == true) {
+                    if (but.value == 0) {
+                        but.value = 1;
+                        but.innerHTML = "已启用";
+                    } else {
+                        but.value = 0;
+                        but.innerHTML = "已停用";
                     }
+                } else {
+                    alert("修改失败！");
                 }
-            };
-            req.send("id=" + id + "&type=events");
-        } else {
-            alert("Your browser does not support XMLHTTP.");
-        }
+            }
+
+        });
     }
 </script>
-
-<!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>--%>
-<script src="js/jquery-1.10.2.min.js"></script>
-<!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>--%>
-<script src="js/bootstrap.min.js"></script>
-<!--[if lt IE 9]>
-<!--<script src="http://o.qcloud.com/static_api/v3/assets/js/html5shiv.min.js"></script>-->
-<script src="js/html5shiv.min.js"></script>
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/js/respond.min.js"></script>--%>
-<script src="js/respond.min.js"></script>
-<![endif]-->
 
 </body>
 

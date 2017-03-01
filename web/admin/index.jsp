@@ -79,7 +79,7 @@
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
                 <li>
-                    <a href="/admin/blogs"><i class="fa fa-fw fa-edit"></i>文章管理</a>
+                    <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
                 <li>
                     <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>

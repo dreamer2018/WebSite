@@ -316,6 +316,15 @@
 <!--网站底部-->
 
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/retina-1.1.0.js"></script>
+<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+<script type="text/javascript" src="js/jquery.hoverex.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         var today = function () {
@@ -325,7 +334,7 @@
                     r = '0' + r;
                 }
                 return r;
-            }
+            };
             var _today = new Date();
             return Date.parse(
                 _today.getFullYear().toString() + "-"
@@ -351,14 +360,7 @@
         })
     });
 </script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/retina-1.1.0.js"></script>
-<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
-<script type="text/javascript" src="js/jquery.hoverex.min.js"></script>
-<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="js/custom.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+
 
 
 </body>

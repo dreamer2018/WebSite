@@ -74,7 +74,11 @@
         </form>
     </div>
 </div>
-<script type="application/javascript">
+
+<script src="/js/jquery-2.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
     function check(){
         var title = document.getElementById("title").value;
         var subtitle = document.getElementById("subtitle").value;
@@ -102,7 +106,6 @@
     }
 </script>
 <!--bootstrap依赖-->
-<script src="/js/jquery-2.1.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+
 </body>
 </html>
