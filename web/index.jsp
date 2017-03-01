@@ -74,8 +74,10 @@
                         <div class="inicon blogicon"></div>
                     </a>
                 </div>
-                <h4><%=title1.getTitle()%><a href="<%=title1.getUrl()%>"><i class="fa  fa-arrow-circle-right"></i></a></h4>
-                <p><%=title1.getSubtitle()%></p>
+                <h4><%=title1.getTitle()%><a href="<%=title1.getUrl()%>"><i class="fa  fa-arrow-circle-right"></i></a>
+                </h4>
+                <p><%=title1.getSubtitle()%>
+                </p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
@@ -83,8 +85,10 @@
                         <div class="inicon wikiicon"></div>
                     </a>
                 </div>
-                <h4><%=title2.getTitle()%><a href="<%=title2.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a></h4>
-                <p><%=title2.getSubtitle()%></p>
+                <h4><%=title2.getTitle()%><a href="<%=title2.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a>
+                </h4>
+                <p><%=title2.getSubtitle()%>
+                </p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
@@ -92,8 +96,10 @@
                         <div class="inicon ircicon"></div>
                     </a>
                 </div>
-                <h4><%=title3.getTitle()%><a href="<%=title3.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a></h4>
-                <p><%=title3.getSubtitle()%></p>
+                <h4><%=title3.getTitle()%><a href="<%=title3.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a>
+                </h4>
+                <p><%=title3.getSubtitle()%>
+                </p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
@@ -103,7 +109,8 @@
                 </div>
                 <h4><%=title4.getTitle()%><a href="<%=title4.getUrl()%>"><i
                         class="fa fa-arrow-circle-right"></i></a></h4>
-                <p><%=title4.getSubtitle()%></p>
+                <p><%=title4.getSubtitle()%>
+                </p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
@@ -111,8 +118,10 @@
                         <div class="inicon resourceicon"></div>
                     </a>
                 </div>
-                <h4><%=title5.getTitle()%><a href="<%=title5.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a></h4>
-                <p><%=title5.getSubtitle()%></p>
+                <h4><%=title5.getTitle()%><a href="<%=title5.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a>
+                </h4>
+                <p><%=title5.getSubtitle()%>
+                </p>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6">
                 <div class="hexicon">
@@ -120,8 +129,10 @@
                         <div class="inicon othericon"></div>
                     </a>
                 </div>
-                <h4><%=title6.getTitle()%><a href="<%=title6.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a></h4>
-                <p><%=title6.getSubtitle()%></p>
+                <h4><%=title6.getTitle()%><a href="<%=title6.getUrl()%>"><i class="fa fa-arrow-circle-right"></i></a>
+                </h4>
+                <p><%=title6.getSubtitle()%>
+                </p>
             </div>
         </div>
     </div>
@@ -138,7 +149,7 @@
                 <div class="panel-body">
                     <%
                         BlogDAO blogDAO = new BlogDAO();
-                        ArrayList<Blog> blogs = blogDAO.getBlogByPage(1,"",5);
+                        ArrayList<Blog> blogs = blogDAO.getBlogByPage(1, "", 5);
                         for (Blog blog : blogs) {
                     %>
                     <div class="post">
@@ -157,8 +168,8 @@
                             %>
                             <%=HtmlUtil.getTextFromTHML(blog.getSummary())%>&nbsp;<a
                                 href="<%=blog.getUrl()%>">>>></a>
-                            <%for(int i=0;i<(250-HtmlUtil.getTextFromTHML(blog.getSummary()).length())/38+1;i++){%>
-                                <br/>
+                            <%for (int i = 0; i < (250 - HtmlUtil.getTextFromTHML(blog.getSummary()).length()) / 38 + 2; i++) {%>
+                            <br/>
                             <%}%>
                             <%} else {%>
                             <%=HtmlUtil.getTextFromTHML(blog.getSummary()).substring(0, 250)%>&nbsp;<a
@@ -182,7 +193,7 @@
                 <div class="panel-body">
                     <%
                         EventsDAO eventsDAO = new EventsDAO();
-                        ArrayList<Events> eventss = eventsDAO.getEventsByPage(1,"",5);
+                        ArrayList<Events> eventss = eventsDAO.getEventsByPage(1, "", 5);
                         for (Events events : eventss) {
                     %>
                     <div class="event" data-event-date="<%=events.getDate()%>%>">
@@ -218,14 +229,14 @@
                             %>
                         </div>
                         <div class="event-abstract">
-                            <%if(HtmlUtil.getTextFromTHML(events.getContent()).length() <= 250){%>
+                            <%if (HtmlUtil.getTextFromTHML(events.getContent()).length() <= 240) {%>
                             <%=HtmlUtil.getTextFromTHML(events.getContent())%>&nbsp;<a
                                 href="/events?id=<%=events.getId()%>" target="_blank">>>></a>
-                            <%for(int i=0;i<(250-HtmlUtil.getTextFromTHML(events.getContent()).length())/38+1;i++){%>
+                            <%for (int i = 0; i < ((240 - HtmlUtil.getTextFromTHML(events.getContent()).length()) / 48)+1 ; i++) {%>
                             <br/>
                             <%}%>
-                            <%}else{%>
-                            <%=HtmlUtil.getTextFromTHML(events.getContent()).substring(0,250)%>&nbsp;<a
+                            <%} else {%>
+                            <%=HtmlUtil.getTextFromTHML(events.getContent()).substring(0, 240)%>&nbsp;<a
                                 href="/events?id=<%=events.getId()%>" target="_blank">>>></a>
                             <%}%>
                         </div>

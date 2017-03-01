@@ -171,6 +171,18 @@
     </div>
 </footer>
 <!--网站底部-->
+
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/retina-1.1.0.js"></script>
+<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+<script type="text/javascript" src="js/jquery.hoverex.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+
 <script>
     //设定当前页面
     var curpage = 1;
@@ -180,16 +192,29 @@
     var page_array = new Array();
     //创建事件
     function ScrollEvent() {
-        var wScrollY = window.scrollY; // 当前滚动条位置
+        //var wScrollY = window.scrollY; // 当前滚动条位置
+        var wScrollY = getScrollTop();
         var wInnerH = window.innerHeight; // 设备窗口的高度（不会变）
         var bScrollH = document.body.scrollHeight; // 滚动条总高度
         if (wScrollY + wInnerH >= bScrollH - 400) {
-            if(page_array.indexOf(curpage + 1) == -1){
-                page_array.push(curpage+1);
+            if (page_array.indexOf(curpage + 1) == -1) {
+                page_array.push(curpage + 1);
                 check(curpage + 1);
             }
         }
     }
+
+    function getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        }
+        else if (document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+
     //绑定事件
     window.addEventListener("scroll", ScrollEvent, false);
 
@@ -197,23 +222,30 @@
     function check(page) {
         //自行修改访问的Servlet名和传递参数(get方式),也可使用post方式
         //获取ajax对象
-        if (window.XMLHttpRequest) {
-            req = new XMLHttpRequest();
-        }
-        else if (window.ActiveXObject) {
-            req = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        if (req != null) {
-            //请求URL
-            var url = "/events";
-            req.open("post", url, true);
-            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            //指定处理函数
-            req.onreadystatechange = state_change;
-            req.send("page=" + page + "&type=ajax");
-        } else {
-            alert("Your browser does not support XMLHTTP.");
-        }
+        $.post('/events', {
+            page: page,
+            type: 'ajax'
+        }, function (data, status) {
+            alert(status == 'success');
+        });
+
+//        if (window.XMLHttpRequest) {
+//            req = new XMLHttpRequest();
+//        }
+//        else if (window.ActiveXObject) {
+//            req = new ActiveXObject("Microsoft.XMLHTTP");
+//        }
+//        if (req != null) {
+//            //请求URL
+//            var url = "/events";
+//            req.open("post", url, true);
+//            req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//            //指定处理函数
+//            req.onreadystatechange = state_change;
+//            req.send("page=" + page + "&type=ajax");
+//        } else {
+//            alert("Your browser does not support XMLHTTP.");
+//        }
     }
     function state_change() {
         if (req.readyState == 4) {// 4 = "loaded"
@@ -232,7 +264,7 @@
                     window.removeEventListener("scroll", ScrollEvent, false);
                 }
                 for (var i = 0; i < eventsList.length; i++) {
-                    if(id_array.indexOf(eventsList[i].id) > -1) {
+                    if (id_array.indexOf(eventsList[i].id) > -1) {
                         continue;
                     }
                     id_array.push(eventsList[i].id);
@@ -286,16 +318,6 @@
 
 </script>
 
-
-<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/retina-1.1.0.js"></script>
-<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
-<script type="text/javascript" src="js/jquery.hoverex.min.js"></script>
-<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="js/custom.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
