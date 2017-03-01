@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             if (login.check(username, password)) {
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("login", "ok");
-                response.sendRedirect("/admin/");
+                response.sendRedirect("/admin/events");
             } else {
                 request.setAttribute("reason", "用户名或密码不正确！");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);

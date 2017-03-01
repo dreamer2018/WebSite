@@ -57,13 +57,13 @@ public class AdminEventsServlet extends HttpServlet {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("id",events.getId());
                     jsonObject.put("title", events.getTitle());
-                    jsonObject.put("content", events.getContent());
-                    jsonObject.put("markdown", events.getMarkdown());
-                    jsonObject.put("poster", events.getPoster());
+                 //   jsonObject.put("content", events.getContent());
+                 //   jsonObject.put("markdown", events.getMarkdown());
+                 //   jsonObject.put("poster", events.getPoster());
                     jsonObject.put("date", events.getDate());
                     jsonObject.put("time", events.getTime());
                     jsonObject.put("address", events.getAddress());
-                    jsonObject.put("label", events.getLabel());
+                //    jsonObject.put("label", events.getLabel());
                     jsonObject.put("reader", events.getReader());
                     jsonObject.put("status", events.getStatus());
                     jsonArray.put(jsonObject);

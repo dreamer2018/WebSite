@@ -48,7 +48,6 @@ public class AdminBlogServlet extends HttpServlet {
             ArrayList<Blog> blogList;
             String pagestring = request.getParameter("page");
             int page = Integer.parseInt(pagestring);
-            System.out.println(request.getParameter("title"));
             String title;
             if (null == request.getParameter("title")) {
                 blogList = blogDAO.getBlogByPage(page, "");
