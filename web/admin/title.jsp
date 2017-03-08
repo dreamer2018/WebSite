@@ -43,7 +43,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin">
+            <a class="navbar-brand" href="#">
                 <i class="fa fa-leaf f20 mr5"></i>
                 后台管理
             </a>
@@ -51,23 +51,10 @@
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b
-                        class="caret"></b></a>
-            </li>
-            <li class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> admin
                     <b class="caret"></b></a>
-                <ul class="dropdown-menu"><a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-user"></i> 用户</a>--%>
-                    <%--</li>--%>
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-envelope"></i> 消息盒</a>--%>
-                    <%--</li>--%>
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-gear"></i> 设置</a>--%>
-                    <%--</li>--%>
-                    <%--<li class="divider"></li>--%>
+                <ul class="dropdown-menu">
+                    <li class="divider"></li>
                     <li>
                         <a href="/Logout"><i class="fa fa-fw fa-power-off"></i> 退出</a>
                     </li>

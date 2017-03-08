@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin/">
+            <a class="navbar-brand" href="#">
                 <i class="fa fa-leaf f20 mr5"></i>
                 后台管理
             </a>
@@ -50,22 +50,9 @@
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b
-                        class="caret"></b></a>
-            </li>
-            <li class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> admin
                     <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-user"></i> 用户</a>--%>
-                    <%--</li>--%>
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-envelope"></i> 消息盒</a>--%>
-                    <%--</li>--%>
-                    <%--<li>--%>
-                    <%--<a href="javascript:;"><i class="fa fa-fw fa-gear"></i> 设置</a>--%>
-                    <%--</li>--%>
                     <li class="divider"></li>
                     <li>
                         <a href="/Logout"><i class="fa fa-fw fa-power-off"></i> 退出</a>
@@ -76,9 +63,6 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <%--<li>--%>
-                <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
-                <%--</li>--%>
                 <li class="active">
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
