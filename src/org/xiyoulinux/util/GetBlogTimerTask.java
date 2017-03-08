@@ -14,7 +14,8 @@ public class GetBlogTimerTask extends TimerTask {
     @Override
     public void run() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.print("run task time:"+ df.format(new Date()));
+        System.out.println("================================================");
+        System.out.print("Run Task Time:"+ df.format(new Date()));
         try {
             Blogjson.saveBlog();
         } catch (IOException e) {

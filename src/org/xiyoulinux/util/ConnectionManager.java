@@ -54,8 +54,6 @@ public class ConnectionManager {
      */
     public synchronized final Connection getConnection() {
         try {
-            // 查看活动链接数
-            // System.out.println("------->busy connections: " +
             ds.getNumBusyConnections();
             return ds.getConnection();
         } catch (SQLException e) {

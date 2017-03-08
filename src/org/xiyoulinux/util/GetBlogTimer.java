@@ -12,8 +12,8 @@ public class GetBlogTimer {
 
         timer = new Timer();
 
-        System.out.println("before task");
-        //立刻执行，然后每隔30s执行一次
+        System.out.println("Before Task Execute!");
+        //立刻执行，然后每隔6小时执行一次
         timer.schedule(new GetBlogTimerTask(), 10, 1000*3600*6);
     }
 

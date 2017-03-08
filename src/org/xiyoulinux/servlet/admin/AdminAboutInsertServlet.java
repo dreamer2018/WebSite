@@ -16,7 +16,6 @@ import java.io.IOException;
 @WebServlet(name = "AdminAboutInsertServlet", urlPatterns = "/admin/aboutedit")
 public class AdminAboutInsertServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("hello");
         if (null == request.getParameter("id")) {
             boolean error = false;
             String title = request.getParameter("title");

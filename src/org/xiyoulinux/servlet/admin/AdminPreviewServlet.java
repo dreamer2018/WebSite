@@ -33,7 +33,6 @@ public class AdminPreviewServlet extends HttpServlet {
                 }
                 EventsDAO eventsDAO = new EventsDAO();
                 Events events = eventsDAO.getEventsByID(id);
-                System.out.println(events);
                 if (null == events) {
                     response.sendRedirect("/404.html");
                 } else {
