@@ -140,7 +140,6 @@
 
 <div class="container">
     <div class="row">
-
         <div id="recent-posts" class="col-md-6 col-md-push-6">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -360,8 +359,5 @@
         })
     });
 </script>
-
-
-
 </body>
 </html>

@@ -40,8 +40,8 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/index.jsp">HOME</a></li>
-                <li><a href="/events">EVENTS</a></li>
+                <li><a href="/index.jsp">HOME</a></li>
+                <li class="active"><a href="/events">EVENTS</a></li>
                 <li><a href="http://blog.xiyoulinux.org">BLOG</a></li>
                 <li><a href="login.jsp">LOGIN</a></li>
                 <li><a href="/about">ABOUT</a></li>
@@ -92,7 +92,17 @@
                     </div>
                     <div class="event-content">
                         <%=request.getAttribute("content")%>
-                        <p>阅读量：<%=request.getAttribute("reader")%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/events">[Read More]</a></p>
+                        <%
+                            if (request.getAttribute("content").toString().length() <= 1000) {
+                                for (int i = 0; i < (1000 - request.getAttribute("content").toString().length()) / 50; i++) {
+                        %>
+                        <br/>
+                        <%
+                                }
+                            }
+                        %>
+                        <p>阅读量：<%=request.getAttribute("reader")%>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/events">[Read
+                            More]</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -106,7 +116,7 @@
 </div>
 
 <!--网站底部-->
-<footer>
+<footer id="footer">
     <div class="container">
         <div class="content">
             <div class="row">
@@ -167,7 +177,6 @@
 <!--网站底部-->
 
 
-
 <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/retina-1.1.0.js"></script>
@@ -180,6 +189,41 @@
 
 </body>
 </html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var today = function () {
+            var pad = function (number) {
+                var r = String(number);
+                if (r.length === 1) {
+                    r = '0' + r;
+                }
+                return r;
+            };
+            var _today = new Date();
+            return Date.parse(
+                _today.getFullYear().toString() + "-"
+                + pad(_today.getMonth() + 1) + "-"
+                + pad(_today.getDate())
+            );
+        }();
+        $('#recent-events .event').each(function () {
+            var event_date = Date.parse($(this).attr("data-event-date")),
+                label = "";
+            if (today > event_date) {
+                label = "<span class='label label-default'>Finished</span>";
+            } else if (today < event_date) {
+                label = "<span class='label label-warning'>Upcoming</span>";
+            } else {
+                label = "<span class='label label-primary'>Finishing</span>";
+            }
+            $(this).find(".event-meta").append(label);
+        });
+        $('.container .copy-right-content').each(function () {
+            var year = new Date().getFullYear();
+            $(this).find(".year").append(year);
+        })
+    });
+</script>
 
 
 </body></html>
