@@ -100,7 +100,6 @@ public class CommunityDAO implements Icommunity {
         PreparedStatement ps = null;
         try {
             String sql = "select id,name, from community where name = ?";
-            System.out.println(sql + community_name);
             ps = conn.prepareStatement(sql);
             ps.setString(1, community_name);
             rs = ps.executeQuery();

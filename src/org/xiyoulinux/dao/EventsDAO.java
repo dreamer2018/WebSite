@@ -164,7 +164,6 @@ public class EventsDAO implements Ievents {
             ps.setInt(1, event_id);
             ResultSet rs = ps.executeQuery();
             rs.last();
-            System.out.println(rs.getRow());
             if (rs.getRow() == 0) {
                 return null;
             } else {
@@ -313,7 +312,6 @@ public class EventsDAO implements Ievents {
             ps.setString(1, "%" + title + "%");
             rs = ps.executeQuery();
             allCount=0;
-            System.out.println("allcout:"+allCount);
             if (rs.next()) {
                 allCount = rs.getInt("AllRecord");
             }

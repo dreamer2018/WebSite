@@ -107,7 +107,6 @@ public class DonateDAO implements Idonate {
         PreparedStatement ps = null;
         try {
             String sql = "select  set wei_name,weixin,alipay_namep,alipay, from community where id = ?";
-            System.out.println(sql + donate_id);
             ps = conn.prepareStatement(sql);
             ps.setInt(1, donate_id);
             rs = ps.executeQuery();

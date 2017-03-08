@@ -99,7 +99,6 @@ public class FollowDAO implements Ifollow {
         PreparedStatement ps = null;
         try {
             String sql = "select id,weixin from follow where follow_id = ?";
-            System.out.println(sql + follow_id);
             ps = conn.prepareStatement(sql);
             ps.setInt(1,follow_id );
             rs = ps.executeQuery();

@@ -126,7 +126,6 @@ public class LinksDAO implements Ilinks {
         PreparedStatement ps = null;
         try {
             String sql = "select id,name,url from links where name = ?";
-            System.out.println(sql + name);
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             rs = ps.executeQuery();

@@ -102,7 +102,6 @@ public class SignupDAO implements Isignup {
         PreparedStatement ps = null;
         try {
             String sql = "select id,events_id,name,email from user where signup_id = ?";
-            System.out.println(sql + signup_id);
             ps = conn.prepareStatement(sql);
             ps.setInt(1, signup_id);
             rs = ps.executeQuery();
@@ -131,7 +130,6 @@ public class SignupDAO implements Isignup {
         PreparedStatement ps = null;
         try {
             String sql = "select id,evens_id,name,emil from user where name = ?";
-            System.out.println(sql + name);
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             rs = ps.executeQuery();
@@ -162,7 +160,6 @@ public class SignupDAO implements Isignup {
         PreparedStatement ps = null;
         try {
             String sql = "select id,events_id,name,email from user where events_id = ?";
-            System.out.println(sql + events_id);
             ps = conn.prepareStatement(sql);
             ps.setInt(1, events_id);
             rs = ps.executeQuery();
@@ -183,14 +180,10 @@ public class SignupDAO implements Isignup {
     public static void main(String[] args) {
         SignupDAO a=new SignupDAO();
         Signup b=new Signup();
-
         b.setEmail("32335322");
         b.setEvents_id(1);
         b.setId(1);
         b.setName("xiaom");
-        System.out.println("！！！！！");
         a.insert(b);
-        System.out.println(a.toString());
-
     }
 }
