@@ -41,11 +41,11 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li><a href="/index.jsp">HOME</a></li>
-                <li class="active"><a href="/events">EVENTS</a></li>
-                <li><a href="http://blog.xiyoulinux.org">BLOG</a></li>
-                <li><a href="login.jsp">LOGIN</a></li>
-                <li><a href="/about">ABOUT</a></li>
+                <li><a href="/index.jsp">主页</a></li>
+                <li class="active"><a href="/events">活动</a></li>
+                <li><a href="http://blog.xiyoulinux.org">群博</a></li>
+                <li><a href="login.jsp">登陆</a></li>
+                <li><a href="/about">关于</a></li>
             </ul>
         </div>
     </div>
@@ -134,7 +134,6 @@
                         <ul>
                             <li>邮件列表: <a href="https://groups.google.com/forum/#!forum/xiyoulinux">xiyoulinux</a></li>
                             <li>新浪微博: <a href="http://weibo.com/xylinux">@西邮Linux兴趣小组</a></li>
-                            <li>人人主页: <a href="http://page.renren.com/601367653?checked=true">@西邮Linux兴趣小组</a></li>
                         </ul>
                     </div>
                 </div>
