@@ -7,6 +7,7 @@
 <%@ page import="org.xiyoulinux.util.HtmlUtil" %>
 <%@ page import="org.xiyoulinux.dao.TitleDAO" %>
 <%@ page import="org.xiyoulinux.model.Title" %>
+<%@ page import="java.util.Collections" %>
 <%--
   Created by IntelliJ IDEA.
   User: zhoupan
@@ -40,7 +41,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-logo" href="#"><img src="images/xiyoulinux.png"
+            <a class="navbar-logo" href="/index.jsp"><img src="images/xiyoulinux.png"
                                                  style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
@@ -134,7 +135,7 @@
                 <p><%=title6.getSubtitle()%>
                 </p>
             </div>
-        </div>
+        </div>`
     </div>
 </div>
 
@@ -149,30 +150,30 @@
                     <%
                         BlogDAO blogDAO = new BlogDAO();
                         ArrayList<Blog> blogs = blogDAO.getBlogByPage(1, "", 5);
-                        for (Blog blog : blogs) {
+                        for(int i=4;i>=0;i--){
                     %>
                     <div class="post">
                         <div class="post-title">
-                            <a href="<%=blog.getUrl()%>" target="_blank">
-                                <h4><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;<%=blog.getTitle()%>
+                            <a href="<%=blogs.get(i).getUrl()%>" target="_blank">
+                                <h4><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;<%=blogs.get(i).getTitle()%>
                                 </h4>
                             </a>
                         </div>
                         <div class="post-meta">
-                            <%=blog.getAuthor()%>,&nbsp;&nbsp; <%=blog.getDate()%>&nbsp;&nbsp;<%=blog.getTime()%>
+                            <%=blogs.get(i).getAuthor()%>,&nbsp;&nbsp; <%=blogs.get(i).getDate()%>&nbsp;&nbsp;<%=blogs.get(i).getTime()%>
                         </div>
                         <div class="post-abstract">
                             <%
-                                if (HtmlUtil.getTextFromTHML(blog.getSummary()).length() <= 250) {
+                                if (HtmlUtil.getTextFromTHML(blogs.get(i).getSummary()).length() <= 250) {
                             %>
-                            <%=HtmlUtil.getTextFromTHML(blog.getSummary())%>&nbsp;<a
-                                href="<%=blog.getUrl()%>">>>></a>
-                            <%for (int i = 0; i < (250 - HtmlUtil.getTextFromTHML(blog.getSummary()).length()) / 38 + 2; i++) {%>
+                            <%=HtmlUtil.getTextFromTHML(blogs.get(i).getSummary())%>&nbsp;<a
+                                href="<%=blogs.get(i).getUrl()%>">>>></a>
+                            <%for (int j = 0; j < (250 - HtmlUtil.getTextFromTHML(blogs.get(i).getSummary()).length()) / 38 + 2; j++) {%>
                             <br/>
                             <%}%>
                             <%} else {%>
-                            <%=HtmlUtil.getTextFromTHML(blog.getSummary()).substring(0, 250)%>&nbsp;<a
-                                href="<%=blog.getUrl()%>">>>></a>
+                            <%=HtmlUtil.getTextFromTHML(blogs.get(i).getSummary()).substring(0, 250)%>&nbsp;<a
+                                href="<%=blogs.get(i).getUrl()%>">>>></a>
                             <%}%>
                         </div>
                     </div>
@@ -231,7 +232,7 @@
                             <%if (HtmlUtil.getTextFromTHML(events.getContent()).length() <= 200) {%>
                             <%=HtmlUtil.getTextFromTHML(events.getContent())%>&nbsp;<a
                                 href="/events?id=<%=events.getId()%>" target="_blank">>>></a>
-                            <%for (int i = 0; i < ((200 - HtmlUtil.getTextFromTHML(events.getContent()).length()) / 48)+1 ; i++) {%>
+                            <%for (int i = 0; i < ((200 - HtmlUtil.getTextFromTHML(events.getContent()).length()) / 48) + 1; i++) {%>
                             <br/>
                             <%}%>
                             <%} else {%>
@@ -276,7 +277,9 @@
                         <ul>
                             <li>邮件列表: <a href="https://groups.google.com/forum/#!forum/xiyoulinux">xiyoulinux</a></li>
                             <li>新浪微博: <a href="http://weibo.com/xylinux">@西邮Linux兴趣小组</a></li>
-                            <li>人人主页: <a href="http://page.renren.com/601367653?checked=true">@西邮Linux兴趣小组</a></li>
+                            <li>GNU：<a href="http://www.gnu.org">GNU's Not Unix</a></li>
+                            <li>LWN：<a href="https://lwn.net/">Linux Weekly News</a></li>
+                            <li>Linux Story：<a href="https://linuxstory.org/">Linux Story</a></li>
                         </ul>
                     </div>
                 </div>
@@ -285,9 +288,9 @@
                         <p class="head">地址</p>
                         <ul>
                             <li>
-                                陕西省 西安市 长安区<br>
-                                西安邮电大学长安校区<br>
-                                东区 教学实验楼 FZ118<br>
+                                陕西省 西安市 长安区<br/>
+                                西安邮电大学长安校区<br/>
+                                东区 教学实验楼 FZ118<br/>
                                 邮编：710121
                             </li>
                         </ul>

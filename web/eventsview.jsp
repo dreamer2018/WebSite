@@ -35,7 +35,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-logo" href="#"><img src="/images/xiyoulinux.png"
+            <a class="navbar-logo" href="/index.jsp"><img src="/images/xiyoulinux.png"
                                                  style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
@@ -138,7 +138,9 @@
                         <ul>
                             <li>邮件列表: <a href="https://groups.google.com/forum/#!forum/xiyoulinux">xiyoulinux</a></li>
                             <li>新浪微博: <a href="http://weibo.com/xylinux">@西邮Linux兴趣小组</a></li>
-                            <li>人人主页: <a href="http://page.renren.com/601367653?checked=true">@西邮Linux兴趣小组</a></li>
+                            <li>GNU：<a href="http://www.gnu.org">GNU's Not Unix</a></li>
+                            <li>LWN：<a href="https://lwn.net/">Linux Weekly News</a></li>
+                            <li>Linux Story：<a href="https://linuxstory.org/">Linux Story</a></li>
                         </ul>
                     </div>
                 </div>

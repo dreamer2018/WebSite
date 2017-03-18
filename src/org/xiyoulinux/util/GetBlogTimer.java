@@ -5,6 +5,7 @@ package org.xiyoulinux.util;
  */
 
 import java.util.Timer;
+
 public class GetBlogTimer {
     public Timer timer;
 
@@ -14,12 +15,13 @@ public class GetBlogTimer {
 
         System.out.println("Before Task Execute!");
         //立刻执行，然后每隔6小时执行一次
-        timer.schedule(new GetBlogTimerTask(), 10, 1000*3600*6);
+        timer.schedule(new GetBlogTimerTask(), 10, 1000 * 3600 * 6);
     }
 
     public void timerStop() {
-        if (timer != null)
+        if (timer != null) {
             timer.cancel();
+        }
     }
 
     public static void main(String[] args) {
