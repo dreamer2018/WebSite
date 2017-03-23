@@ -69,7 +69,7 @@ public class AdminEventsInsertServlet extends HttpServlet {
                 // 保存图片
                 Date d = new Date();
                 long now = d.getTime();
-                fileName = now + fileName;
+                fileName += now;
                 part.write(getServletContext().getRealPath("/upload/") + fileName);
                 filePath = "/upload/" + fileName;
                 System.out.println(filePath);
