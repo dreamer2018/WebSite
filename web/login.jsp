@@ -17,6 +17,15 @@
         <!-- CSS -->
         <link rel="stylesheet" href="css/supersized.css">
         <link rel="stylesheet" href="css/login.css">
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?9c494ad140deef94cd67400c530455b9";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
     </head>
     <body>
 

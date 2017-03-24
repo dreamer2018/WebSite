@@ -28,6 +28,15 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?9c494ad140deef94cd67400c530455b9";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 
 <body>
@@ -136,7 +145,6 @@
                 </p>
             </div>
         </div>
-        `
     </div>
 </div>
 
@@ -364,5 +372,8 @@
         })
     });
 </script>
+
+
+
 </body>
 </html>
