@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-logo" href="/index.jsp"><img src="images/xiyoulinux.png"
-                                                 style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
+                                                          style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
@@ -135,7 +135,8 @@
                 <p><%=title6.getSubtitle()%>
                 </p>
             </div>
-        </div>`
+        </div>
+        `
     </div>
 </div>
 
@@ -150,7 +151,7 @@
                     <%
                         BlogDAO blogDAO = new BlogDAO();
                         ArrayList<Blog> blogs = blogDAO.getBlogByPage(1, "", 5);
-                        for(int i=4;i>=0;i--){
+                        for (int i = 4; i >= 0; i--) {
                     %>
                     <div class="post">
                         <div class="post-title">
@@ -160,7 +161,8 @@
                             </a>
                         </div>
                         <div class="post-meta">
-                            <%=blogs.get(i).getAuthor()%>,&nbsp;&nbsp; <%=blogs.get(i).getDate()%>&nbsp;&nbsp;<%=blogs.get(i).getTime()%>
+                            <%=blogs.get(i).getAuthor()%>
+                            ,&nbsp;&nbsp; <%=blogs.get(i).getDate()%>&nbsp;&nbsp;<%=blogs.get(i).getTime()%>
                         </div>
                         <div class="post-abstract">
                             <%
@@ -196,7 +198,7 @@
                         ArrayList<Events> eventss = eventsDAO.getEventsByPage(1, "", 5);
                         for (Events events : eventss) {
                     %>
-                    <div class="event" data-event-date="<%=events.getDate()%>%>">
+                    <div class="event" data-event-date="<%=events.getDate()%>">
                         <div class="event-title">
                             <a href="/events?id=<%=events.getId()%>" target="_blank">
                                 <h4><i class="fa fa-bullhorn"></i>&nbsp;&nbsp;<%=events.getTitle()%>
