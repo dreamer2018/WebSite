@@ -31,9 +31,6 @@ CREATE TABLE user (
   passwd VARCHAR(20)        NOT NULL
 );
 
-INSERT INTO user VALUES (1, 'root', 'root@zp');
-INSERT INTO user VALUES (2, 'xiyoulinux', 'linux__2006');
-
 /*=================================================*/
 /*      events            活动                     */
 /*=================================================*/
