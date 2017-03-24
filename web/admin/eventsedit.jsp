@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="/css/datepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/datedropper.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/timedropper.min.css">
+    <link rel="shortcut icon" href="images/xiyoulinux.png">
     <link rel="stylesheet" href="/admin/css/editormd.css"/>
 </head>
 <body>
@@ -27,7 +28,8 @@
     </div>
     <br/>
     <div class="row">
-        <form action="/admin/eventsedit" method="post" enctype="multipart/form-data" name="myform" onsubmit="return isPic()">
+        <form action="/admin/eventsedit" method="post" enctype="multipart/form-data" name="myform"
+              onsubmit="return isPic()">
             <%
                 if (request.getAttribute("id") == null) {
             %>
@@ -35,7 +37,8 @@
             <%
             } else {
             %>
-            <input type="hidden" name="status" value="<%if(null != request.getAttribute("id")){out.print(request.getAttribute("id"));}%>">
+            <input type="hidden" name="status"
+                   value="<%if(null != request.getAttribute("id")){out.print(request.getAttribute("id"));}%>">
             <%
                 }
             %>
@@ -48,7 +51,11 @@
                     </div>
                 </div>
                 <div class="col-xs-3">
-                    <span style="margin: 0 auto;color: red;font-size: 20px;"><%if (null != request.getAttribute("message")) {out.print(request.getAttribute("message"));}%></span>
+                    <span style="margin: 0 auto;color: red;font-size: 20px;"><%
+                        if (null != request.getAttribute("message")) {
+                            out.print(request.getAttribute("message"));
+                        }
+                    %></span>
                 </div>
             </div>
             <br/>
@@ -86,13 +93,17 @@
             <div class="row">
                 <div class="col-xs-3">
                     <div class="form-group">
-                        <span>活动海报:</span>
+                        <span>活动海报(小于5M):</span>
                         <input type="file" id="inputfile" name="poster" onchange="isPic()">
                     </div>
                 </div>
             </div>
             <br/>
-            <textarea style="display: none" id="tmp"><%if(null != request.getAttribute("mkdown")){out.print(request.getAttribute("mkdown"));}%></textarea>
+            <textarea style="display: none" id="tmp"><%
+                if (null != request.getAttribute("mkdown")) {
+                    out.print(request.getAttribute("mkdown"));
+                }
+            %></textarea>
             <div id="test-editormd">
                 <textarea style="display:none;width: 97%" id="text"></textarea>
             </div>
@@ -114,6 +125,17 @@
 <!--editor-md 依赖 -->
 <script src="js/jquery.min.js"></script>
 <script src="js/editormd.min.js"></script>
+
+<!--bootstrap依赖-->
+<script src="/js/jquery-2.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<!--datepicter的依赖-->
+<script type="text/javascript" charset="utf-8" src="/js/datepicker/datedropper.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/datepicker/timedropper.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/datepicker/datepicker.js"></script>
+
+
 <script type="text/javascript">
     var testEditor;
     $(function () {
@@ -159,31 +181,67 @@
     onload = addContent();
 </script>
 <script type="text/javascript">
-    function isPic()
-    {
-        var pic = myform.poster.value;
-        var ext=pic.substring(pic.lastIndexOf(".")+1);
-        //可以再添加允许类型
-        if(ext.toLowerCase()=="jpg" || ext.toLowerCase()=="png" || ext.toLowerCase()=="gif")
-            return true;
-        else
-        {
-            alert("只能上传jpg、png、gif图像!");
+    function isPic() {
+        var fileSize = 0;
+        var filetypes = ["jpg", "png", "gif", "JPG", "PNG", "GIF"];
+        var filepath = myform.poster.value;
+        var filemaxsize = 1024 * 5;     //5M
+        if (filepath) {
+            var isnext = false;
+            var fileend = filepath;
+            while (true){
+                if(fileend.indexOf('.') < 0){
+                    break;
+                }
+                fileend = fileend.substring(fileend.indexOf('.')+1);
+            }
+
+            if (filetypes && filetypes.length > 0) {
+                for (var i = 0; i < filetypes.length; i++) {
+                    if (filetypes[i] == fileend) {
+                        isnext = true;
+                        break;
+                    }
+                }
+            }
+            if (!isnext) {
+                alert("只能上传jpg,png,gif文件！");
+                myform.poster.value = "";
+                return false;
+            }
+        } else {
+            alert("活动海报不能为空！");
             return false;
+        }
+        if (!myform.poster.files) {
+            var filePath = myform.poster.value;
+            var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+            if (!fileSystem.FileExists(filePath)) {
+                alert("图片不存在，请重新输入！");
+                return false;
+            }
+            var file = fileSystem.GetFile(filePath);
+            fileSize = file.Size;
+        } else {
+            fileSize = myform.poster.files[0].size;
+        }
+
+        var size = fileSize / 1024;
+
+
+        if (size > filemaxsize) {
+            alert("图片大小不能大于" + filemaxsize / 1024 + "M！");
+            myform.poster.value = "";
+            return false;
+        } else if (size <= 0) {
+            alert("图片大小不能为0M！");
+            myform.poster.value = "";
+            return false;
+        } else {
+            return true;
         }
     }
 </script>
-
-<!--bootstrap依赖-->
-<script src="/js/jquery-2.1.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-
-
-<!--datepicter的依赖-->
-<script type="text/javascript" charset="utf-8" src="/js/datepicker/datedropper.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="/js/datepicker/timedropper.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="/js/datepicker/datepicker.js"></script>
-
 
 </body>
 </html>

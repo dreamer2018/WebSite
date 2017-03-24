@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/css/datepicker/datedropper.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/timedropper.min.css">
     <link rel="stylesheet" href="/admin/css/editormd.css"/>
+    <link rel="shortcut icon" href="images/xiyoulinux.png">
 </head>
 <body>
 

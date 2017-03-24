@@ -27,8 +27,8 @@ public class AdminEventsInsertServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //post
         if (null == request.getParameter("id")) {
-
             boolean error = false;
             String title = request.getParameter("title");
             String date = request.getParameter("date");
@@ -60,23 +60,26 @@ public class AdminEventsInsertServlet extends HttpServlet {
                 request.setAttribute("message", "内容不能为空！");
                 error = true;
             }
-            String filePath="";
+            String filePath = "";
             try {
                 Part part;
                 // 接收图片:图片封装在part对象中
                 part = request.getPart("poster");
                 String fileName = getFileName(part);
+                while (true) {
+                    if(fileName.indexOf('.') < 0){
+                        break;
+                    }
+                    fileName = fileName.substring(fileName.indexOf('.')+1);
+                }
                 // 保存图片
                 Date d = new Date();
                 long now = d.getTime();
-                fileName += now;
+
+                fileName = now + "." + fileName;
                 part.write(getServletContext().getRealPath("/upload/") + fileName);
                 filePath = "/upload/" + fileName;
-                System.out.println(filePath);
-                System.out.println(fileName);
-                System.out.println(part.getSize());
             } catch (Exception e) {
-                e.printStackTrace();
                 if (config.maxRequestSize() == -1L || config.maxFileSize() == -1L) {
                     System.out.println("上传文件过大!");
                 }
@@ -88,6 +91,7 @@ public class AdminEventsInsertServlet extends HttpServlet {
                 request.setAttribute("address", address);
                 request.setAttribute("label", label);
                 request.setAttribute("message", "上传文件过大(限制5M)，或存在异常!");
+                System.out.println(title);
                 int sign = 0;
                 try {
                     sign = Integer.parseInt(str_sign);
@@ -161,7 +165,7 @@ public class AdminEventsInsertServlet extends HttpServlet {
                     }
                 }
             }
-
+            //get
         } else {
             String str_id = request.getParameter("id");
             int id = 0;
