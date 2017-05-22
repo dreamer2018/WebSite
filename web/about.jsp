@@ -41,7 +41,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-logo" href="/main.jsp"><img src="images/xiyoulinux.png"
+            <a class="navbar-logo" href="/"><img src="images/xiyoulinux.png"
                                                          style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">

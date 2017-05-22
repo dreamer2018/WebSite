@@ -1,5 +1,4 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.awt.*" %>
 <%@ page import="org.xiyoulinux.model.Events" %>
 <%--
   Created by IntelliJ IDEA.
@@ -45,12 +44,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-logo" href="/main.jsp"><img src="images/xiyoulinux.png"
+            <a class="navbar-logo" href="/"><img src="images/xiyoulinux.png"
                                                          style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li><a href="/main.jsp">主页</a></li>
+                <li><a href="/">主页</a></li>
                 <li class="active"><a href="/events">活动</a></li>
                 <li><a href="http://blog.xiyoulinux.org">群博</a></li>
                 <li><a href="http://cs.xiyoulinux.org/signin.php">登陆</a></li>
