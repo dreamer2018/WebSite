@@ -10,15 +10,14 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>标题编辑</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/datedropper.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/timedropper.min.css">
     <link rel="stylesheet" href="/admin/css/editormd.css"/>
-
-
+    <link rel="shortcut icon" href="/images/xiyoulinux.png">
+    <title>西邮Linux兴趣小组</title>
     <link href="/admin/css/sb-admin.css" rel="stylesheet">
     <link href="/admin/css/sb-bk-theme.css" rel="stylesheet">
     <link href="/admin/css/bk.css" rel="stylesheet">
@@ -58,13 +57,13 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li class="active">
+                <li>
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
                 </li>
                 <li>
                     <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
                 </li>
             </ul>
@@ -79,20 +78,18 @@
             <div class="row page-header-box">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        活动管理
+                        标题管理
                     </h1>
                 </div>
             </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    新增文章
+                    标题编辑
                 </div>
-
                 <br/>
                 <br/>
                 <br/>
-
                 <div class="container">
                     <form action="/admin/titleedit" method="post" onsubmit="return check()">
                         <input type="hidden" name="id" value="<%=request.getAttribute("id")%>">

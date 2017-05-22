@@ -166,12 +166,9 @@
                                 <button type="button" class="btn btn-danger btn-sm"
                                         onclick="remind(<%=eventsList.get(i).getId()%>)">删除
                                 </button>
-
-
                                 <a href="/admin/preview?id=<%=eventsList.get(i).getId()%>&type=events" target="_blank">
                                     <button type="button" class="btn btn-success btn-sm">预览</button>
                                 </a>
-
                             </td>
                         <tr>
                                 <%}%>
@@ -252,10 +249,10 @@
                             "<td>" + eventsList[i].time + "</td>" +
                             "<td>" + eventsList[i].address + "</td>" +
                             "<td>" + eventsList[i].reader + "</td>" +
-                            "<td>" + "<button type=\"button\" class=\"btn btn-warning btn-sm\" onclick=\"change_status(" + eventsList[i].id + ")\" value=\"0\">已停用</button>" + "</td>" +
+                            "<td>" + '<button type="button" class="btn btn-warning btn-sm" onclick="change_status(' + eventsList[i].id + ')" value="0">已停用</button>' + "</td>" +
                             "<td>" +
-                            "<a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a>" +
-                            "<a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a>" +
+                            '<button type="button" class="btn btn-danger btn-sm" onclick="remind(' + eventsList[i].id + ')">删除 </button>' +
+                            '<a href="/admin/preview?id=' + eventsList[i].id + '&type=events" target="_blank"><button type="button" class="btn btn-success btn-sm">预览</button></a>' +
                             "</td>" +
                             "</tr>";
                     } else {
@@ -268,10 +265,11 @@
                             "<td>" + eventsList[i].time + "</td>" +
                             "<td>" + eventsList[i].address + "</td>" +
                             "<td>" + eventsList[i].reader + "</td>" +
-                            "<td>" + "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick=\"change_status(" + eventsList[i].id + ")\" value=\"1\">已启用</button>" + "</td>" +
+                            "<td>" + '<button type="button" class="btn btn-info btn-sm" onclick="change_status(' + eventsList[i].id + ')" value="1">已启用</button>' + "</td>" +
                             "<td>" +
-                            "<a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a>" +
-                            "<a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a>" +
+                            '<button type="button" class="btn btn-danger btn-sm" onclick="remind(' + eventsList[i].id + ')">删除' +
+                            '</button> ' +
+                            '<a href="/admin/preview?id=' + eventsList[i].id + '&type=events" target="_blank"><button type="button" class="btn btn-success btn-sm">预览</button></a>' +
                             "</td>" +
                             "</tr>";
                     }

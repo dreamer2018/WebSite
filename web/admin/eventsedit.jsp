@@ -9,15 +9,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>活动编辑</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/datedropper.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/timedropper.min.css">
-    <link rel="shortcut icon" href="images/xiyoulinux.png">
     <link rel="stylesheet" href="/admin/css/editormd.css"/>
-
+    <link rel="shortcut icon" href="/images/xiyoulinux.png">
+    <title>西邮Linux兴趣小组</title>
     <link href="/admin/css/sb-admin.css" rel="stylesheet">
     <link href="/admin/css/sb-bk-theme.css" rel="stylesheet">
     <link href="/admin/css/bk.css" rel="stylesheet">
