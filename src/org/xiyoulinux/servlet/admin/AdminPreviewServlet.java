@@ -17,6 +17,7 @@ import java.io.IOException;
 /**
  * Created by zhoupan on 11/5/16.
  */
+
 @WebServlet(name = "AdminPreviewServlet", urlPatterns = "/admin/preview")
 public class AdminPreviewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +45,7 @@ public class AdminPreviewServlet extends HttpServlet {
                     request.setAttribute("content", events.getContent());
                     request.setAttribute("poster", events.getPoster());
                     request.setAttribute("reader", events.getReader());
-                    request.getRequestDispatcher("/eventsview.jsp").forward(request, response);
+                    request.getRequestDispatcher("/admin/eventsview.jsp").forward(request, response);
                 }
             }
         } else if ("about".equals(request.getParameter("type"))) {
