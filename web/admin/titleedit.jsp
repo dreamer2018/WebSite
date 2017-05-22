@@ -17,63 +17,141 @@
     <link rel="stylesheet" type="text/css" href="/css/datepicker/datedropper.css">
     <link rel="stylesheet" type="text/css" href="/css/datepicker/timedropper.min.css">
     <link rel="stylesheet" href="/admin/css/editormd.css"/>
+
+
+    <link href="/admin/css/sb-admin.css" rel="stylesheet">
+    <link href="/admin/css/sb-bk-theme.css" rel="stylesheet">
+    <link href="/admin/css/bk.css" rel="stylesheet">
+
 </head>
 <body>
 
-<div class="container" style="background-color: rgba(235, 232, 236, 0.55)">
-    <div class="row">
-        <div>
-            <h3>标题编辑</h3>
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <i class="fa fa-leaf f20 mr5"></i>
+                后台管理
+            </a>
         </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> admin
+                    <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li>
+                        <a href="/Logout"><i class="fa fa-fw fa-power-off"></i> 退出</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li class="active">
+                    <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
+                </li>
+                <li>
+                    <a href="/admin/blog"><i class="fa fa-fw fa-edit"></i>文章管理</a>
+                </li>
+                <li>
+                    <a href="/admin/title"><i class="fa fa-fw fa-desktop"></i>标题管理</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row page-header-box">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        活动管理
+                    </h1>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    新增文章
+                </div>
+
+                <br/>
+                <br/>
+                <br/>
+
+                <div class="container">
+                    <form action="/admin/titleedit" method="post" onsubmit="return check()">
+                        <input type="hidden" name="id" value="<%=request.getAttribute("id")%>">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">标题：</span>
+                                    <input type="text" class="form-control" name="title" id="title" placeholder="在此输入标题"
+                                           value="<%if(null != request.getAttribute("title")){out.print(request.getAttribute("title"));}%>">
+                                </div>
+                            </div>
+                            <div class="col-xs-3" style="color: #9d1108;font-size: large">
+                                <%if(null != request.getAttribute("message")){out.print(request.getAttribute("message"));}%>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">副标题：</span>
+                                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="在此输入副标题"
+                                           value="<%if(null != request.getAttribute("title")){out.print(request.getAttribute("subtitle"));}%>">
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">链接：</span>
+                                    <input type="text" class="form-control" name="url" id="url" placeholder="在此输入url"
+                                           value="<%if(null != request.getAttribute("url")){out.print(request.getAttribute("url"));}%>">
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="input-group">
+                                    <input type="submit" class="btn btn-success" name="submit" value="提交">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br/>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
     </div>
-    <br/>
-    <div class="row">
-        <form action="/admin/titleedit" method="post" onsubmit="return check()">
-            <input type="hidden" name="id" value="<%=request.getAttribute("id")%>">
-            <div class="row">
-                <div class="col-xs-3">
-                    <div class="input-group">
-                        <span class="input-group-addon">标题：</span>
-                        <input type="text" class="form-control" name="title" id="title" placeholder="在此输入标题"
-                               value="<%if(null != request.getAttribute("title")){out.print(request.getAttribute("title"));}%>">
-                    </div>
-                </div>
-                <div class="col-xs-3" style="color: #9d1108;font-size: large">
-                    <%if(null != request.getAttribute("message")){out.print(request.getAttribute("message"));}%>
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-xs-3">
-                    <div class="input-group">
-                        <span class="input-group-addon">副标题：</span>
-                        <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="在此输入副标题"
-                               value="<%if(null != request.getAttribute("title")){out.print(request.getAttribute("subtitle"));}%>">
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-xs-3">
-                    <div class="input-group">
-                        <span class="input-group-addon">链接：</span>
-                        <input type="text" class="form-control" name="url" id="url" placeholder="在此输入url"
-                               value="<%if(null != request.getAttribute("url")){out.print(request.getAttribute("url"));}%>">
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <br/>
-            <div class="row">
-                <div class="col-xs-3">
-                    <div class="input-group">
-                        <input type="submit" class="btn btn-success" name="submit" value="提交">
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+    <!-- /#page-wrapper -->
 </div>
+
+
+
+
+
+
 
 <script src="/js/jquery-2.1.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>

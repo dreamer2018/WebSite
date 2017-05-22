@@ -1,13 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="org.xiyoulinux.dao.BlogDAO" %>
-<%@ page import="org.xiyoulinux.dao.EventsDAO" %>
 <%@ page import="org.xiyoulinux.model.Blog" %>
 <%@ page import="org.xiyoulinux.model.Events" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="org.xiyoulinux.util.HtmlUtil" %>
-<%@ page import="org.xiyoulinux.dao.TitleDAO" %>
 <%@ page import="org.xiyoulinux.model.Title" %>
-<%@ page import="java.util.Collections" %>
 <%--
   Created by IntelliJ IDEA.
   User: zhoupan
@@ -30,7 +26,7 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <script>
         var _hmt = _hmt || [];
-        (function() {
+        (function () {
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?9c494ad140deef94cd67400c530455b9";
             var s = document.getElementsByTagName("script")[0];
@@ -50,15 +46,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-logo" href="/index.jsp"><img src="images/xiyoulinux.png"
+            <a class="navbar-logo" href="/"><img src="images/xiyoulinux.png"
                                                           style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/index.jsp">主页</a></li>
+                <li class="active"><a href="/">主页</a></li>
                 <li><a href="/events">活动</a></li>
                 <li><a href="http://blog.xiyoulinux.org">群博</a></li>
-                <li><a href="login.jsp">登陆</a></li>
+                <li><a href="http://cs.xiyoulinux.org/signin.php">登录</a></li>
                 <li><a href="/about">关于</a></li>
             </ul>
         </div>
@@ -69,13 +65,13 @@
 <div id="service">
     <div class="container">
         <%
-            TitleDAO titleDAO = new TitleDAO();
-            Title title1 = titleDAO.getTitleById(1);
-            Title title2 = titleDAO.getTitleById(2);
-            Title title3 = titleDAO.getTitleById(3);
-            Title title4 = titleDAO.getTitleById(4);
-            Title title5 = titleDAO.getTitleById(5);
-            Title title6 = titleDAO.getTitleById(6);
+            ArrayList<Title> titles = (ArrayList<Title>) request.getAttribute("titleList");
+            Title title1 = titles.get(0);
+            Title title2 = titles.get(1);
+            Title title3 = titles.get(2);
+            Title title4 = titles.get(3);
+            Title title5 = titles.get(4);
+            Title title6 = titles.get(5);
         %>
         <div class="row centered" id="service-list">
             <div class="col-md-2 col-sm-3 col-xs-6">
@@ -157,8 +153,7 @@
                 </div>
                 <div class="panel-body">
                     <%
-                        BlogDAO blogDAO = new BlogDAO();
-                        ArrayList<Blog> blogs = blogDAO.getBlogByPage(1, "", 5);
+                        ArrayList<Blog> blogs = (ArrayList<Blog>) request.getAttribute("blogList");
                         for (int i = 4; i >= 0; i--) {
                     %>
                     <div class="post">
@@ -202,8 +197,7 @@
                 </div>
                 <div class="panel-body">
                     <%
-                        EventsDAO eventsDAO = new EventsDAO();
-                        ArrayList<Events> eventss = eventsDAO.getEventsByPage(1, "", 5);
+                        ArrayList<Events> eventss = (ArrayList<Events>) request.getAttribute("eventsList");
                         for (Events events : eventss) {
                     %>
                     <div class="event" data-event-date="<%=events.getDate()%>">
@@ -372,7 +366,6 @@
         })
     });
 </script>
-
 
 
 </body>

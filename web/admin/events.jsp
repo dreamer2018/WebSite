@@ -15,18 +15,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/images/xiyoulinux.png">
     <title>西邮Linux兴趣小组官网-后台管理</title>
-    <!-- Bootstrap css -->
-    <%--<link href="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">--%>
+
     <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
-    <%--<link href="http://o.qcloud.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">--%>
     <link href="/admin/css/font-awesome.css" rel="stylesheet">
-    <!-- 当前项目样式文件 -->
     <link href="/admin/css/sb-admin.css" rel="stylesheet">
     <link href="/admin/css/sb-bk-theme.css" rel="stylesheet">
-    <!--蓝鲸平台APP 公用的样式文件 -->
-    <%--<link href="http://o.qcloud.com/static_api/v3/bk/css/bk.css?v=1.0.1" rel="stylesheet">--%>
     <link href="/admin/css/bk.css" rel="stylesheet">
-    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <link href="/admin/css/ui-dialog.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -60,7 +57,6 @@
                 </ul>
             </li>
         </ul>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li class="active">
@@ -90,10 +86,12 @@
                 </div>
             </div>
 
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     活动列表
                 </div>
+
                 <div>
                     <div class="king-wrapper">
                         <form class="form-inline king-search-form king-no-bg mt15 mb15 pull-left"
@@ -151,24 +149,29 @@
                                 <%
                                     if (eventsList.get(i).getStatus() == 0) {
                                 %>
-                                <button type="button" onclick="change_status(<%=eventsList.get(i).getId()%>)" value="0">
-                                    已停用
+                                <button type="button" class="btn btn-warning btn-sm"
+                                        onclick="change_status(<%=eventsList.get(i).getId()%>)" value="0">已停用
                                 </button>
                                 <%
                                 } else {
                                 %>
-                                <button type="button" onclick="change_status(<%=eventsList.get(i).getId()%>)" value="1">
-                                    已启用
+                                <button type="button" class="btn btn-info btn-sm"
+                                        onclick="change_status(<%=eventsList.get(i).getId()%>)" value="1">已启用
                                 </button>
                                 <%
                                     }
                                 %>
                             </td>
                             <td>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                        onclick="remind(<%=eventsList.get(i).getId()%>)">删除
+                                </button>
 
-                                <a href="/admin/delete?id=<%=eventsList.get(i).getId()%>&type=events"
-                                   class="mr15">删除</a>
-                                <a href="/admin/preview?id=<%=eventsList.get(i).getId()%>&type=events" target="_blank">预览</a>
+
+                                <a href="/admin/preview?id=<%=eventsList.get(i).getId()%>&type=events" target="_blank">
+                                    <button type="button" class="btn btn-success btn-sm">预览</button>
+                                </a>
+
                             </td>
                         <tr>
                                 <%}%>
@@ -211,21 +214,12 @@
     </div>
     <!-- /#page-wrapper -->
 </div>
-<!-- /#wrapper -->
+
 
 <%--<script src="js/jquery-1.10.2.min.js"></script>--%>
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/html5shiv.min.js"></script>
-<script type="text/javascript" src="js/respond.min.js"></script>
-<script type="text/javascript" src="../js/retina-1.1.0.js"></script>
-<script type="text/javascript" src="../js/jquery.hoverdir.js"></script>
-<script type="text/javascript" src="../js/jquery.hoverex.min.js"></script>
-<script type="text/javascript" src="../js/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="../js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="../js/custom.js"></script>
-<script type="text/javascript" src="../js/main.js"></script>
-
+<script type="text/javascript" src="js/dialog-min.js"></script>
 
 <script>
     function check(page) {
@@ -258,7 +252,7 @@
                             "<td>" + eventsList[i].time + "</td>" +
                             "<td>" + eventsList[i].address + "</td>" +
                             "<td>" + eventsList[i].reader + "</td>" +
-                            "<td>" + "<button type=\"button\" onclick=\"change_status(" + eventsList[i].id + ")\" value=\"0\">已停用</button>" + "</td>" +
+                            "<td>" + "<button type=\"button\" class=\"btn btn-warning btn-sm\" onclick=\"change_status(" + eventsList[i].id + ")\" value=\"0\">已停用</button>" + "</td>" +
                             "<td>" +
                             "<a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a>" +
                             "<a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a>" +
@@ -274,7 +268,7 @@
                             "<td>" + eventsList[i].time + "</td>" +
                             "<td>" + eventsList[i].address + "</td>" +
                             "<td>" + eventsList[i].reader + "</td>" +
-                            "<td>" + "<button type=\"button\" onclick=\"change_status(" + eventsList[i].id + ")\" value=\"1\">已启用</button>" + "</td>" +
+                            "<td>" + "<button type=\"button\" class=\"btn btn-info btn-sm\" onclick=\"change_status(" + eventsList[i].id + ")\" value=\"1\">已启用</button>" + "</td>" +
                             "<td>" +
                             "<a href=\"/admin/delete?id=" + eventsList[i].id + "&amp;type=events\" class=\"mr15\">删除</a>" +
                             "<a href=\"/admin/preview?id=" + eventsList[i].id + "&amp;type=events\" target=\"_blank\">预览</a>" +
@@ -316,9 +310,11 @@
                     if (but.value == 0) {
                         but.value = 1;
                         but.innerHTML = "已启用";
+                        but.className = "btn btn-info btn-sm";
                     } else {
                         but.value = 0;
                         but.innerHTML = "已停用";
+                        but.className = "btn btn-warning btn-sm";
                     }
                 } else {
                     alert("修改失败！");
@@ -326,6 +322,35 @@
             }
 
         });
+    }
+</script>
+
+<script type="text/javascript">
+
+    function remind(id) {
+        var d = dialog({
+            width: 260,
+            title: '消息提醒',
+            content: '<h4>确定删除？</h4>',
+            okValue: '确定',
+            ok: function () {
+
+                $.post('/admin/delete', {
+                    id: id,
+                    type: 'events'
+                }, function (data, sta) {
+                    if ('success' == sta) {
+                        window.location.reload();
+                    } else {
+                        alert("删除失败！");
+                    }
+                });
+            },
+            cancelValue: '取消',
+            cancel: function () {
+            }
+        });
+        d.showModal();
     }
 </script>
 

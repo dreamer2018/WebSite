@@ -16,18 +16,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../images/xiyoulinux.png">
     <title>西邮Linux兴趣小组官网-后台管理</title>
-    <!-- Bootstrap css -->
-    <%--<link href="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">--%>
+
     <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
-    <%--<link href="http://o.qcloud.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">--%>
     <link href="/admin/css/font-awesome.css" rel="stylesheet">
-    <!-- 当前项目样式文件 -->
     <link href="/admin/css/sb-admin.css" rel="stylesheet">
     <link href="/admin/css/sb-bk-theme.css" rel="stylesheet">
-    <!--蓝鲸平台APP 公用的样式文件 -->
-    <%--<link href="http://o.qcloud.com/static_api/v3/bk/css/bk.css?v=1.0.1" rel="stylesheet">--%>
     <link href="/admin/css/bk.css" rel="stylesheet">
-    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <link href="/admin/css/ui-dialog.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -65,7 +62,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <%--<li>--%>
-                    <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
+                <%--<a href="/admin/"><i class="fa fa-fw fa-dashboard"></i>首页</a>--%>
                 <%--</li>--%>
                 <li>
                     <a href="/admin/events"><i class="fa fa-fw fa-table"></i>活动管理</a>
@@ -115,15 +112,19 @@
                         <tr>
                             <td><%=i + 1%>
                             </td>
-                            <td><%=titleList.get(i).getTitle()%></td>
+                            <td><%=titleList.get(i).getTitle()%>
+                            </td>
                             <td><%=titleList.get(i).getSubtitle()%>
                             </td>
-                            <td><%=titleList.get(i).getUrl()%></td>
+                            <td><%=titleList.get(i).getUrl()%>
+                            </td>
                             <td>
-                                <a href="/admin/titleedit?id=<%=titleList.get(i).getId()%>">修改</a>
+
+                                <button type="button" class="btn btn-danger btn-sm"
+                                        onclick="remind(<%=titleList.get(i).getId()%>)">修改</button>
                             </td>
                         </tr>
-                                <%}%>
+                        <%}%>
                         </tbody>
                         <tfoot>
                         <tr>
@@ -147,18 +148,31 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>--%>
+
 <script src="js/jquery-1.10.2.min.js"></script>
-<!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>--%>
 <script src="js/bootstrap.min.js"></script>
-<!--[if lt IE 9]>
-<!--<script src="http://o.qcloud.com/static_api/v3/assets/js/html5shiv.min.js"></script>-->
 <script src="js/html5shiv.min.js"></script>
-<%--<script src="http://o.qcloud.com/static_api/v3/assets/js/respond.min.js"></script>--%>
 <script src="js/respond.min.js"></script>
-<![endif]-->
+<script type="text/javascript" src="js/dialog-min.js"></script>
+
+<script type="text/javascript">
+
+    function remind(id) {
+        var d = dialog({
+            width: 260,
+            title: '消息提醒',
+            content: '<h4>确定修改？</h4>',
+            okValue: '确定',
+            ok: function () {
+                window.location.href = '/admin/titleedit?id=' + id;
+            },
+            cancelValue: '取消',
+            cancel: function () {
+            }
+        });
+        d.showModal();
+    }
+</script>
 
 </body>
 

@@ -14,15 +14,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/images/xiyoulinux.png">
     <title>西邮Linux兴趣小组官网-后台管理</title>
-    <%--<link href="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">--%>
+
     <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
-    <%--<link href="http://o.qcloud.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">--%>
     <link href="/admin/css/font-awesome.css" rel="stylesheet">
-    <!-- 当前项目样式文件 -->
     <link href="/admin/css/sb-admin.css" rel="stylesheet">
     <link href="/admin/css/sb-bk-theme.css" rel="stylesheet">
-    <!--蓝鲸平台APP 公用的样式文件 -->
-    <%--<link href="http://o.qcloud.com/static_api/v3/bk/css/bk.css?v=1.0.1" rel="stylesheet">--%>
     <link href="/admin/css/bk.css">
 
 </head>

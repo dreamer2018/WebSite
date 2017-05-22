@@ -16,18 +16,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../images/xiyoulinux.png">
     <title>西邮Linux兴趣小组官网-后台管理</title>
-    <!-- Bootstrap css -->
-    <%--<link href="http://o.qcloud.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">--%>
+
     <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
-    <%--<link href="http://o.qcloud.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">--%>
     <link href="/admin/css/font-awesome.css" rel="stylesheet">
-    <!-- 当前项目样式文件 -->
     <link href="/admin/css/sb-admin.css" rel="stylesheet">
     <link href="/admin/css/sb-bk-theme.css" rel="stylesheet">
-    <!--蓝鲸平台APP 公用的样式文件 -->
-    <%--<link href="http://o.qcloud.com/static_api/v3/bk/css/bk.css?v=1.0.1" rel="stylesheet">--%>
     <link href="/admin/css/bk.css" rel="stylesheet">
-    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <link href="/admin/css/ui-dialog.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -148,21 +145,24 @@
                                 <%
                                     if (blogList.get(i).getStatus() == 0) {
                                 %>
-                                <button type="button" onclick="change_status(<%=blogList.get(i).getId()%>)" value="0">
-                                    已停用
+                                <button type="button" class="btn btn-warning btn-sm"
+                                        onclick="change_status(<%=blogList.get(i).getId()%>)" value="0">已停用
                                 </button>
                                 <%
                                 } else {
                                 %>
-                                <button type="button" onclick="change_status(<%=blogList.get(i).getId()%>)" value="1">
-                                    已启用
+                                <button type="button" class="btn btn-info btn-sm"
+                                        onclick="change_status(<%=blogList.get(i).getId()%>)" value="1">已启用
                                 </button>
                                 <%
                                     }
                                 %>
                             </td>
                             <td>
-                                <a href="/admin/delete?id=<%=blogList.get(i).getId()%>&type=blog">删除</a>
+
+                                <button type="button" class="btn btn-danger btn-sm"
+                                        onclick="remind(<%=blogList.get(i).getId()%>)">删除
+                                </button>
                             </td>
                         <tr>
                                 <%}%>
@@ -213,6 +213,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/html5shiv.min.js"></script>
 <script src="js/respond.min.js"></script>
+<script type="text/javascript" src="js/dialog-min.js"></script>
 
 
 </div>
@@ -318,9 +319,11 @@
                             if (but.value == 0) {
                                 but.value = 1;
                                 but.innerHTML = "已启用";
+                                but.className = "btn btn-info btn-sm";
                             } else {
                                 but.value = 0;
                                 but.innerHTML = "已停用";
+                                but.className = "btn btn-warning btn-sm";
                             }
                         } else {
                             alert("修改失败！");
@@ -332,6 +335,34 @@
         } else {
             alert("Your browser does not support XMLHTTP.");
         }
+    }
+</script>
+
+<script type="text/javascript">
+
+    function remind(id) {
+        var d = dialog({
+            width: 260,
+            title: '消息提醒',
+            content: '<h4>确定删除？</h4>',
+            okValue: '确定',
+            ok: function () {
+                $.post('/admin/delete', {
+                    id: id,
+                    type: 'blog'
+                }, function (data, sta) {
+                    if ('success' == sta) {
+                        window.location.reload();
+                    } else {
+                        alert("删除失败！");
+                    }
+                });
+            },
+            cancelValue: '取消',
+            cancel: function () {
+            }
+        });
+        d.showModal();
     }
 </script>
 

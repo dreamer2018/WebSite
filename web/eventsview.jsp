@@ -34,31 +34,7 @@
 </head>
 
 <body>
-<!--导航栏-->
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-logo" href="/index.jsp"><img src="/images/xiyoulinux.png"
-                                                 style="width: 50px;height: 50px;">西邮Linux兴趣小组</a>
-        </div>
-        <div class="navbar-collapse collapse navbar-right">
-            <ul class="nav navbar-nav">
-                <li><a href="/index.jsp">主页</a></li>
-                <li class="active"><a href="/events">活动</a></li>
-                <li><a href="http://blog.xiyoulinux.org">群博</a></li>
-                <li><a href="/login.jsp">登陆</a></li>
-                <li><a href="/about">关于</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!--导航栏结束-->
+
 
 <div class="container mtb">
     <div class="row">
