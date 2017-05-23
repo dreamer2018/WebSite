@@ -178,8 +178,15 @@
                                 <div class="pull-right king-page-box">
                                     <ul class="pagination pagination-small pull-right" id="paging">
                                         <%
-                                            for (int i = 0; i < (int) request.getAttribute("pageCount"); i++) {
-                                                if (i == (int) request.getAttribute("currentPage") - 1) {
+                                            int page_count = (int) request.getAttribute("pageCount");
+                                            int current_page = (int) request.getAttribute("currentPage");
+                                            if (page_count >= 7) {
+                                                for (int i = current_page - 4; i < current_page + 3 && i < page_count; i++) {
+                                                    if(i < 0 ){
+                                                        continue;
+                                                    }
+
+                                                    if (i == current_page - 1) {
                                         %>
                                         <li page-index="<%=i+1%>" class="active" onclick="check(<%=i+1%>)"><a><%=i + 1%>
                                         </a></li>
@@ -189,6 +196,21 @@
                                         <li page-index="<%=i+1%>" onclick="check(<%=i+1%>)"><a><%=i + 1%>
                                         </a></li>
                                         <%
+                                                }
+                                            }
+                                        } else {
+                                            for (int i = 0; i < page_count; i++) {
+                                                if (i == current_page - 1) {
+                                        %>
+                                        <li page-index="<%=i+1%>" class="active" onclick="check(<%=i+1%>)"><a><%=i + 1%>
+                                        </a></li>
+                                        <%
+                                        } else {
+                                        %>
+                                        <li page-index="<%=i+1%>" onclick="check(<%=i+1%>)"><a><%=i + 1%>
+                                        </a></li>
+                                        <%
+                                                    }
                                                 }
                                             }
                                         %>
@@ -288,12 +310,26 @@
                 var paging = document.getElementById("paging");
                 paging.innerHTML = "";
                 record.innerHTML = "共" + allCount + "条记录，当前第" + currPage + "/" + pageCount + "页，每页20条记录";
-                for (var i = 0; i < pageCount; i++) {
-                    var id = i + 1;
-                    if (id == currPage) {
-                        paging.innerHTML += "<li page-index=" + id + " class=\"active\" onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
-                    } else {
-                        paging.innerHTML += "<li page-index=" + id + " onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                if (pageCount >= 7) {
+                    for (i = currPage - 4; i < currPage + 3 && i < pageCount; i++) {
+                        if (i < 0) {
+                            continue;
+                        }
+                        id = i + 1;
+                        if (id == currPage) {
+                            paging.innerHTML += "<li page-index=" + id + " class=\"active\" onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                        } else {
+                            paging.innerHTML += "<li page-index=" + id + " onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                        }
+                    }
+                } else {
+                    for (i = 0; i < pageCount; i++) {
+                        id = i + 1;
+                        if (id == currPage) {
+                            paging.innerHTML += "<li page-index=" + id + " class=\"active\" onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                        } else {
+                            paging.innerHTML += "<li page-index=" + id + " onclick=\"check(" + id + ")\"><a>" + id + "</a></li>";
+                        }
                     }
                 }
             }
