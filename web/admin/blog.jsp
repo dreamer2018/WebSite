@@ -252,9 +252,13 @@
                             "<td>" + blogList[i].author + "</td>" +
                             "<td>" + blogList[i].date + "</td>" +
                             "<td>" + blogList[i].time + " </td>" +
-                            "<td>" + "<button type=\"button\" onclick=\"change_status(" + blogList[i].id + ")\" value=\"0\">已停用</button>" + "</td>" +
                             "<td>" +
-                            "<a href=\"/admin/delete?id=" + blogList[i].id + "&type=blog\">删除</a>" +
+                            '<button type="button" class="btn btn-warning btn-sm" onclick="change_status(' + blogList[i].id + ')" value="0">已停用' +
+                            '</button>' +
+                            "</td>" +
+                            "<td>" +
+                            '<button type="button" class="btn btn-danger btn-sm" onclick="remind(' + blogList[i].id + ')">删除' +
+                            '</button>' +
                             "</td>" +
                             "</tr>" +
                             "</tbody>"
@@ -266,14 +270,17 @@
                             "<td>" + blogList[i].author + "</td>" +
                             "<td>" + blogList[i].date + "</td>" +
                             "<td>" + blogList[i].time + " </td>" +
-                            "<td>" + "<button type=\"button\" onclick=\"change_status(" + blogList[i].id + ")\" value=\"1\">已启用</button>" + "</td>" +
                             "<td>" +
-                            "<a href=\"/admin/delete?id=" + blogList[i].id + "&type=blog\">删除</a>" +
+                            '<button type="button" class="btn btn-info btn-sm" onclick="change_status(' + blogList[i].id + ')" value="1">已启用' +
+                            '</button>' +
+                            "</td>" +
+                            "<td>" +
+                            '<button type="button" class="btn btn-danger btn-sm" onclick="remind(' + blogList[i].id + ')">删除' +
+                            '</button>' +
                             "</td>" +
                             "</tr>" +
                             "</tbody>"
                     }
-
                 }
                 //重新符之搜索title
                 document.getElementById("title").value = title;
