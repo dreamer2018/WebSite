@@ -85,6 +85,7 @@ public class UserDAO implements Iuser {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            ConnectionManager.close(null, ps, conn);
             return rtu;
         }
     }
@@ -112,6 +113,7 @@ public class UserDAO implements Iuser {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            ConnectionManager.close(null, ps, conn);
             return rtu;
         }
     }
@@ -139,6 +141,7 @@ public class UserDAO implements Iuser {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            ConnectionManager.close(null, ps, conn);
             return rtu;
         }
     }

@@ -10,7 +10,7 @@
 <html lang="en" class="no-js">
     <head>
         <meta charset="utf-8">
-        <title>登陆</title>
+        <title>XiyouLinux官网后台登陆</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">

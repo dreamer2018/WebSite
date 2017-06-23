@@ -67,21 +67,44 @@ public class AdminEventsInsertServlet extends HttpServlet {
                 part = request.getPart("poster");
                 String fileName = getFileName(part);
                 while (true) {
-                    if(fileName.indexOf('.') < 0){
+                    if (fileName.indexOf('.') < 0) {
                         break;
                     }
-                    fileName = fileName.substring(fileName.indexOf('.')+1);
+                    fileName = fileName.substring(fileName.indexOf('.') + 1);
                 }
                 // 保存图片
                 Date d = new Date();
                 long now = d.getTime();
-
-                fileName = now + "." + fileName;
-                part.write(getServletContext().getRealPath("/upload/") + fileName);
-                filePath = "/upload/" + fileName;
+                if ("".equals(fileName)) {
+                    if ("0".equals(str_sign)) {
+                        request.setAttribute("title", title);
+                        request.setAttribute("content", content);
+                        request.setAttribute("mkdown", mkdown);
+                        request.setAttribute("date", date);
+                        request.setAttribute("time", time);
+                        request.setAttribute("address", address);
+                        request.setAttribute("label", label);
+                        request.setAttribute("message", "上传图片不能为空!");
+                        System.out.println(title);
+                        int sign = 0;
+                        try {
+                            sign = Integer.parseInt(str_sign);
+                        } catch (NumberFormatException n) {
+                            n.printStackTrace();
+                        }
+                        if (sign != 0) {
+                            request.setAttribute("id", sign);
+                        }
+                        request.getRequestDispatcher("/admin/eventsedit.jsp").forward(request, response);
+                    }
+                } else {
+                    fileName = now + "." + fileName;
+                    part.write(getServletContext().getRealPath("/upload/") + fileName);
+                    filePath = "/upload/" + fileName;
+                }
             } catch (Exception e) {
                 if (config.maxRequestSize() == -1L || config.maxFileSize() == -1L) {
-                    System.out.println("上传文件过大!");
+                    System.out.println("上传图片过大!");
                 }
                 request.setAttribute("title", title);
                 request.setAttribute("content", content);
@@ -90,7 +113,7 @@ public class AdminEventsInsertServlet extends HttpServlet {
                 request.setAttribute("time", time);
                 request.setAttribute("address", address);
                 request.setAttribute("label", label);
-                request.setAttribute("message", "上传文件过大(限制5M)，或存在异常!");
+                request.setAttribute("message", "上传图片过大(限制5M)，或存在异常!");
                 System.out.println(title);
                 int sign = 0;
                 try {
@@ -103,7 +126,7 @@ public class AdminEventsInsertServlet extends HttpServlet {
                 }
                 request.getRequestDispatcher("/admin/eventsedit.jsp").forward(request, response);
             }
-            // 带着play对象转发到result.java页
+
             if (error) {
                 request.setAttribute("title", title);
                 request.setAttribute("content", content);
@@ -130,6 +153,8 @@ public class AdminEventsInsertServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 System.out.println(sign);
+
+                // sign为0 新添加
                 if (sign == 0) {
                     Events events = new Events();
                     events.setTitle(title);
@@ -146,7 +171,13 @@ public class AdminEventsInsertServlet extends HttpServlet {
                     } else {
                         response.sendRedirect("/404.html");
                     }
+                    //对旧内容修改提交
                 } else {
+                    if("".equals(filePath)){
+                        EventsDAO eventsDAO = new EventsDAO();
+                        Events events = eventsDAO.getEventsByID(sign);
+                        filePath = events.getPoster();
+                    }
                     Events events = new Events();
                     events.setId(sign);
                     events.setTitle(title);
@@ -166,7 +197,7 @@ public class AdminEventsInsertServlet extends HttpServlet {
                 }
             }
             //get
-        } else {
+        } else { // id不为空，表示对内容进行修改,渲染修改页面
             String str_id = request.getParameter("id");
             int id = 0;
             try {
@@ -187,6 +218,7 @@ public class AdminEventsInsertServlet extends HttpServlet {
                 request.setAttribute("time", events.getTime());
                 request.setAttribute("address", events.getAddress());
                 request.setAttribute("label", events.getLabel());
+                request.setAttribute("poster", events.getPoster());
                 request.getRequestDispatcher("/admin/eventsedit.jsp").forward(request, response);
             }
         }

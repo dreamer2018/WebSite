@@ -17,22 +17,26 @@ import java.io.IOException;
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        request.getSession().setAttribute("login", null);
-        if (username.length() < 1 || password.length() < 1) {
-            request.setAttribute("reason", "用户名或密码不能为空！");
+        if (null == request.getParameter("username")) {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
-            UserDAO login = new UserDAO();
-            if (login.check(username, password)) {
-                request.getSession().setAttribute("username", username);
-                request.getSession().setAttribute("login", "ok");
-                response.sendRedirect("/admin/events");
-            } else {
-                request.setAttribute("reason", "用户名或密码不正确！");
+            request.setCharacterEncoding("utf-8");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            request.getSession().setAttribute("login", null);
+            if (username.length() < 1 || password.length() < 1) {
+                request.setAttribute("reason", "用户名或密码不能为空！");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
+            } else {
+                UserDAO login = new UserDAO();
+                if (login.check(username, password)) {
+                    request.getSession().setAttribute("username", username);
+                    request.getSession().setAttribute("login", "ok");
+                    response.sendRedirect("/admin/events");
+                } else {
+                    request.setAttribute("reason", "用户名或密码不正确！");
+                    request.getRequestDispatcher("/login.jsp").forward(request, response);
+                }
             }
         }
     }

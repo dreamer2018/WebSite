@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/css/datepicker/timedropper.min.css">
     <link rel="stylesheet" href="/admin/css/editormd.css"/>
     <link rel="shortcut icon" href="/images/xiyoulinux.png">
-    <title>西邮Linux兴趣小组</title>
+    <title>标题管理</title>
     <link href="/admin/css/sb-admin.css" rel="stylesheet">
     <link href="/admin/css/sb-bk-theme.css" rel="stylesheet">
     <link href="/admin/css/bk.css" rel="stylesheet">
